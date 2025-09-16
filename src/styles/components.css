@@ -1,0 +1,407 @@
+/* src/styles/components.css - Estilos específicos de componentes */
+
+/* === LAYOUT COMPONENTS === */
+.layout-main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f0e5d5; /* beige-lighter */
+}
+
+.layout-content {
+  flex: 1;
+}
+
+/* === PROPERTY CARD === */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+}
+
+/* Property Card específicos */
+.property-card-image {
+  height: 200px;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+  position: relative;
+}
+
+.property-card-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: linear-gradient(135deg, #9a744e 0%, #856341 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.property-card-price {
+  font-family: "Oranienbaum", serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #9a744e;
+}
+
+/* === BUTTONS === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 32px;
+  border: none;
+  border-radius: 8px;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #9a744e 0%, #856341 100%);
+  color: white;
+  border: 2px solid #9a744e;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #856341 0%, #705234 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(154, 116, 78, 0.3);
+}
+
+.btn-secondary {
+  background: #d7c0a0;
+  color: #483228;
+  border: 2px solid #c9b08d;
+}
+
+.btn-secondary:hover {
+  background: #c9b08d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(215, 192, 160, 0.4);
+}
+
+.btn-outline {
+  background: transparent;
+  color: #9a744e;
+  border: 2px solid #9a744e;
+}
+
+.btn-outline:hover {
+  background: #9a744e;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Button sizes */
+.btn-sm {
+  padding: 8px 24px;
+  font-size: 13px;
+}
+
+.btn-lg {
+  padding: 16px 40px;
+  font-size: 17px;
+}
+
+/* === FORMS === */
+.form-input {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  border: 2px solid #d7c0a0;
+  border-radius: 8px;
+  background-color: white;
+  color: #483228;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #9a744e;
+  box-shadow: 0 0 0 3px rgba(154, 116, 78, 0.1);
+  transform: translateY(-2px);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #483228;
+  font-family: "Inter", sans-serif;
+}
+
+.form-error {
+  margin-top: 8px;
+  color: #ef4444;
+  font-size: 14px;
+}
+
+/* === CARDS === */
+.card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border: 1px solid #d7c0a0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+}
+
+.card-body {
+  padding: 32px;
+}
+
+.card-header {
+  padding: 24px 32px;
+  border-bottom: 1px solid #e4d3b8;
+  background: linear-gradient(135deg, #f0e5d5 0%, white 100%);
+}
+
+/* === GRID === */
+.grid {
+  display: grid;
+  gap: 32px;
+}
+
+.grid-1 {
+  grid-template-columns: 1fr;
+}
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 900px) {
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* === UTILITIES === */
+.text-center {
+  text-align: center;
+}
+.text-white {
+  color: white;
+}
+.text-marron {
+  color: #483228;
+}
+.text-camel {
+  color: #9a744e;
+}
+.text-gray-600 {
+  color: #737373;
+}
+
+.bg-white {
+  background-color: white;
+}
+.bg-beige-lighter {
+  background-color: #f0e5d5;
+}
+
+.w-full {
+  width: 100%;
+}
+.block {
+  display: block;
+}
+.flex {
+  display: flex;
+}
+.items-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+
+.mb-4 {
+  margin-bottom: 16px;
+}
+.mb-6 {
+  margin-bottom: 24px;
+}
+.mb-8 {
+  margin-bottom: 32px;
+}
+.mb-12 {
+  margin-bottom: 48px;
+}
+
+.py-8 {
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+.py-12 {
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+.py-16 {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+.py-20 {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.rounded {
+  border-radius: 8px;
+}
+.rounded-lg {
+  border-radius: 12px;
+}
+.rounded-xl {
+  border-radius: 16px;
+}
+
+.shadow {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+.shadow-lg {
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+}
+
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+
+/* === LOADING STATES === */
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid #e4d3b8;
+  border-top: 3px solid #9a744e;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
+/* === HOVER EFFECTS === */
+.hover-lift {
+  transition: all 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .py-20 {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+  .py-16 {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  .card-body {
+    padding: 24px;
+  }
+
+  .grid {
+    gap: 24px;
+  }
+
+  .btn {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+
+  .btn-lg {
+    padding: 16px 32px;
+    font-size: 16px;
+  }
+}
