@@ -1,6 +1,7 @@
-// src/pages/Home.jsx - Versión completa mejorada sin Tailwind
+// src/pages/Home.jsx - Versión con Hero Parallax
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import heroImage from "../assets/images/hero/hero-background.webp";
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -122,18 +123,15 @@ const Home = () => {
 
   return (
     <div className="home-page">
-      {/* Hero Section */}
+      {/* Hero Section con Parallax */}
       <section className="hero-section">
         <div className="hero-background"></div>
+        <div className="hero-overlay"></div>
         <div className="container">
           <div className="hero-content">
-            <h1 className="hero-title">
-              Encuentra tu <span className="hero-highlight">hogar ideal</span>
-            </h1>
+            <h1 className="hero-title">Rue Homes</h1>
             <p className="hero-subtitle">
-              Más de 15 años ayudando a familias a encontrar la casa de sus
-              sueños. Experiencia, confianza y resultados excepcionales en el
-              sector inmobiliario.
+              Encuentra un lugar al que llamar hogar
             </p>
 
             {/* Buscador */}
@@ -163,37 +161,6 @@ const Home = () => {
                 </button>
               </div>
             </form>
-
-            <div className="hero-actions">
-              <Link
-                to="/propiedades"
-                className="btn btn-primary btn-lg hero-btn"
-              >
-                Ver Propiedades
-              </Link>
-              <Link
-                to="/vender"
-                className="btn btn-outline btn-lg hero-btn hero-btn-outline"
-              >
-                Valorar mi casa
-              </Link>
-            </div>
-
-            {/* Stats */}
-            <div className="hero-stats">
-              <div className="stat-item">
-                <div className="stat-number">500+</div>
-                <div className="stat-label">Propiedades</div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-number">1000+</div>
-                <div className="stat-label">Clientes</div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-number">15+</div>
-                <div className="stat-label">Años</div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -374,127 +341,135 @@ const Home = () => {
           min-height: 100vh;
         }
 
-        /* === HERO SECTION === */
+        /* === HERO SECTION CON PARALLAX === */
         .hero-section {
           position: relative;
           min-height: 100vh;
           display: flex;
           align-items: center;
-          background: linear-gradient(
-            135deg,
-            var(--color-camel) 0%,
-            var(--color-camel-dark) 100%
-          );
           color: white;
           overflow: hidden;
         }
 
         .hero-background {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          width: 100%;
+          height: 120vh; /* Más alto para el efecto parallax */
+          background-image: url("${heroImage}");
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          z-index: -2;
+          will-change: transform;
+        }
+
+        .hero-overlay {
           position: absolute;
           top: 0;
           left: 0;
           right: 0;
           bottom: 0;
           background: linear-gradient(
-            45deg,
-            transparent 30%,
-            rgba(255, 255, 255, 0.1) 50%,
-            transparent 70%
+            135deg,
+            rgba(72, 50, 40, 0.8) 0%,
+            rgba(154, 116, 78, 0.6) 50%,
+            rgba(72, 50, 40, 0.8) 100%
           );
-          pointer-events: none;
+          z-index: -1;
         }
 
         .hero-content {
           text-align: center;
           position: relative;
           z-index: 2;
-          max-width: 800px;
+          max-width: 700px;
           margin: 0 auto;
         }
 
         .hero-title {
           font-family: var(--font-primary);
-          font-size: 4rem;
+          font-size: 5rem;
           font-weight: 400;
-          margin-bottom: 2rem;
+          margin-bottom: 1rem;
           line-height: 1.1;
-        }
-
-        .hero-highlight {
-          color: var(--color-beige-lighter);
-          position: relative;
-        }
-
-        .hero-highlight::after {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          height: 3px;
-          background: linear-gradient(
-            90deg,
-            var(--color-beige-light) 0%,
-            var(--color-beige) 100%
-          );
+          text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+          letter-spacing: 1px;
         }
 
         .hero-subtitle {
           font-family: var(--font-secondary);
-          font-size: 1.25rem;
+          font-size: 1.5rem;
           color: var(--color-beige-lighter);
-          margin-bottom: 3rem;
-          line-height: 1.6;
-          max-width: 600px;
-          margin-left: auto;
-          margin-right: auto;
+          margin-bottom: 4rem;
+          line-height: 1.4;
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+          font-weight: 300;
+          letter-spacing: 0.5px;
         }
 
         .search-form {
-          margin-bottom: 3rem;
+          margin-bottom: 0;
         }
 
         .search-container {
           display: flex;
-          background: white;
-          border-radius: 50px;
-          padding: 8px;
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-          max-width: 500px;
+          background: rgba(255, 255, 255, 0.95);
+          border-radius: 60px;
+          padding: 9px;
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+          max-width: 550px;
           margin: 0 auto;
-          backdrop-filter: blur(10px);
+          backdrop-filter: blur(15px);
+          border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .search-input {
           flex: 1;
           border: none;
           outline: none;
-          padding: 1rem 2rem;
-          font-size: 1.1rem;
+          padding: 1rem 1rem;
+          font-size: 1rem;
           color: var(--color-marron);
           font-family: var(--font-secondary);
           background: transparent;
+          font-weight: 400;
         }
 
         .search-input::placeholder {
           color: var(--color-gray-500);
+          font-weight: 300;
         }
 
         .search-button {
-          background: var(--color-camel);
+          background: linear-gradient(
+            135deg,
+            var(--color-camel) 0%,
+            var(--color-camel-dark) 100%
+          );
           border: none;
           border-radius: 50px;
-          padding: 1rem 1.5rem;
+          padding: 1.2rem 2rem;
           cursor: pointer;
           transition: all 0.3s ease;
           display: flex;
           align-items: center;
           justify-content: center;
+          box-shadow: 0 4px 15px rgba(154, 116, 78, 0.3);
         }
 
         .search-button:hover {
-          background: var(--color-camel-dark);
-          transform: scale(1.05);
+          background: linear-gradient(
+            135deg,
+            var(--color-camel-dark) 0%,
+            var(--color-camel-darker) 100%
+          );
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(154, 116, 78, 0.4);
         }
 
         .search-icon {
@@ -503,58 +478,7 @@ const Home = () => {
           color: white;
         }
 
-        .hero-actions {
-          display: flex;
-          gap: 2rem;
-          justify-content: center;
-          margin-bottom: 4rem;
-          flex-wrap: wrap;
-        }
-
-        .hero-btn {
-          min-width: 200px;
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .hero-btn-outline {
-          background: white;
-          color: var(--color-camel);
-          border: 2px solid white;
-        }
-
-        .hero-btn-outline:hover {
-          background: var(--color-beige-light);
-          color: var(--color-marron);
-          border-color: var(--color-beige-light);
-        }
-
-        .hero-stats {
-          display: flex;
-          justify-content: center;
-          gap: 4rem;
-          max-width: 600px;
-          margin: 0 auto;
-        }
-
-        .stat-item {
-          text-align: center;
-        }
-
-        .stat-number {
-          font-family: var(--font-primary);
-          font-size: 2.5rem;
-          font-weight: 700;
-          color: var(--color-beige-lighter);
-          margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-          font-family: var(--font-secondary);
-          color: var(--color-beige-light);
-          font-size: 0.95rem;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-        }
+        /* Eliminar estilos no utilizados */
 
         /* === FEATURED SECTION === */
         .featured-section {
@@ -842,23 +766,32 @@ const Home = () => {
 
         /* === RESPONSIVE === */
         @media (max-width: 768px) {
+          .hero-background {
+            background-attachment: scroll; /* Mejor performance en móviles */
+            height: 100vh;
+          }
+
           .hero-title {
-            font-size: 2.5rem;
+            font-size: 3.5rem;
           }
 
           .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+          }
+
+          .search-container {
+            max-width: 90%;
+            padding: 10px;
+          }
+
+          .search-input {
+            padding: 1rem 2rem;
             font-size: 1.1rem;
           }
 
-          .hero-actions {
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-          }
-
-          .hero-stats {
-            flex-wrap: wrap;
-            gap: 2rem;
+          .search-button {
+            padding: 1rem 1.5rem;
           }
 
           .section-title {
@@ -892,6 +825,21 @@ const Home = () => {
           .property-features {
             flex-wrap: wrap;
             gap: 1rem;
+          }
+        }
+
+        /* === OPTIMIZACIÓN PARALLAX === */
+        @media (prefers-reduced-motion: reduce) {
+          .hero-background {
+            transform: none !important;
+          }
+        }
+
+        /* Mejora performance en dispositivos móviles */
+        @media (max-width: 1024px) {
+          .hero-background {
+            transform: none !important;
+            background-attachment: scroll;
           }
         }
       `}</style>
