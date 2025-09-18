@@ -1,202 +1,220 @@
-// src/components/home/TailoredSection.jsx
-import { Link } from "react-router-dom";
+// src/components/home/TailoredSection.jsx - Versión refactorizada
+import { ScrollReveal } from "../ui/ScrollReveal";
+import AnimatedImageContainer from "../ui/AnimatedImageContainer";
+import AnimatedButton from "../ui/AnimatedButton";
 
 const TailoredSection = () => {
+  // Aquí puedes cambiar las rutas de las imágenes por las que necesites
+  const mainImage = "/src/assets/images/tailored/turull-salon.webp"; // Imagen principal izquierda
+  const smallImage = "/src/assets/images/tailored/render-cocina2.webp"; // Imagen pequeña derecha
+
   return (
     <section className="tailored-section">
       <div className="container">
         <div className="tailored-content">
-          {/* Imagen */}
-          <div className="tailored-image">
-            <div className="image-placeholder">
-              <svg
-                className="placeholder-icon"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1}
-                  d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-                />
-              </svg>
-            </div>
+          {/* Imagen principal - Columna izquierda */}
+          <div className="tailored-main-image">
+            <AnimatedImageContainer
+              src={mainImage}
+              className="main-image-container"
+              delay={0.2}
+            />
           </div>
 
-          {/* Texto */}
-          <div className="tailored-text">
-            <h2 className="section-title">Servicio Premium Exclusivo</h2>
-            <p className="section-description">
-              Nuestro servicio Tailored está diseñado para clientes que buscan
-              una experiencia inmobiliaria única y personalizada. Acceso
-              exclusivo a propiedades fuera de mercado, atención 24/7 y un
-              equipo dedicado solo para ti.
-            </p>
-            <div className="tailored-features">
-              <div className="feature-item">
-                <div className="feature-icon">
-                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                    />
-                  </svg>
-                </div>
-                <span>Propiedades exclusivas fuera de mercado</span>
-              </div>
-              <div className="feature-item">
-                <div className="feature-icon">
-                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                </div>
-                <span>Atención personalizada 24/7</span>
-              </div>
-              <div className="feature-item">
-                <div className="feature-icon">
-                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                    />
-                  </svg>
-                </div>
-                <span>Equipo de expertos dedicado</span>
-              </div>
+          {/* Contenido derecha - Imagen pequeña + Texto + Botón */}
+          <div className="tailored-text-column">
+            {/* Imagen pequeña arriba */}
+            <div className="tailored-small-image">
+              <AnimatedImageContainer
+                src={smallImage}
+                className="small-image-container"
+                delay={0.4}
+              />
             </div>
-            <Link to="/tailored-services" className="btn btn-primary btn-lg">
-              Descubrir Servicio Premium
-            </Link>
+
+            {/* Texto con ScrollReveal */}
+            <div className="tailored-text-content">
+              <ScrollReveal
+                containerClassName="mb-8"
+                size="sm"
+                align="left"
+                baseOpacity={0.2}
+                baseRotation={0}
+              >
+                Nuestro servicio premium está diseñado para clientes que buscan
+                una experiencia única y personalizada. Acceso exclusivo a
+                propiedades fuera de mercado, atención 24/7 y un equipo dedicado
+                solo para ti.
+              </ScrollReveal>
+
+              {/* Botón animado */}
+              <AnimatedButton
+                to="/tailored-services"
+                className="btn btn-primary btn-sm"
+                delay={1.2}
+              >
+                Tailored Services
+              </AnimatedButton>
+            </div>
           </div>
         </div>
       </div>
 
       <style jsx>{`
         .tailored-section {
+          min-height: 100vh;
           padding: 8rem 0;
           background: var(--color-beige-lighter);
         }
 
         .tailored-content {
           display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 4rem;
-          align-items: center;
+          grid-template-columns: 2fr 3fr;
+          gap: 5rem;
+          align-items: start;
         }
 
-        .section-title {
-          font-family: var(--font-primary);
-          font-size: 3rem;
-          color: var(--color-marron);
-          margin-bottom: 2rem;
-          line-height: 1.2;
+        /* === IMAGEN PRINCIPAL IZQUIERDA === */
+        .tailored-main-image {
+          height: 650px;
+          position: relative;
         }
 
-        .section-description {
-          font-family: var(--font-secondary);
-          font-size: 1.2rem;
-          color: var(--color-marron-light);
-          line-height: 1.6;
-          margin-bottom: 2.5rem;
-        }
-
-        .tailored-features {
-          margin-bottom: 3rem;
-        }
-
-        .feature-item {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          margin-bottom: 1.5rem;
-          font-family: var(--font-secondary);
-          color: var(--color-marron);
-          font-weight: 500;
-        }
-
-        .feature-icon {
-          width: 24px;
-          height: 24px;
-          color: var(--color-camel);
-          flex-shrink: 0;
-        }
-
-        .tailored-image {
-          height: 400px;
-          border-radius: 16px;
+        .tailored-main-image .main-image-container {
+          height: 100% !important;
+          width: 100% !important;
           overflow: hidden;
-          box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
         }
 
-        .image-placeholder {
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(
-            135deg,
-            var(--color-camel-light) 0%,
-            var(--color-camel) 100%
-          );
+        /* === COLUMNA DERECHA === */
+        .tailored-text-column {
           display: flex;
-          align-items: center;
-          justify-content: center;
+          flex-direction: column;
+          height: 650px;
+          margin-right: 100px;
         }
 
-        .placeholder-icon {
-          width: 80px;
-          height: 80px;
-          color: white;
-          opacity: 0.9;
+        /* Imagen pequeña arriba */
+        .tailored-small-image {
+          height: 280px;
+          width: 100%;
+          margin-bottom: 2rem;
+          position: relative;
+        }
+
+        .tailored-small-image .small-image-container {
+          height: 100% !important;
+          width: 100% !important;
+          overflow: hidden;
+        }
+
+        /* Contenido de texto */
+        .tailored-text-content {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          padding-top: 1rem;
+        }
+
+        .tailored-text-content .btn {
+          width: fit-content;
         }
 
         /* === RESPONSIVE === */
-        @media (max-width: 968px) {
+        @media (max-width: 1305px) {
+          .tailored-text-column {
+            margin-right: 50px;
+          }
+        }
+
+        @media (max-width: 1220px) {
           .tailored-content {
-            grid-template-columns: 1fr;
             gap: 3rem;
           }
 
-          .tailored-image {
-            height: 300px;
+          .tailored-main-image {
+            height: 650px;
           }
 
-          .section-title {
-            font-size: 2.5rem;
-            text-align: center;
+          .tailored-text-column {
+            height: 550px;
+            margin-right: 20px;
           }
 
-          .section-description {
-            text-align: center;
+          .tailored-small-image {
+            height: 240px;
+            margin-bottom: 1.5rem;
+          }
+        }
+
+        @media (max-width: 1060px) {
+          .tailored-section {
+            padding: 4rem 0;
+            min-height: auto;
           }
 
-          .tailored-features {
-            max-width: 400px;
+          .tailored-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+          }
+
+          /* Ocultar imagen principal en mobile */
+          .tailored-main-image {
+            display: none;
+          }
+
+          .tailored-text-column {
+            height: auto;
+            margin-right: 0;
+            max-width: 80%;
             margin-left: auto;
             margin-right: auto;
+          }
+
+          .tailored-small-image {
+            height: 350px;
+            margin-bottom: 2rem;
+          }
+
+          .tailored-text-content {
+            text-align: center;
+            padding-top: 0;
           }
         }
 
         @media (max-width: 768px) {
           .tailored-section {
-            padding: 4rem 0;
+            padding: 3rem 0;
           }
 
-          .section-title {
-            font-size: 2rem;
+          .tailored-content {
+            gap: 1.5rem;
           }
 
-          .section-description {
-            font-size: 1.1rem;
+          .tailored-text-column {
+            max-width: 100%;
+          }
+
+          .tailored-text-content .btn {
+            align-self: center;
+          }
+
+          .tailored-small-image {
+            height: 280px;
+            margin-bottom: 1.5rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .tailored-section {
+            padding: 2rem 0;
+          }
+
+          .tailored-small-image {
+            height: 240px;
+            margin-bottom: 1rem;
           }
         }
       `}</style>

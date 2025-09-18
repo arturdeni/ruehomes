@@ -123,15 +123,6 @@ const InstagramSection = () => {
           background: var(--color-beige-lighter);
         }
 
-        .section-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 3rem;
-          flex-wrap: wrap;
-          gap: 2rem;
-        }
-
         .header-content {
           display: flex;
           align-items: center;

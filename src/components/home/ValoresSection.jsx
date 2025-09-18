@@ -1,77 +1,90 @@
-// src/components/home/ValoresSection.jsx
+// src/components/home/ValoresSection.jsx - Versión minimalista
+import { useEffect, useRef } from "react";
+
+// Importar los iconos PNG
+import transparenciaIcon from "../../assets/images/valores/eye.png";
+import profesionalidadIcon from "../../assets/images/valores/professional.png";
+import confianzaIcon from "../../assets/images/valores/handshake.png";
+import excelenciaIcon from "../../assets/images/valores/excelence.png";
 
 const ValoresSection = () => {
+  const sectionRef = useRef(null);
+  const valoresRef = useRef([]);
+
   const valores = [
     {
       title: "Transparencia",
       description:
         "Comunicación honesta y clara en cada paso del proceso, sin sorpresas ni comisiones ocultas.",
-      icon: (
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-          />
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-          />
-        </svg>
-      ),
+      icon: transparenciaIcon,
     },
     {
       title: "Profesionalidad",
       description:
         "Equipo altamente cualificado con años de experiencia en el sector inmobiliario.",
-      icon: (
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2V6"
-          />
-        </svg>
-      ),
+      icon: profesionalidadIcon,
     },
     {
       title: "Confianza",
       description:
         "Más de 15 años construyendo relaciones duraderas basadas en la confianza mutua.",
-      icon: (
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-          />
-        </svg>
-      ),
+      icon: confianzaIcon,
     },
     {
       title: "Excelencia",
       description:
         "Compromiso constante con la calidad y la mejora continua en todos nuestros servicios.",
-      icon: (
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-          />
-        </svg>
-      ),
+      icon: excelenciaIcon,
     },
   ];
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Animar el título primero
+            const title = entry.target.querySelector(".section-title");
+            const subtitle = entry.target.querySelector(".section-subtitle");
+
+            if (title) {
+              title.style.opacity = "1";
+              title.style.transform = "translateY(0)";
+            }
+
+            if (subtitle) {
+              setTimeout(() => {
+                subtitle.style.opacity = "1";
+                subtitle.style.transform = "translateY(0)";
+              }, 200);
+            }
+
+            // Animar los valores con delay escalonado
+            valoresRef.current.forEach((valor, index) => {
+              if (valor) {
+                setTimeout(() => {
+                  valor.style.opacity = "1";
+                  valor.style.transform = "translateY(0)";
+                }, 400 + index * 100);
+              }
+            });
+
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="valores-section">
+    <section ref={sectionRef} className="valores-section">
       <div className="container">
         <div className="section-header">
           <h2 className="section-title">Nuestros Valores</h2>
@@ -83,8 +96,18 @@ const ValoresSection = () => {
 
         <div className="valores-grid">
           {valores.map((valor, index) => (
-            <div key={index} className="valor-card">
-              <div className="valor-icon">{valor.icon}</div>
+            <div
+              key={index}
+              ref={(el) => (valoresRef.current[index] = el)}
+              className="valor-item"
+            >
+              <div className="valor-icon">
+                <img
+                  src={valor.icon}
+                  alt={valor.title}
+                  className="icon-image"
+                />
+              </div>
               <h3 className="valor-title">{valor.title}</h3>
               <p className="valor-description">{valor.description}</p>
             </div>
@@ -99,11 +122,13 @@ const ValoresSection = () => {
         }
 
         .section-header {
-          text-align: center;
-          margin-bottom: 4rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 4rem;
+          flex-wrap: wrap;
+          gap: 2rem;
           max-width: 700px;
-          margin-left: auto;
-          margin-right: auto;
         }
 
         .section-title {
@@ -111,89 +136,158 @@ const ValoresSection = () => {
           font-size: 3rem;
           color: var(--color-marron);
           margin-bottom: 1.5rem;
+          font-weight: 400;
+          opacity: 0;
+          transform: translateY(30px);
+          transition: all 0.8s cubic-bezier(0.25, 0.4, 0.25, 1);
+          text-align: center; /* Fuerza el centrado */
         }
 
         .section-subtitle {
           font-family: var(--font-secondary);
-          font-size: 1.25rem;
+          font-size: 1.2rem;
           color: var(--color-marron-light);
           line-height: 1.6;
+          font-weight: 300;
+          opacity: 0;
+          transform: translateY(30px);
+          transition: all 0.8s cubic-bezier(0.25, 0.4, 0.25, 1);
+          text-align: center; /* Fuerza el centrado */
         }
 
+        /* === GRID RESPONSIVO === */
         .valores-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 2.5rem;
-          max-width: 1000px;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 3rem;
+          max-width: 1200px;
           margin: 0 auto;
         }
 
-        .valor-card {
+        /* === ITEMS DE VALORES === */
+        .valor-item {
           text-align: center;
-          padding: 2.5rem 2rem;
-          background: white;
-          border-radius: 16px;
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-          border: 1px solid var(--color-beige-light);
-          transition: all 0.3s ease;
-        }
-
-        .valor-card:hover {
-          transform: translateY(-8px);
-          box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+          opacity: 0;
+          transform: translateY(40px);
+          transition: all 0.8s cubic-bezier(0.25, 0.4, 0.25, 1);
         }
 
         .valor-icon {
-          width: 80px;
-          height: 80px;
-          background: linear-gradient(
-            135deg,
-            var(--color-beige-light) 0%,
-            var(--color-beige) 100%
-          );
-          border-radius: 20px;
+          width: 48px;
+          height: 48px;
+          margin: 0 auto 2rem;
+          transition: all 0.3s ease;
           display: flex;
           align-items: center;
           justify-content: center;
-          margin: 0 auto 2rem;
-          color: var(--color-camel);
         }
 
-        .valor-icon svg {
-          width: 40px;
-          height: 40px;
+        .icon-image {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          transition: all 0.3s ease;
+        }
+
+        .valor-item:hover .icon-image {
+          transform: translateY(-2px);
         }
 
         .valor-title {
           font-family: var(--font-primary);
-          font-size: 1.5rem;
+          font-size: 1.4rem;
           color: var(--color-marron);
           margin-bottom: 1rem;
+          font-weight: 400;
         }
 
         .valor-description {
           font-family: var(--font-secondary);
           color: var(--color-marron-light);
           line-height: 1.6;
+          font-size: 0.95rem;
+          font-weight: 300;
         }
 
         /* === RESPONSIVE === */
+
+        /* Tablets grandes y laptops pequeños */
+        @media (max-width: 1024px) {
+          .valores-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem 3rem;
+            max-width: 700px;
+          }
+        }
+
+        /* Tablets */
         @media (max-width: 768px) {
           .valores-section {
-            padding: 4rem 0;
+            padding: 6rem 0;
           }
 
           .section-title {
             font-size: 2.5rem;
           }
 
-          .valores-grid {
-            grid-template-columns: 1fr;
-            gap: 2rem;
+          .section-subtitle {
+            font-size: 1.1rem;
           }
 
-          .valor-card {
-            padding: 2rem 1.5rem;
+          .valores-grid {
+            gap: 3rem 2rem;
+          }
+
+          .valor-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 1.5rem;
+          }
+
+          .valor-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+          }
+
+          .valor-description {
+            font-size: 0.9rem;
+          }
+        }
+
+        /* Mobile */
+        @media (max-width: 640px) {
+          .valores-section {
+            padding: 4rem 0;
+          }
+
+          .valores-grid {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            max-width: 400px;
+          }
+
+          .section-title {
+            font-size: 2rem;
+          }
+
+          .valor-icon {
+            width: 44px;
+            height: 44px;
+          }
+
+          .valor-title {
+            font-size: 1.3rem;
+          }
+        }
+
+        /* Mobile muy pequeño */
+        @media (max-width: 480px) {
+          .valores-section {
+            padding: 3rem 0;
+          }
+
+          .valores-grid {
+            gap: 2.5rem;
           }
         }
       `}</style>

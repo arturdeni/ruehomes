@@ -217,7 +217,6 @@ const Hero = () => {
 
           .search-input {
             padding: 0.8rem 1rem;
-            font-size: 0.9rem;
             min-width: 0;
           }
 
