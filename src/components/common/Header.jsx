@@ -1,9 +1,11 @@
-// src/components/common/Header.jsx - Versión con fade in y nav links elegantes
+// src/components/common/Header.jsx
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const location = useLocation();
 
   const navigation = [
@@ -35,17 +37,54 @@ const Header = () => {
     };
   }, [isMenuOpen]);
 
+  // Detectar dirección del scroll
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+
+          // Determinar si estamos scrolleando
+          setIsScrolled(currentScrollY > 10);
+
+          // Determinar dirección del scroll
+          if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            // Scrolleando hacia abajo - ocultar header
+            setIsHeaderVisible(false);
+          } else {
+            // Scrolleando hacia arriba o en la parte superior - mostrar header
+            setIsHeaderVisible(true);
+          }
+
+          lastScrollY = currentScrollY;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <>
-      <header className="header-main">
+      <header
+        className={`header-main ${
+          isHeaderVisible ? "header-visible" : "header-hidden"
+        } ${isScrolled ? "header-scrolled" : ""}`}
+      >
         <div className="header-container">
           <nav className="header-nav">
             {/* Logo */}
             <Link to="/" className="header-logo">
-              <div className="logo-icon">
-                <span className="logo-text">RH</span>
-              </div>
-              <span className="logo-name">RueHomes</span>
+              <span className="logo-name">Rue Homes</span>
             </Link>
 
             {/* Hamburger menu button - Siempre visible */}
@@ -125,6 +164,20 @@ const Header = () => {
             z-index: 100;
             transition: all 0.3s ease;
             width: 100%;
+            transform: translateY(0);
+          }
+
+          .header-visible {
+            transform: translateY(0);
+          }
+
+          .header-hidden {
+            transform: translateY(-100%);
+          }
+
+          .header-scrolled {
+            background: rgba(72, 50, 40, 0.95);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
           }
 
           .header-main:hover {
@@ -151,45 +204,17 @@ const Header = () => {
             display: flex;
             align-items: center;
             text-decoration: none;
-            transition: transform 0.3s ease;
             z-index: 102;
-          }
-
-          .header-logo:hover {
-            transform: scale(1.02);
-          }
-
-          .logo-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(
-              135deg,
-              var(--color-camel) 0%,
-              var(--color-camel-dark) 100%
-            );
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 1rem;
-            box-shadow: 0 4px 12px rgba(154, 116, 78, 0.3);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            flex-shrink: 0;
-          }
-
-          .logo-text {
-            color: white;
-            font-family: var(--font-primary);
-            font-weight: 700;
-            font-size: 1.5rem;
           }
 
           .logo-name {
             color: white;
-            font-family: var(--font-primary);
+            font-family: var(--font-logo);
             font-size: 2rem;
-            font-weight: 400;
+            font-weight: 500;
             white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 1px;
           }
 
           /* === HAMBURGER BUTTON === */
@@ -404,16 +429,6 @@ const Header = () => {
 
             .header-nav {
               padding: 1rem 0;
-            }
-
-            .logo-icon {
-              width: 40px;
-              height: 40px;
-              margin-right: 0.75rem;
-            }
-
-            .logo-text {
-              font-size: 1.2rem;
             }
 
             .logo-name {

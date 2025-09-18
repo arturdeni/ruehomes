@@ -273,7 +273,7 @@ const Footer = () => {
               reservados.
             </p>
             <p className="copyright-subtitle">
-              Desarrollado con ❤️ para encontrar tu hogar ideal.
+              Desarrollado por Lexmake (lexmake.com)
             </p>
           </div>
         </div>
