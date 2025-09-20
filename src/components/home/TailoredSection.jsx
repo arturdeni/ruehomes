@@ -3,11 +3,10 @@ import { ScrollReveal } from "../ui/ScrollReveal";
 import AnimatedImageContainer from "../ui/AnimatedImageContainer";
 import AnimatedButton from "../ui/AnimatedButton";
 
-const TailoredSection = () => {
-  // Aquí puedes cambiar las rutas de las imágenes por las que necesites
-  const mainImage = "/src/assets/images/tailored/turull-salon.webp"; // Imagen principal izquierda
-  const smallImage = "/src/assets/images/tailored/render-cocina2.webp"; // Imagen pequeña derecha
+import mainImage from "../../assets/images/tailored/turull-salon.webp"; // Imagen principal izquierda
+import smallImage from "../../assets/images/tailored/render-cocina2.webp"; // Imagen pequeña derecha
 
+const TailoredSection = () => {
   return (
     <section className="tailored-section">
       <div className="container">

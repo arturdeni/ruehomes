@@ -1,9 +1,10 @@
-// src/components/home/HeroWithShader.jsx
+// src/components/home/Hero.jsx
 import { useState } from "react";
 import AnimatedGradientBackground from "../ui/AnimatedGradientBackground";
 import heroImage from "../../assets/images/hero/hero-background.webp";
+import AnimatedLogo from "../ui/AnimatedLogo";
 
-const HeroWithShader = () => {
+const Hero = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearch = (e) => {
@@ -35,7 +36,7 @@ const HeroWithShader = () => {
 
       <div className="container">
         <div className="hero-content">
-          <h1 className="hero-title">Rue Homes</h1>
+          <AnimatedLogo className="mb-6" delay={300} />
           <p className="hero-subtitle">
             Encuentra un lugar al que llamar hogar
           </p>
@@ -251,4 +252,4 @@ const HeroWithShader = () => {
   );
 };
 
-export default HeroWithShader;
+export default Hero;

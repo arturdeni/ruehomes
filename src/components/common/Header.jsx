@@ -84,7 +84,7 @@ const Header = () => {
           <nav className="header-nav">
             {/* Logo */}
             <Link to="/" className="header-logo">
-              <span className="logo-name">Rue Homes</span>
+              <span className="logo-name">RH</span>
             </Link>
 
             {/* Hamburger menu button - Siempre visible */}
@@ -195,7 +195,7 @@ const Header = () => {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 0;
+            padding: 1rem 0;
             width: 100%;
           }
 
