@@ -134,7 +134,7 @@ const ValoresSection = () => {
         .section-title {
           font-family: var(--font-primary);
           font-size: 3rem;
-          color: var(--color-marron);
+          color: var(--color-rust);
           margin-bottom: 1.5rem;
           font-weight: 400;
           opacity: 0;
@@ -146,7 +146,7 @@ const ValoresSection = () => {
         .section-subtitle {
           font-family: var(--font-secondary);
           font-size: 1.2rem;
-          color: var(--color-marron-light);
+          color: var(--color-rust-light);
           line-height: 1.6;
           font-weight: 300;
           opacity: 0;
@@ -196,14 +196,14 @@ const ValoresSection = () => {
         .valor-title {
           font-family: var(--font-primary);
           font-size: 1.4rem;
-          color: var(--color-marron);
+          color: var(--color-rust);
           margin-bottom: 1rem;
           font-weight: 400;
         }
 
         .valor-description {
           font-family: var(--font-secondary);
-          color: var(--color-marron-light);
+          color: var(--color-rust-light);
           line-height: 1.6;
           font-size: 0.95rem;
           font-weight: 300;

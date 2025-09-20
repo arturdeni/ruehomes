@@ -1,8 +1,9 @@
-// src/components/home/Hero.jsx - Versión con imagen de fondo parallax
+// src/components/home/HeroWithShader.jsx
 import { useState } from "react";
+import AnimatedGradientBackground from "../ui/AnimatedGradientBackground";
 import heroImage from "../../assets/images/hero/hero-background.webp";
 
-const Hero = () => {
+const HeroWithShader = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearch = (e) => {
@@ -16,8 +17,22 @@ const Hero = () => {
 
   return (
     <section className="hero-section">
+      {/* Imagen de fondo con parallax */}
       <div className="hero-background"></div>
-      <div className="hero-overlay"></div>
+
+      {/* ShaderGradient como overlay animado con opacidad */}
+      <AnimatedGradientBackground
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          zIndex: -1,
+        }}
+        animate={true}
+      />
+
       <div className="container">
         <div className="hero-content">
           <h1 className="hero-title">Rue Homes</h1>
@@ -81,21 +96,7 @@ const Hero = () => {
           background-attachment: fixed;
           z-index: -2;
           will-change: transform;
-        }
-
-        .hero-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: linear-gradient(
-            135deg,
-            rgba(72, 50, 40, 0.5) 0%,
-            rgba(154, 116, 78, 0.4) 50%,
-            rgba(72, 50, 40, 0.5) 100%
-          );
-          z-index: -1;
+          /* Quitamos la opacidad reducida de la imagen para que se vea bien */
         }
 
         .hero-content {
@@ -112,17 +113,17 @@ const Hero = () => {
           font-weight: 400;
           margin-bottom: 1rem;
           line-height: 1.1;
-          text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+          text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
           letter-spacing: 1px;
         }
 
         .hero-subtitle {
           font-family: var(--font-secondary);
           font-size: 1.5rem;
-          color: var(--color-beige-lighter);
+          color: var(--color-marble-lighter);
           margin-bottom: 4rem;
           line-height: 1.4;
-          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
           font-weight: 300;
           letter-spacing: 0.5px;
         }
@@ -149,7 +150,7 @@ const Hero = () => {
           outline: none;
           padding: 1rem 1rem;
           font-size: 1rem;
-          color: var(--color-marron);
+          color: var(--color-rust);
           font-family: var(--font-secondary);
           background: transparent;
           font-weight: 400;
@@ -163,8 +164,8 @@ const Hero = () => {
         .search-button {
           background: linear-gradient(
             135deg,
-            var(--color-camel) 0%,
-            var(--color-camel-dark) 100%
+            var(--color-cinnamon) 0%,
+            var(--color-cinnamon-dark) 100%
           );
           border: none;
           border-radius: 50px;
@@ -180,8 +181,8 @@ const Hero = () => {
         .search-button:hover {
           background: linear-gradient(
             135deg,
-            var(--color-camel-dark) 0%,
-            var(--color-camel-darker) 100%
+            var(--color-cinnamon-dark) 0%,
+            var(--color-cinnamon-darker) 100%
           );
           transform: translateY(-2px);
           box-shadow: 0 6px 20px rgba(154, 116, 78, 0.4);
@@ -250,4 +251,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default HeroWithShader;

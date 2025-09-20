@@ -155,10 +155,9 @@ const Header = () => {
           }
 
           .header-main {
-            background: rgba(72, 50, 40, 0.85);
+            background: rgba(143, 88, 53, 0.8);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(154, 116, 78, 0.2);
             position: fixed;
             top: 0;
             z-index: 100;
@@ -176,12 +175,12 @@ const Header = () => {
           }
 
           .header-scrolled {
-            background: rgba(72, 50, 40, 0.95);
+            background: rgba(143, 88, 53, 0.8);
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
           }
 
           .header-main:hover {
-            background: rgba(72, 50, 40, 0.95);
+            background: rgba(143, 88, 53, 0.8);
           }
 
           .header-container {
@@ -231,7 +230,7 @@ const Header = () => {
           }
 
           .hamburger-btn:hover .hamburger-line {
-            background-color: var(--color-camel-light);
+            background-color: var(--color-cinnamon-light);
           }
 
           .hamburger {
@@ -270,8 +269,8 @@ const Header = () => {
             height: 100dvh;
             background: linear-gradient(
               135deg,
-              var(--color-marron) 0%,
-              var(--color-marron-darker) 100%
+              var(--color-rust) 0%,
+              var(--color-rust-darker) 100%
             );
             z-index: 101;
             transition: opacity 0.4s ease, visibility 0.4s ease;
@@ -305,7 +304,7 @@ const Header = () => {
 
           .nav-menu-link {
             display: block;
-            color: var(--color-beige-light);
+            color: var(--color-softdune-light);
             text-decoration: none;
             font-family: var(--font-secondary);
             font-weight: 500;
@@ -331,8 +330,8 @@ const Header = () => {
             height: 2px;
             background: linear-gradient(
               90deg,
-              var(--color-camel) 0%,
-              var(--color-camel-light) 100%
+              var(--color-cinnamon) 0%,
+              var(--color-cinnamon-light) 100%
             );
             transition: width 0.3s ease;
           }
@@ -388,7 +387,7 @@ const Header = () => {
           .contact-phone:hover,
           .contact-email:hover {
             background: rgba(255, 255, 255, 0.1);
-            color: var(--color-camel-light);
+            color: var(--color-cinnamon-light);
           }
 
           /* === OVERLAY === */

@@ -11,11 +11,15 @@
   },
   "dependencies": {
     "@apollo/client": "^4.0.5",
+    "@react-spring/three": "^10.0.3",
+    "@react-three/fiber": "^9.3.0",
+    "@shadergradient/react": "^2.3.6",
     "framer-motion": "^12.23.13",
     "graphql-request": "^7.2.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react-router-dom": "^7.9.1"
+    "react-router-dom": "^7.9.1",
+    "three": "^0.180.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",

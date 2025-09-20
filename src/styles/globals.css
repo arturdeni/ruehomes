@@ -17,8 +17,8 @@ body {
   font-family: var(--font-secondary);
   font-size: var(--text-base);
   line-height: 1.6;
-  color: var(--color-marron);
-  background-color: var(--color-beige-lighter);
+  color: var(--color-rust);
+  background-color: var(--color-marble-lighter);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
@@ -137,43 +137,43 @@ p {
 .btn-primary {
   background: linear-gradient(
     135deg,
-    var(--color-camel) 0%,
-    var(--color-camel-dark) 100%
+    var(--color-cinnamon) 0%,
+    var(--color-cinnamon-dark) 100%
   );
   color: white;
-  border: 2px solid var(--color-camel);
+  border: 2px solid var(--color-cinnamon);
 }
 
 .btn-primary:hover {
   background: linear-gradient(
     135deg,
-    var(--color-camel-dark) 0%,
-    var(--color-camel-darker) 100%
+    var(--color-cinnamon-dark) 0%,
+    var(--color-cinnamon-darker) 100%
   );
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(154, 116, 78, 0.3);
 }
 
 .btn-secondary {
-  background: var(--color-beige);
-  color: var(--color-marron);
-  border: 2px solid var(--color-beige-dark);
+  background: var(--color-softdune);
+  color: var(--color-rust);
+  border: 2px solid var(--color-softdune-dark);
 }
 
 .btn-secondary:hover {
-  background: var(--color-beige-dark);
+  background: var(--color-softdune-dark);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(215, 192, 160, 0.4);
 }
 
 .btn-outline {
   background: transparent;
-  color: var(--color-camel);
-  border: 2px solid var(--color-camel);
+  color: var(--color-cinnamon);
+  border: 2px solid var(--color-cinnamon);
 }
 
 .btn-outline:hover {
-  background: var(--color-camel);
+  background: var(--color-cinnamon);
   color: white;
   transform: translateY(-2px);
 }
@@ -194,7 +194,7 @@ p {
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  border: 1px solid var(--color-beige);
+  border: 1px solid var(--color-softdune);
   overflow: hidden;
   transition: all 0.3s ease;
 }
@@ -210,10 +210,10 @@ p {
 
 .card-header {
   padding: 1.5rem 2rem;
-  border-bottom: 1px solid var(--color-beige-light);
+  border-bottom: 1px solid var(--color-softdune-light);
   background: linear-gradient(
     135deg,
-    var(--color-beige-lighter) 0%,
+    var(--color-marble-lighter) 0%,
     white 100%
   );
 }
@@ -337,23 +337,26 @@ p {
 .text-white {
   color: white;
 }
-.text-beige {
-  color: var(--color-beige);
+.text-rust {
+  color: var(--color-rust);
 }
-.text-beige-light {
-  color: var(--color-beige-light);
+.text-rust-light {
+  color: var(--color-rust-light);
 }
-.text-beige-lighter {
-  color: var(--color-beige-lighter);
+.text-cinnamon {
+  color: var(--color-cinnamon);
 }
-.text-marron {
-  color: var(--color-marron);
+.text-cinnamon-light {
+  color: var(--color-cinnamon-light);
 }
-.text-marron-light {
-  color: var(--color-marron-light);
+.text-honeyfield {
+  color: var(--color-honeyfield);
 }
-.text-camel {
-  color: var(--color-camel);
+.text-softdune {
+  color: var(--color-softdune);
+}
+.text-marble {
+  color: var(--color-marble);
 }
 .text-gray-600 {
   color: var(--color-gray-600);
@@ -368,44 +371,44 @@ p {
 .bg-white {
   background-color: white;
 }
-.bg-beige {
-  background-color: var(--color-beige);
+.bg-rust {
+  background-color: var(--color-rust);
 }
-.bg-beige-light {
-  background-color: var(--color-beige-light);
+.bg-cinnamon {
+  background-color: var(--color-cinnamon);
 }
-.bg-beige-lighter {
-  background-color: var(--color-beige-lighter);
+.bg-honeyfield {
+  background-color: var(--color-honeyfield);
 }
-.bg-marron {
-  background-color: var(--color-marron);
+.bg-softdune {
+  background-color: var(--color-softdune);
 }
-.bg-camel {
-  background-color: var(--color-camel);
+.bg-marble {
+  background-color: var(--color-marble);
 }
 .bg-gray-900 {
   background-color: var(--color-gray-900);
 }
 
 /* === GRADIENTS MEJORADOS === */
-.gradient-beige {
+.gradient-softdune {
   background: linear-gradient(
     135deg,
-    var(--color-beige-lighter) 0%,
-    var(--color-beige) 100%
+    var(--color-marble-lighter) 0%,
+    var(--color-softdune) 100%
   );
 }
 
-.gradient-camel {
+.gradient-cinnamon {
   background: linear-gradient(
     135deg,
-    var(--color-camel-light) 0%,
-    var(--color-camel-dark) 100%
+    var(--color-cinnamon-light) 0%,
+    var(--color-cinnamon-dark) 100%
   );
   position: relative;
 }
 
-.gradient-camel::before {
+.gradient-cinnamon::before {
   content: "";
   position: absolute;
   top: 0;
@@ -421,11 +424,11 @@ p {
   pointer-events: none;
 }
 
-.gradient-marron {
+.gradient-rust {
   background: linear-gradient(
     135deg,
-    var(--color-marron) 0%,
-    var(--color-marron-darker) 100%
+    var(--color-rust) 0%,
+    var(--color-rust-darker) 100%
   );
 }
 
@@ -449,10 +452,10 @@ p {
   display: block;
   width: 100%;
   padding: 1rem;
-  border: 2px solid var(--color-beige);
+  border: 2px solid var(--color-softdune);
   border-radius: 8px;
   background-color: white;
-  color: var(--color-marron);
+  color: var(--color-rust);
   font-family: var(--font-secondary);
   font-size: 1rem;
   transition: all 0.3s ease;
@@ -460,7 +463,7 @@ p {
 
 .form-input:focus {
   outline: none;
-  border-color: var(--color-camel);
+  border-color: var(--color-cinnamon);
   box-shadow: 0 0 0 3px rgba(154, 116, 78, 0.1);
   transform: translateY(-2px);
 }
@@ -469,7 +472,7 @@ p {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 600;
-  color: var(--color-marron);
+  color: var(--color-rust);
   font-family: var(--font-secondary);
 }
 
@@ -600,8 +603,8 @@ p {
 .loading-spinner {
   width: 24px;
   height: 24px;
-  border: 3px solid var(--color-beige-light);
-  border-top: 3px solid var(--color-camel);
+  border: 3px solid var(--color-softdune-light);
+  border-top: 3px solid var(--color-cinnamon);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }

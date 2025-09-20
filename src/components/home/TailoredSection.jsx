@@ -64,7 +64,7 @@ const TailoredSection = () => {
         .tailored-section {
           min-height: 100vh;
           padding: 8rem 0;
-          background: var(--color-beige-lighter);
+          background: var(--color-softdune-lighter);
         }
 
         .tailored-content {

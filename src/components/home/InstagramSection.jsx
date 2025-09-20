@@ -120,7 +120,7 @@ const InstagramSection = () => {
       <style jsx>{`
         .instagram-section {
           padding: 8rem 0;
-          background: var(--color-beige-lighter);
+          background: var(--color-softdune-lighter);
         }
 
         .header-content {
@@ -160,13 +160,13 @@ const InstagramSection = () => {
         .section-title {
           font-family: var(--font-primary);
           font-size: 2.5rem;
-          color: var(--color-marron);
+          color: var(--color-rust);
           margin-bottom: 0.5rem;
         }
 
         .section-subtitle {
           font-family: var(--font-secondary);
-          color: var(--color-marron-light);
+          color: var(--color-rust-light);
           font-size: 1.1rem;
         }
 
@@ -200,8 +200,8 @@ const InstagramSection = () => {
           height: 100%;
           background: linear-gradient(
             135deg,
-            var(--color-beige) 0%,
-            var(--color-beige-light) 100%
+            var(--color-softdune) 0%,
+            var(--color-softdune-light) 100%
           );
           display: flex;
           align-items: center;
@@ -211,7 +211,7 @@ const InstagramSection = () => {
         .placeholder-icon {
           width: 40px;
           height: 40px;
-          color: var(--color-camel);
+          color: var(--color-cinnamon);
           opacity: 0.7;
         }
 

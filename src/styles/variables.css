@@ -6,26 +6,40 @@
 :root {
   /* === PALETA DE COLORES PRINCIPAL === */
 
-  /* Beige */
-  --color-beige: #d7c0a0;
-  --color-beige-light: #e4d3b8;
-  --color-beige-lighter: #f0e5d5;
-  --color-beige-dark: #c9b08d;
-  --color-beige-darker: #b39f7a;
+  /* Rust */
+  --color-rust: #935835;
+  --color-rust-light: #a66b47;
+  --color-rust-lighter: #b97e59;
+  --color-rust-dark: #804c2e;
+  --color-rust-darker: #6d4027;
 
-  /* Marrón */
-  --color-marron: #483228;
-  --color-marron-light: #5d433a;
-  --color-marron-lighter: #72544c;
-  --color-marron-dark: #3d2b20;
-  --color-marron-darker: #322318;
+  /* Cinnamon */
+  --color-cinnamon: #B27C51;
+  --color-cinnamon-light: #c18f64;
+  --color-cinnamon-lighter: #d0a277;
+  --color-cinnamon-dark: #9f6945;
+  --color-cinnamon-darker: #8c5639;
 
-  /* Camel */
-  --color-camel: #9a744e;
-  --color-camel-light: #b08862;
-  --color-camel-lighter: #c59c76;
-  --color-camel-dark: #856341;
-  --color-camel-darker: #705234;
+  /* Honeyfield */
+  --color-honeyfield: #C1946A;
+  --color-honeyfield-light: #cda077;
+  --color-honeyfield-lighter: #d9ac84;
+  --color-honeyfield-dark: #ad835d;
+  --color-honeyfield-darker: #997250;
+
+  /* SoftDune */
+  --color-softdune: #D7C0A9;
+  --color-softdune-light: #dfc9b6;
+  --color-softdune-lighter: #e7d2c3;
+  --color-softdune-dark: #cbb69c;
+  --color-softdune-darker: #bfac8f;
+
+  /* Marble */
+  --color-marble: #EAE6DF;
+  --color-marble-light: #ede9e5;
+  --color-marble-lighter: #f0eceb;
+  --color-marble-dark: #e1ddd6;
+  --color-marble-darker: #d8d4cd;
 
   /* === COLORES COMPLEMENTARIOS === */
 

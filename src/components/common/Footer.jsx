@@ -283,8 +283,8 @@ const Footer = () => {
         .footer-main {
           background: linear-gradient(
             135deg,
-            var(--color-marron-darker) 0%,
-            var(--color-marron) 100%
+            var(--color-rust-darker) 0%,
+            var(--color-rust) 100%
           );
           color: white;
           position: relative;
@@ -301,7 +301,7 @@ const Footer = () => {
           background: linear-gradient(
             90deg,
             transparent 0%,
-            var(--color-camel) 50%,
+            var(--color-cinnamon) 50%,
             transparent 100%
           );
         }
@@ -340,8 +340,8 @@ const Footer = () => {
           height: 48px;
           background: linear-gradient(
             135deg,
-            var(--color-camel) 0%,
-            var(--color-camel-dark) 100%
+            var(--color-cinnamon) 0%,
+            var(--color-cinnamon-dark) 100%
           );
           border-radius: 12px;
           display: flex;
@@ -367,7 +367,7 @@ const Footer = () => {
 
         .company-description {
           margin-bottom: 2rem;
-          color: var(--color-beige-light);
+          color: var(--color-softdune-light);
           line-height: 1.6;
         }
 
@@ -390,7 +390,7 @@ const Footer = () => {
         .contact-icon {
           width: 20px;
           height: 20px;
-          color: var(--color-camel);
+          color: var(--color-cinnamon);
           flex-shrink: 0;
         }
 
@@ -400,7 +400,7 @@ const Footer = () => {
         }
 
         .contact-link {
-          color: var(--color-beige-light);
+          color: var(--color-softdune-light);
           text-decoration: none;
           transition: color 0.3s ease;
           font-family: var(--font-secondary);
@@ -411,7 +411,7 @@ const Footer = () => {
         }
 
         .contact-text {
-          color: var(--color-beige-light);
+          color: var(--color-softdune-light);
           font-family: var(--font-secondary);
         }
 
@@ -442,8 +442,8 @@ const Footer = () => {
           height: 2px;
           background: linear-gradient(
             90deg,
-            var(--color-camel) 0%,
-            var(--color-camel-light) 100%
+            var(--color-cinnamon) 0%,
+            var(--color-cinnamon-light) 100%
           );
         }
 
@@ -457,7 +457,7 @@ const Footer = () => {
         }
 
         .footer-link {
-          color: var(--color-beige-light);
+          color: var(--color-softdune-light);
           text-decoration: none;
           font-family: var(--font-secondary);
           transition: all 0.3s ease;
@@ -470,7 +470,7 @@ const Footer = () => {
         }
 
         .footer-bottom {
-          border-top: 1px solid var(--color-marron-light);
+          border-top: 1px solid var(--color-rust-light);
           padding-top: 2rem;
         }
 
@@ -490,7 +490,7 @@ const Footer = () => {
         }
 
         .social-title {
-          color: var(--color-beige-light);
+          color: var(--color-softdune-light);
           font-family: var(--font-secondary);
           font-weight: 500;
         }
@@ -508,7 +508,7 @@ const Footer = () => {
           height: 40px;
           background: rgba(255, 255, 255, 0.1);
           border-radius: 10px;
-          color: var(--color-beige-light);
+          color: var(--color-softdune-light);
           text-decoration: none;
           transition: all 0.3s ease;
           backdrop-filter: blur(10px);
@@ -516,7 +516,7 @@ const Footer = () => {
         }
 
         .social-link:hover {
-          background: var(--color-camel);
+          background: var(--color-cinnamon);
           color: white;
           transform: translateY(-2px);
           box-shadow: 0 4px 12px rgba(154, 116, 78, 0.3);
@@ -541,7 +541,7 @@ const Footer = () => {
         }
 
         .legal-link {
-          color: var(--color-beige-light);
+          color: var(--color-softdune-light);
           text-decoration: none;
           font-size: 0.9rem;
           font-family: var(--font-secondary);
@@ -553,24 +553,24 @@ const Footer = () => {
         }
 
         .legal-separator {
-          color: var(--color-marron-light);
+          color: var(--color-rust-light);
         }
 
         .copyright {
           text-align: center;
-          border-top: 1px solid var(--color-marron-light);
+          border-top: 1px solid var(--color-rust-light);
           padding-top: 2rem;
         }
 
         .copyright-text {
-          color: var(--color-beige-light);
+          color: var(--color-softdune-light);
           font-family: var(--font-secondary);
           font-size: 0.9rem;
           margin-bottom: 0.5rem;
         }
 
         .copyright-subtitle {
-          color: var(--color-marron-light);
+          color: var(--color-rust-light);
           font-family: var(--font-secondary);
           font-size: 0.85rem;
         }
