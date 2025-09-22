@@ -1,11 +1,36 @@
 .text-rotate {
-  display: inline-flex;
-  flex-wrap: wrap;
-  white-space: pre-wrap;
+  /* ✅ Cuando tiene transición de ancho, necesita ser inline-block */
+  display: inline-block;
+  color: var(--color-cinnamon-dark);
+  /* ✅ Alineación vertical clave - MUY ESPECÍFICA para inline-block */
+  vertical-align: baseline !important;
+  /* ✅ Eliminar márgenes y padding que puedan desalinear */
+  margin: 0;
+  padding: 0;
+  /* ✅ Forzar line-height para que coincida con el texto circundante */
+  line-height: 1;
+  /* ✅ Ajuste fino: bajar ligeramente el elemento */
   position: relative;
-  background-color: var(--color-cinnamon-dark);
-  padding: 0.05em 0.2em;
-  border-radius: 0.6em;
+  top: 0.15em;
+}
+
+/* ✅ Cuando NO tiene transición de ancho, puede ser inline */
+.text-rotate:not([style*="width"]) {
+  display: inline !important;
+  top: 0;
+}
+
+/* Elemento oculto para medir el ancho */
+.text-rotate-hidden {
+  position: absolute !important;
+  visibility: hidden !important;
+  white-space: nowrap !important; /* ✅ Corregido: era whitespace */
+  pointer-events: none !important;
+  top: -9999px !important;
+  left: -9999px !important;
+  z-index: -9999 !important;
+  /* ✅ Mantener la misma alineación */
+  vertical-align: baseline;
 }
 
 .text-rotate-sr-only {
@@ -22,6 +47,9 @@
 
 .text-rotate-word {
   display: inline-flex;
+  /* ✅ Alineación para que coincida con la línea base del texto */
+  align-items: baseline !important;
+  vertical-align: baseline !important;
 }
 
 .text-rotate-lines {
@@ -30,8 +58,29 @@
   width: 100%;
 }
 
+/* ✅ Nueva clase para el span interno */
+.text-rotate-inner {
+  display: inline !important;
+  vertical-align: baseline !important;
+  width: 100% !important;
+}
+
 .text-rotate-element {
   display: inline-block;
+  /* ✅ Clave: alineación vertical con el texto circundante */
+  vertical-align: baseline !important;
+}
+
+/* ✅ Regla específica para motion spans - SIN !important en display */
+span[data-projection-id] {
+  vertical-align: baseline !important;
+}
+
+/* ✅ Forzar alineación en todos los spans dentro del componente */
+.text-rotate span,
+.text-rotate-word span,
+.text-rotate-element span {
+  vertical-align: baseline !important;
 }
 
 .text-rotate-space {

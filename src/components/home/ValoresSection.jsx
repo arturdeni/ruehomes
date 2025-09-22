@@ -127,7 +127,7 @@ const ValoresSection = () => {
           justify-content: center;
           margin: 0 auto 4rem;
           flex-wrap: wrap;
-          gap: 2rem;
+          gap: 1rem;
           max-width: 700px;
         }
 

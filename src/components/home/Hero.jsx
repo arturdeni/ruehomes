@@ -40,6 +40,8 @@ const Hero = () => {
             Encuentra tu{" "}
             <RotatingText
               texts={words}
+              enableWidthTransition={true} // ✅ Activa la transición suave
+              widthTransitionDuration={0.5}
               transition={{
                 type: "spring",
                 damping: 35,
@@ -131,17 +133,15 @@ const Hero = () => {
           text-align: center;
           position: relative;
           z-index: 2;
-          max-width: 700px;
           margin: 0 auto;
         }
 
         .hero-subtitle {
           font-family: var(--font-secondary);
-          font-size: 2.5rem;
+          font-size: 4.5rem;
           color: white;
           margin-bottom: 4rem;
-          line-height: 1.4;
-          text-shadow: 0px 0px 12px rgba(0, 0, 0, 0.15);
+          line-height: 1;
           font-weight: 600;
           letter-spacing: 0.5px;
         }

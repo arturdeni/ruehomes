@@ -348,7 +348,6 @@ const Footer = () => {
           align-items: center;
           justify-content: center;
           margin-right: 1rem;
-          box-shadow: 0 4px 12px rgba(154, 116, 78, 0.3);
         }
 
         .footer-logo-text {
@@ -519,7 +518,6 @@ const Footer = () => {
           background: var(--color-cinnamon);
           color: white;
           transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(154, 116, 78, 0.3);
         }
 
         .social-icon {

@@ -129,7 +129,6 @@ p {
   cursor: pointer;
   transition: all 0.3s ease;
   white-space: nowrap;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -151,7 +150,6 @@ p {
     var(--color-cinnamon-darker) 100%
   );
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(154, 116, 78, 0.3);
 }
 
 .btn-secondary {
@@ -163,7 +161,6 @@ p {
 .btn-secondary:hover {
   background: var(--color-softdune-dark);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(215, 192, 160, 0.4);
 }
 
 .btn-outline {
@@ -464,7 +461,6 @@ p {
 .form-input:focus {
   outline: none;
   border-color: var(--color-cinnamon);
-  box-shadow: 0 0 0 3px rgba(154, 116, 78, 0.1);
   transform: translateY(-2px);
 }
 
