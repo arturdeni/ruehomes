@@ -34,7 +34,7 @@ const TailoredSection = () => {
             {/* Texto con ScrollReveal */}
             <div className="tailored-text-content">
               <ScrollReveal
-                containerClassName="mb-8"
+                containerClassName="mb-4"
                 size="sm"
                 align="left"
                 baseOpacity={0.2}
@@ -208,7 +208,7 @@ const TailoredSection = () => {
 
         @media (max-width: 480px) {
           .tailored-section {
-            padding: 2rem 0;
+            padding: 1rem 0 2rem;
           }
 
           .tailored-small-image {

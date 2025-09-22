@@ -34,7 +34,11 @@
   position: absolute;
   top: 12px;
   left: 12px;
-  background: linear-gradient(135deg, var(--color-cinnamon) 0%, var(--color-cinnamon-dark) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-cinnamon) 0%,
+    var(--color-cinnamon-dark) 100%
+  );
   color: white;
   padding: 4px 12px;
   border-radius: 20px;
@@ -98,7 +102,6 @@
     var(--color-cinnamon-dark) 100%
   );
   color: white;
-  box-shadow: 0 4px 20px rgba(154, 116, 78, 0.25);
 }
 
 .btn-primary:hover {
@@ -107,31 +110,26 @@
     var(--color-cinnamon-dark) 0%,
     var(--color-cinnamon-darker) 100%
   );
-  box-shadow: 0 6px 30px rgba(154, 116, 78, 0.35);
 }
 
 .btn-secondary {
   background: var(--color-softdune);
   color: var(--color-rust);
-  box-shadow: 0 4px 20px rgba(215, 192, 160, 0.25);
 }
 
 .btn-secondary:hover {
   background: var(--color-softdune-dark);
-  box-shadow: 0 6px 30px rgba(215, 192, 160, 0.35);
 }
 
 .btn-outline {
   background: transparent;
   color: var(--color-cinnamon);
   border: 2px solid var(--color-cinnamon);
-  box-shadow: 0 4px 20px rgba(154, 116, 78, 0.15);
 }
 
 .btn-outline:hover {
   background: var(--color-cinnamon);
   color: white;
-  box-shadow: 0 6px 30px rgba(154, 116, 78, 0.25);
 }
 
 /* Button animation on load */
@@ -181,7 +179,6 @@
 .form-input:focus {
   outline: none;
   border-color: var(--color-cinnamon);
-  box-shadow: 0 0 0 3px rgba(154, 116, 78, 0.1);
   transform: translateY(-2px);
 }
 
@@ -221,7 +218,11 @@
 .card-header {
   padding: 24px 32px;
   border-bottom: 1px solid var(--color-softdune-light);
-  background: linear-gradient(135deg, var(--color-marble-lighter) 0%, white 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-marble-lighter) 0%,
+    white 100%
+  );
 }
 
 /* === GRID === */

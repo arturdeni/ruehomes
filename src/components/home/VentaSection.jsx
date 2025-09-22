@@ -18,7 +18,7 @@ const VentaSection = () => {
           {/* Texto */}
           <div className="venta-text">
             <ScrollReveal
-              containerClassName="mb-12"
+              containerClassName="mb-6"
               size="sm"
               align="left"
               baseOpacity={0.2}
@@ -57,7 +57,6 @@ const VentaSection = () => {
 
       <style jsx>{`
         .venta-section {
-          min-height: 100vh;
           padding: 8rem 0;
           background: white;
         }
@@ -154,7 +153,7 @@ const VentaSection = () => {
 
         @media (max-width: 760px) {
           .venta-section {
-            padding: 1rem 0;
+            padding: 1rem 0 2rem;
           }
           
           .venta-content {

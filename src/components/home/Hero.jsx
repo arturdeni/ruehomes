@@ -1,11 +1,21 @@
 // src/components/home/Hero.jsx
 import { useState } from "react";
-import AnimatedGradientBackground from "../ui/AnimatedGradientBackground";
+import RotatingText from "../ui/RotatingText";
 import heroImage from "../../assets/images/hero/hero-background.webp";
-import AnimatedLogo from "../ui/AnimatedLogo";
 
 const Hero = () => {
   const [searchQuery, setSearchQuery] = useState("");
+
+  const words = [
+    "casa",
+    "piso",
+    "apartamento",
+    "dúplex",
+    "ático",
+    "chalet",
+    "estudio",
+    "loft",
+  ];
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -21,24 +31,24 @@ const Hero = () => {
       {/* Imagen de fondo con parallax */}
       <div className="hero-background"></div>
 
-      {/* ShaderGradient como overlay animado con opacidad */}
-      <AnimatedGradientBackground
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          zIndex: -1,
-        }}
-        animate={true}
-      />
+      {/* Gradiente overlay */}
+      <div className="hero-overlay"></div>
 
       <div className="container">
         <div className="hero-content">
-          <AnimatedLogo className="mb-6" delay={300} />
           <p className="hero-subtitle">
-            Encuentra un lugar al que llamar hogar
+            Encuentra tu{" "}
+            <RotatingText
+              texts={words}
+              transition={{
+                type: "spring",
+                damping: 35,
+                stiffness: 400,
+                duration: 1,
+              }}
+            />
+            <br />
+            al mejor precio
           </p>
 
           {/* Buscador */}
@@ -97,7 +107,24 @@ const Hero = () => {
           background-attachment: fixed;
           z-index: -2;
           will-change: transform;
-          /* Quitamos la opacidad reducida de la imagen para que se vea bien */
+        }
+
+        .hero-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          width: 100%;
+          height: 120vh;
+          background: linear-gradient(
+            135deg,
+            rgba(154, 116, 78, 0.3) 0%,
+            rgba(154, 116, 78, 0.15) 30%,
+            rgba(0, 0, 0, 0.25) 70%,
+            rgba(0, 0, 0, 0.4) 100%
+          );
+          z-index: -1;
         }
 
         .hero-content {
@@ -108,24 +135,14 @@ const Hero = () => {
           margin: 0 auto;
         }
 
-        .hero-title {
-          font-family: var(--font-primary);
-          font-size: 5rem;
-          font-weight: 400;
-          margin-bottom: 1rem;
-          line-height: 1.1;
-          text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-          letter-spacing: 1px;
-        }
-
         .hero-subtitle {
           font-family: var(--font-secondary);
-          font-size: 1.5rem;
-          color: var(--color-marble-lighter);
+          font-size: 2rem;
+          color: white;
           margin-bottom: 4rem;
           line-height: 1.4;
-          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-          font-weight: 300;
+          text-shadow: 0px 0px 12px rgba(0, 0, 0, 0.15);
+          font-weight: 600;
           letter-spacing: 0.5px;
         }
 
@@ -138,7 +155,6 @@ const Hero = () => {
           background: rgba(255, 255, 255, 0.95);
           border-radius: 60px;
           padding: 9px;
-          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
           max-width: 550px;
           margin: 0 auto;
           backdrop-filter: blur(15px);
@@ -151,7 +167,7 @@ const Hero = () => {
           outline: none;
           padding: 1rem 1rem;
           font-size: 1rem;
-          color: var(--color-rust);
+          color: var(--color-honeyfield);
           font-family: var(--font-secondary);
           background: transparent;
           font-weight: 400;
@@ -165,8 +181,8 @@ const Hero = () => {
         .search-button {
           background: linear-gradient(
             135deg,
-            var(--color-cinnamon) 0%,
-            var(--color-cinnamon-dark) 100%
+            var(--color-honeyfield) 0%,
+            var(--color-rust-dark) 100%
           );
           border: none;
           border-radius: 50px;
@@ -176,7 +192,6 @@ const Hero = () => {
           display: flex;
           align-items: center;
           justify-content: center;
-          box-shadow: 0 4px 15px rgba(154, 116, 78, 0.3);
         }
 
         .search-button:hover {
@@ -186,7 +201,6 @@ const Hero = () => {
             var(--color-cinnamon-darker) 100%
           );
           transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(154, 116, 78, 0.4);
         }
 
         .search-icon {
@@ -197,7 +211,8 @@ const Hero = () => {
 
         /* === RESPONSIVE === */
         @media (max-width: 768px) {
-          .hero-background {
+          .hero-background,
+          .hero-overlay {
             background-attachment: scroll; /* Mejor performance en móviles */
             height: 100vh;
           }
@@ -235,14 +250,16 @@ const Hero = () => {
 
         /* === OPTIMIZACIÓN PARALLAX === */
         @media (prefers-reduced-motion: reduce) {
-          .hero-background {
+          .hero-background,
+          .hero-overlay {
             transform: none !important;
           }
         }
 
         /* Mejora performance en dispositivos móviles */
         @media (max-width: 1024px) {
-          .hero-background {
+          .hero-background,
+          .hero-overlay {
             transform: none !important;
             background-attachment: scroll;
           }

@@ -84,7 +84,7 @@ const Header = () => {
           <nav className="header-nav">
             {/* Logo */}
             <Link to="/" className="header-logo">
-              <span className="logo-name">RH</span>
+              <img src="/logo.png" alt="RueHomes" className="logo-image" />
             </Link>
 
             {/* Hamburger menu button - Siempre visible */}
@@ -155,7 +155,7 @@ const Header = () => {
           }
 
           .header-main {
-            background: rgba(143, 88, 53, 0.8);
+            background-color: var(--color-honeyfield);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             position: fixed;
@@ -175,12 +175,11 @@ const Header = () => {
           }
 
           .header-scrolled {
-            background: rgba(143, 88, 53, 0.8);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            background-color: var(--color-honeyfield);
           }
 
           .header-main:hover {
-            background: rgba(143, 88, 53, 0.8);
+            background-color: var(--color-honeyfield);
           }
 
           .header-container {
@@ -206,14 +205,10 @@ const Header = () => {
             z-index: 102;
           }
 
-          .logo-name {
-            color: white;
-            font-family: var(--font-logo);
-            font-size: 2rem;
-            font-weight: 500;
-            white-space: nowrap;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+          .logo-image {
+            height: 2rem;
+            width: auto;
+            object-fit: contain;
           }
 
           /* === HAMBURGER BUTTON === */
@@ -227,10 +222,6 @@ const Header = () => {
             transition: all 0.3s ease;
             z-index: 102;
             flex-shrink: 0;
-          }
-
-          .hamburger-btn:hover .hamburger-line {
-            background-color: var(--color-cinnamon-light);
           }
 
           .hamburger {
@@ -268,8 +259,8 @@ const Header = () => {
             height: 100vh;
             height: 100dvh;
             background: linear-gradient(
-              135deg,
-              var(--color-rust) 0%,
+              245deg,
+              var(--color-honeyfield) 0%,
               var(--color-rust-darker) 100%
             );
             z-index: 101;
@@ -330,8 +321,8 @@ const Header = () => {
             height: 2px;
             background: linear-gradient(
               90deg,
-              var(--color-cinnamon) 0%,
-              var(--color-cinnamon-light) 100%
+              var(--color-honeyfield) 0%,
+              var(--color-rust-light) 100%
             );
             transition: width 0.3s ease;
           }
@@ -387,7 +378,7 @@ const Header = () => {
           .contact-phone:hover,
           .contact-email:hover {
             background: rgba(255, 255, 255, 0.1);
-            color: var(--color-cinnamon-light);
+            color: var(--color-rust-light);
           }
 
           /* === OVERLAY === */
@@ -430,8 +421,8 @@ const Header = () => {
               padding: 1rem 0;
             }
 
-            .logo-name {
-              font-size: 1.5rem;
+            .logo-image {
+              height: 1.5rem;
             }
 
             .nav-menu {
@@ -457,8 +448,8 @@ const Header = () => {
 
           /* === PREVENT HORIZONTAL SCROLL === */
           @media (max-width: 480px) {
-            .logo-name {
-              font-size: 1.3rem;
+            .logo-image {
+              height: 1.3rem;
             }
 
             .header-container {
