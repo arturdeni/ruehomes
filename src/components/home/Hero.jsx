@@ -137,7 +137,7 @@ const Hero = () => {
 
         .hero-subtitle {
           font-family: var(--font-secondary);
-          font-size: 2rem;
+          font-size: 2.5rem;
           color: white;
           margin-bottom: 4rem;
           line-height: 1.4;
@@ -222,7 +222,7 @@ const Hero = () => {
           }
 
           .hero-subtitle {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             margin-bottom: 3rem;
           }
 
