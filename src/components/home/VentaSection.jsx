@@ -6,10 +6,6 @@ import AnimatedButton from "../ui/AnimatedButton";
 import turullCuina from "../../assets/images/vender/Turull-cuina.webp";
 import turullPiano from "../../assets/images/vender/Turull-piano.webp";
 
-// Añade esto para verificar que se importan bien
-console.log("turullCuina:", turullCuina);
-console.log("turullPiano:", turullPiano);
-
 const VentaSection = () => {
   return (
     <section className="venta-section">

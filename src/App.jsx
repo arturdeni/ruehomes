@@ -1,9 +1,10 @@
-// src/App.jsx - Versión temporal solo con páginas existentes
+// src/App.jsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 
 // Páginas que existen
 import Home from "./pages/Home";
+import Sell from "./pages/Sell";
 
 // Estilos
 import "./styles/variables.css";
@@ -39,7 +40,7 @@ function App() {
             path="/propiedad/:id"
             element={<ComingSoon pageName="Detalle de Propiedad" />}
           />
-          <Route path="/vender" element={<ComingSoon pageName="Vender" />} />
+          <Route path="/vender" element={<Sell />} />
           <Route
             path="/tailored-services"
             element={<ComingSoon pageName="Servicios Premium" />}
