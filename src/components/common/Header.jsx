@@ -187,7 +187,7 @@ const Header = () => {
           }
 
           .header-main {
-            background-color: var(--color-marble);
+            background-color: var(--color-marble-lighter);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             position: fixed;
@@ -207,11 +207,11 @@ const Header = () => {
           }
 
           .header-scrolled {
-            background-color: var(--color-marble);
+            background-color: var(--color-marble-lighter);
           }
 
           .header-main:hover {
-            background-color: var(--color-marble);
+            background-color: var(--color-marble-lighter);
           }
 
           .header-container {
@@ -290,7 +290,7 @@ const Header = () => {
             width: 400px;
             height: 100vh;
             height: 100dvh;
-            background: var(--color-marble);
+            background: var(--color-marble-lighter);
             z-index: 101;
             transition: opacity 0.4s ease, visibility 0.4s ease;
             overflow-y: auto;
@@ -349,7 +349,7 @@ const Header = () => {
             height: 2px;
             background: linear-gradient(
               90deg,
-              var(--color-marble) 0%,
+              var(--color-marble-lighter) 0%,
               var(--color-rust-light) 100%
             );
             transition: width 0.3s ease;

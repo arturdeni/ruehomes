@@ -4,6 +4,8 @@ import Layout from "./components/layout/Layout";
 
 // Páginas que existen
 import Home from "./pages/Home";
+import Properties from "./pages/Properties";
+import PropertyDetailPage from "./pages/PropertyDetailPage";
 import Sell from "./pages/Sell";
 
 // Estilos
@@ -32,14 +34,8 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route
-            path="/propiedades"
-            element={<ComingSoon pageName="Propiedades" />}
-          />
-          <Route
-            path="/propiedad/:id"
-            element={<ComingSoon pageName="Detalle de Propiedad" />}
-          />
+          <Route path="/propiedades" element={<Properties />} />
+          <Route path="/propiedad/:id" element={<PropertyDetailPage />} />
           <Route path="/vender" element={<Sell />} />
           <Route
             path="/tailored-services"

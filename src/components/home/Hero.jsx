@@ -215,7 +215,7 @@ const Hero = () => {
 
         .search-container {
           display: flex;
-          background: var(--color-marble);
+          background: var(--color-marble-lighter);
           border-radius: 60px;
           padding: 7px;
           max-width: 450px;
