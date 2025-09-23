@@ -1,288 +1,392 @@
-// src/components/home/InstagramSection.jsx
+import React from "react";
 
 const InstagramSection = () => {
-  // Datos temporales de posts de Instagram
-  const instagramPosts = [
-    {
-      id: 1,
-      image: null, // placeholder
-      caption: "Nueva propiedad disponible en zona premium...",
-      likes: 125,
-      comments: 8,
-    },
-    {
-      id: 2,
-      image: null,
-      caption: "Casa familiar con jardín privado...",
-      likes: 89,
-      comments: 12,
-    },
-    {
-      id: 3,
-      image: null,
-      caption: "Piso moderno en el centro de la ciudad...",
-      likes: 156,
-      comments: 6,
-    },
-    {
-      id: 4,
-      image: null,
-      caption: "Oficinas de lujo con vistas panorámicas...",
-      likes: 203,
-      comments: 15,
-    },
-    {
-      id: 5,
-      image: null,
-      caption: "Local comercial en zona de alto tránsito...",
-      likes: 76,
-      comments: 4,
-    },
-    {
-      id: 6,
-      image: null,
-      caption: "Villa exclusiva con piscina privada...",
-      likes: 298,
-      comments: 22,
-    },
-  ];
-
   return (
-    <section className="instagram-section">
-      <div className="container">
-        <div className="section-header">
-          <div className="header-content">
-            <div className="instagram-icon">
-              <svg fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+    <section className="instagram__section">
+      <div className="instagram__container">
+        {/* Header Section */}
+        <div className="instagram__header">
+          <div className="instagram__brand">
+            <div className="instagram__logo">
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="2"
+                  y="2"
+                  width="20"
+                  height="20"
+                  rx="5"
+                  stroke="var(--color-rust)"
+                  strokeWidth="2"
+                />
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="4"
+                  stroke="var(--color-rust)"
+                  strokeWidth="2"
+                />
+                <circle cx="17.5" cy="6.5" r="1.5" fill="var(--color-rust)" />
               </svg>
             </div>
-            <div className="header-text">
-              <h2 className="section-title">Síguenos en Instagram</h2>
-              <p className="section-subtitle">
-                Descubre las últimas propiedades y novedades de Rue Homes
+            <div className="instagram__text">
+              <h2 className="instagram__title">Síguenos en Instagram</h2>
+              <p className="instagram__subtitle">
+                Descubre nuestras propiedades exclusivas y el día a día de
+                RueHomes
               </p>
             </div>
           </div>
+
           <a
             href="https://instagram.com/ruehomes"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-outline"
+            className="instagram__cta"
           >
-            Seguir @ruehomes
+            <span>Visitar perfil</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M15 3h6v6"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M10 14L21 3"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </a>
         </div>
 
-        <div className="instagram-grid">
-          {instagramPosts.map((post) => (
-            <div key={post.id} className="instagram-post">
-              <div className="post-image">
-                <div className="image-placeholder">
-                  <svg
-                    className="placeholder-icon"
-                    fill="none"
+        {/* Placeholder Grid */}
+        <div className="instagram__grid">
+          {[1, 2, 3, 4, 5, 6].map((index) => (
+            <div key={index} className="instagram__placeholder">
+              <div className="instagram__placeholder-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                  <rect
+                    x="3"
+                    y="3"
+                    width="18"
+                    height="18"
+                    rx="2"
                     stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1}
-                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                    />
-                  </svg>
-                </div>
-
-                {/* Overlay al hacer hover */}
-                <div className="post-overlay">
-                  <div className="post-stats">
-                    <div className="stat-item">
-                      <svg fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                      </svg>
-                      <span>{post.likes}</span>
-                    </div>
-                    <div className="stat-item">
-                      <svg fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M21.99 4c0-1.1-.89-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18z" />
-                      </svg>
-                      <span>{post.comments}</span>
-                    </div>
-                  </div>
-                </div>
+                    strokeWidth="1.5"
+                  />
+                  <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" />
+                  <path
+                    d="M21 15l-5-5L5 21"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                  />
+                </svg>
               </div>
+              <div className="instagram__placeholder-text">Próximamente</div>
             </div>
           ))}
+        </div>
+
+        {/* Coming Soon Notice */}
+        <div className="instagram__notice">
+          <p className="instagram__notice-text">
+            📸 Estamos preparando contenido increíble para mostrar nuestras
+            mejores propiedades
+          </p>
         </div>
       </div>
 
       <style jsx>{`
-        .instagram-section {
-          padding: 8rem 0;
-          background: var(--color-softdune-lighter);
+        .instagram__section {
+          padding: 6rem 0;
+          background-color: #f0e5d5;
+          position: relative;
+          overflow: hidden;
         }
 
-        .header-content {
+        .instagram__container {
+          max-width: 1400px;
+          margin: 0 auto;
+          padding: 0 2rem;
+        }
+
+        /* Header Styles */
+        .instagram__header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 4rem;
+          flex-wrap: wrap;
+          gap: 2rem;
+        }
+
+        .instagram__brand {
           display: flex;
           align-items: center;
           gap: 1.5rem;
         }
 
-        .instagram-icon {
+        .instagram__logo {
           width: 60px;
           height: 60px;
-          background: linear-gradient(
-            45deg,
-            #f09433 0%,
-            #e6683c 25%,
-            #dc2743 50%,
-            #cc2366 75%,
-            #bc1888 100%
-          );
-          border-radius: 16px;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: white;
-          flex-shrink: 0;
         }
 
-        .instagram-icon svg {
-          width: 32px;
-          height: 32px;
-        }
-
-        .header-text {
+        .instagram__text {
           flex: 1;
         }
 
-        .section-title {
-          font-family: var(--font-primary);
+        .instagram__title {
+          font-family: "Crimson Text", serif;
           font-size: 2.5rem;
-          color: var(--color-rust);
-          margin-bottom: 0.5rem;
+          font-weight: 400;
+          color: #483228;
+          margin: 0;
+          line-height: 1.2;
         }
 
-        .section-subtitle {
-          font-family: var(--font-secondary);
-          color: var(--color-rust-light);
+        .instagram__subtitle {
+          font-family: "Inter", sans-serif;
           font-size: 1.1rem;
+          font-weight: 300;
+          color: #5d433a;
+          margin: 0.5rem 0 0 0;
+          line-height: 1.4;
         }
 
-        .instagram-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-          gap: 1rem;
-        }
-
-        .instagram-post {
+        .instagram__cta {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 14px 28px;
+          background: transparent;
+          color: var(--color-rust, #9a744e);
+          border: 2px solid var(--color-rust, #9a744e);
+          border-radius: 50px;
+          text-decoration: none;
+          font-family: "Inter", sans-serif;
+          font-weight: 500;
+          font-size: 0.95rem;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           position: relative;
-          aspect-ratio: 1;
-          border-radius: 12px;
           overflow: hidden;
-          cursor: pointer;
-          transition: all 0.3s ease;
         }
 
-        .instagram-post:hover {
-          transform: scale(1.02);
-        }
-
-        .post-image {
+        .instagram__cta::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: -100%;
           width: 100%;
           height: 100%;
-          position: relative;
+          background: var(--color-rust, #9a744e);
+          transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          z-index: -1;
         }
 
-        .image-placeholder {
-          width: 100%;
-          height: 100%;
+        .instagram__cta:hover::before {
+          left: 0;
+        }
+
+        .instagram__cta:hover {
+          color: white;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(154, 116, 78, 0.3);
+        }
+
+        /* Grid Styles */
+        .instagram__grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 1.5rem;
+          margin-bottom: 3rem;
+        }
+
+        .instagram__placeholder {
+          aspect-ratio: 1;
           background: linear-gradient(
             135deg,
-            var(--color-softdune) 0%,
-            var(--color-softdune-light) 100%
+            rgba(255, 255, 255, 0.9) 0%,
+            rgba(255, 255, 255, 0.7) 100%
           );
+          backdrop-filter: blur(10px);
+          border-radius: 20px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
           display: flex;
+          flex-direction: column;
           align-items: center;
           justify-content: center;
+          gap: 1rem;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
+          overflow: hidden;
         }
 
-        .placeholder-icon {
-          width: 40px;
-          height: 40px;
-          color: var(--color-cinnamon);
-          opacity: 0.7;
-        }
-
-        .post-overlay {
+        .instagram__placeholder::before {
+          content: "";
           position: absolute;
           top: 0;
           left: 0;
           right: 0;
           bottom: 0;
-          background: rgba(0, 0, 0, 0.6);
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          background: linear-gradient(
+            45deg,
+            transparent 25%,
+            rgba(154, 116, 78, 0.03) 25%,
+            rgba(154, 116, 78, 0.03) 50%,
+            transparent 50%,
+            transparent 75%,
+            rgba(154, 116, 78, 0.03) 75%
+          );
+          background-size: 30px 30px;
           opacity: 0;
-          transition: all 0.3s ease;
+          transition: opacity 0.3s ease;
         }
 
-        .instagram-post:hover .post-overlay {
+        .instagram__placeholder:hover::before {
           opacity: 1;
         }
 
-        .post-stats {
-          display: flex;
-          gap: 2rem;
-          color: white;
+        .instagram__placeholder:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 16px 40px rgba(154, 116, 78, 0.15);
+          border-color: rgba(154, 116, 78, 0.2);
         }
 
-        .stat-item {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          font-family: var(--font-secondary);
-          font-weight: 600;
+        .instagram__placeholder-icon {
+          color: var(--color-rust, #9a744e);
+          opacity: 0.6;
+          transition: all 0.3s ease;
         }
 
-        .stat-item svg {
-          width: 20px;
-          height: 20px;
+        .instagram__placeholder:hover .instagram__placeholder-icon {
+          opacity: 1;
+          transform: scale(1.1);
         }
 
-        /* === RESPONSIVE === */
+        .instagram__placeholder-text {
+          font-family: "Inter", sans-serif;
+          font-size: 0.9rem;
+          font-weight: 500;
+          color: #5d433a;
+          text-align: center;
+          opacity: 0.7;
+          transition: opacity 0.3s ease;
+        }
+
+        .instagram__placeholder:hover .instagram__placeholder-text {
+          opacity: 1;
+        }
+
+        /* Notice Styles */
+        .instagram__notice {
+          text-align: center;
+          padding: 2rem;
+          background: rgba(255, 255, 255, 0.6);
+          backdrop-filter: blur(15px);
+          border-radius: 16px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          margin-top: 2rem;
+        }
+
+        .instagram__notice-text {
+          font-family: "Inter", sans-serif;
+          font-size: 1rem;
+          font-weight: 400;
+          color: #5d433a;
+          margin: 0;
+          line-height: 1.5;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-          .instagram-section {
+          .instagram__section {
             padding: 4rem 0;
           }
 
-          .section-header {
-            flex-direction: column;
-            text-align: center;
+          .instagram__container {
+            padding: 0 1.5rem;
           }
 
-          .header-content {
+          .instagram__header {
+            flex-direction: column;
+            text-align: center;
+            margin-bottom: 3rem;
+          }
+
+          .instagram__brand {
             flex-direction: column;
             text-align: center;
             gap: 1rem;
           }
 
-          .section-title {
+          .instagram__title {
             font-size: 2rem;
           }
 
-          .instagram-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.75rem;
+          .instagram__subtitle {
+            font-size: 1rem;
+          }
+
+          .instagram__grid {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+          }
+
+          .instagram__cta {
+            padding: 12px 24px;
+            font-size: 0.9rem;
           }
         }
 
-        @media (min-width: 1200px) {
-          .instagram-grid {
-            grid-template-columns: repeat(6, 1fr);
+        @media (max-width: 480px) {
+          .instagram__grid {
+            grid-template-columns: 1fr;
           }
+
+          .instagram__title {
+            font-size: 1.75rem;
+          }
+        }
+
+        /* Animation for future content loading */
+        @keyframes instagram__shimmer {
+          0% {
+            background-position: -200px 0;
+          }
+          100% {
+            background-position: calc(200px + 100%) 0;
+          }
+        }
+
+        .instagram__loading-animation {
+          background: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.6) 50%,
+            rgba(255, 255, 255, 0) 100%
+          );
+          background-size: 200px 100%;
+          animation: instagram__shimmer 2s infinite;
         }
       `}</style>
     </section>
