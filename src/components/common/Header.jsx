@@ -84,7 +84,7 @@ const Header = () => {
           <nav className="header-nav">
             {/* Logo */}
             <Link to="/" className="header-logo">
-              <img src="/logo.png" alt="RueHomes" className="logo-image" />
+              <img src="/logo-mini.svg" alt="RueHomes" className="logo-image" />
             </Link>
 
             {/* Hamburger menu button - Siempre visible */}
@@ -155,7 +155,7 @@ const Header = () => {
           }
 
           .header-main {
-            background-color: var(--color-honeyfield);
+            background-color: var(--color-marble);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             position: fixed;
@@ -175,11 +175,11 @@ const Header = () => {
           }
 
           .header-scrolled {
-            background-color: var(--color-honeyfield);
+            background-color: var(--color-marble);
           }
 
           .header-main:hover {
-            background-color: var(--color-honeyfield);
+            background-color: var(--color-marble);
           }
 
           .header-container {
@@ -233,7 +233,7 @@ const Header = () => {
           .hamburger-line {
             width: 24px;
             height: 2px;
-            background-color: white;
+            background-color: black;
             border-radius: 1px;
             transition: all 0.3s ease;
           }
@@ -258,11 +258,7 @@ const Header = () => {
             width: 400px;
             height: 100vh;
             height: 100dvh;
-            background: linear-gradient(
-              245deg,
-              var(--color-honeyfield) 0%,
-              var(--color-rust-darker) 100%
-            );
+            background: var(--color-marble);
             z-index: 101;
             transition: opacity 0.4s ease, visibility 0.4s ease;
             overflow-y: auto;
@@ -295,7 +291,7 @@ const Header = () => {
 
           .nav-menu-link {
             display: block;
-            color: var(--color-softdune-light);
+            color: black;
             text-decoration: none;
             font-family: var(--font-secondary);
             font-weight: 500;
@@ -321,15 +317,14 @@ const Header = () => {
             height: 2px;
             background: linear-gradient(
               90deg,
-              var(--color-honeyfield) 0%,
+              var(--color-marble) 0%,
               var(--color-rust-light) 100%
             );
             transition: width 0.3s ease;
           }
 
           .nav-menu-link:hover {
-            color: white;
-            transform: translateX(8px) translateY(0);
+            color: var(--color-rust);
           }
 
           .nav-menu-link:hover::after {
@@ -337,7 +332,7 @@ const Header = () => {
           }
 
           .nav-menu-link-active {
-            color: white;
+            color: var(--color-rust);
             font-weight: 600;
           }
 
@@ -355,7 +350,6 @@ const Header = () => {
           .nav-menu-footer {
             margin-top: 2rem;
             padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
           }
 
           .contact-info {
@@ -365,7 +359,7 @@ const Header = () => {
           .contact-phone,
           .contact-email {
             display: block;
-            color: white;
+            color: black;
             text-decoration: none;
             font-family: var(--font-secondary);
             font-weight: 500;

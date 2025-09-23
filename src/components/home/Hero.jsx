@@ -1,21 +1,50 @@
 // src/components/home/Hero.jsx
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import RotatingText from "../ui/RotatingText";
-import heroImage from "../../assets/images/hero/hero-background.webp";
+import heroImageStatic from "../../assets/images/hero/hero-background-static.png";
 
 const Hero = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const videoRef = useRef(null);
 
-  const words = [
-    "casa",
-    "piso",
-    "apartamento",
-    "dúplex",
-    "ático",
-    "chalet",
-    "estudio",
-    "loft",
-  ];
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detectar si es móvil
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const words = isMobile
+    ? ["hogar", "piso", "dúplex", "ático", "chalet", "estudio", "loft"]
+    : [
+        "hogar",
+        "piso",
+        "apartamento",
+        "dúplex",
+        "ático",
+        "chalet",
+        "estudio",
+        "loft",
+      ];
+
+  // Intentar reproducir el video cuando se cargue
+  const handleVideoLoad = () => {
+    if (videoRef.current) {
+      setVideoLoaded(true);
+      videoRef.current.play().catch(() => {
+        // Si falla la reproducción, mantener la imagen de fondo visible
+        setVideoLoaded(false);
+      });
+    }
+  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -28,8 +57,22 @@ const Hero = () => {
 
   return (
     <section className="hero-section">
-      {/* Imagen de fondo con parallax */}
+      {/* Imagen de fondo estática - siempre visible hasta que cargue el video */}
       <div className="hero-background"></div>
+
+      {/* Video de fondo - siempre activo */}
+      <video
+        ref={videoRef}
+        className={`hero-video ${videoLoaded ? "loaded" : ""}`}
+        autoPlay
+        muted
+        loop
+        playsInline
+        onCanPlay={handleVideoLoad}
+        onLoadedData={handleVideoLoad}
+      >
+        <source src="/videos/hero-background.webm" type="video/webm" />
+      </video>
 
       {/* Gradiente overlay */}
       <div className="hero-overlay"></div>
@@ -37,10 +80,10 @@ const Hero = () => {
       <div className="container">
         <div className="hero-content">
           <p className="hero-subtitle">
-            Encuentra tu{" "}
+            Tu próximo{" "}
             <RotatingText
               texts={words}
-              enableWidthTransition={true} // ✅ Activa la transición suave
+              enableWidthTransition={true}
               widthTransitionDuration={0.5}
               transition={{
                 type: "spring",
@@ -50,7 +93,7 @@ const Hero = () => {
               }}
             />
             <br />
-            al mejor precio
+            está aquí
           </p>
 
           {/* Buscador */}
@@ -84,7 +127,7 @@ const Hero = () => {
       </div>
 
       <style jsx>{`
-        /* === HERO SECTION CON PARALLAX === */
+        /* === HERO SECTION === */
         .hero-section {
           position: relative;
           min-height: 100vh;
@@ -94,6 +137,7 @@ const Hero = () => {
           overflow: hidden;
         }
 
+        /* === IMAGEN DE FONDO ESTÁTICA === */
         .hero-background {
           position: fixed;
           top: 0;
@@ -101,14 +145,34 @@ const Hero = () => {
           right: 0;
           bottom: 0;
           width: 100%;
-          height: 120vh; /* Más alto para el efecto parallax */
-          background-image: url("${heroImage}");
+          height: 120vh;
+          background-image: url("${heroImageStatic}");
           background-size: cover;
           background-position: center center;
           background-repeat: no-repeat;
           background-attachment: fixed;
-          z-index: -2;
+          z-index: -3;
           will-change: transform;
+        }
+
+        /* === VIDEO DE FONDO === */
+        .hero-video {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          width: 100%;
+          height: 120vh;
+          object-fit: cover;
+          z-index: -2;
+          opacity: 0;
+          transition: opacity 0.8s ease-in-out;
+          will-change: transform, opacity;
+        }
+
+        .hero-video.loaded {
+          opacity: 1;
         }
 
         .hero-overlay {
@@ -121,10 +185,10 @@ const Hero = () => {
           height: 120vh;
           background: linear-gradient(
             135deg,
-            rgba(154, 116, 78, 0.3) 0%,
-            rgba(154, 116, 78, 0.15) 30%,
-            rgba(0, 0, 0, 0.25) 70%,
-            rgba(0, 0, 0, 0.4) 100%
+            rgba(154, 116, 78, 0.6) 0%,
+            rgba(154, 116, 78, 0.3) 30%,
+            rgba(0, 0, 0, 0.55) 70%,
+            rgba(0, 0, 0, 0.7) 100%
           );
           z-index: -1;
         }
@@ -137,12 +201,11 @@ const Hero = () => {
         }
 
         .hero-subtitle {
-          font-family: var(--font-secondary);
+          font-family: var(--font-primary);
           font-size: 4.5rem;
           color: white;
           margin-bottom: 4rem;
-          line-height: 1;
-          font-weight: 600;
+          line-height: 1.12;
           letter-spacing: 0.5px;
         }
 
@@ -152,13 +215,12 @@ const Hero = () => {
 
         .search-container {
           display: flex;
-          background: rgba(255, 255, 255, 0.95);
+          background: var(--color-marble);
           border-radius: 60px;
-          padding: 9px;
-          max-width: 550px;
+          padding: 7px;
+          max-width: 450px;
           margin: 0 auto;
           backdrop-filter: blur(15px);
-          border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .search-input {
@@ -167,7 +229,7 @@ const Hero = () => {
           outline: none;
           padding: 1rem 1rem;
           font-size: 1rem;
-          color: var(--color-honeyfield);
+          color: black;
           font-family: var(--font-secondary);
           background: transparent;
           font-weight: 400;
@@ -179,11 +241,7 @@ const Hero = () => {
         }
 
         .search-button {
-          background: linear-gradient(
-            135deg,
-            var(--color-honeyfield) 0%,
-            var(--color-rust-dark) 100%
-          );
+          background: var(--color-honeyfield);
           border: none;
           border-radius: 50px;
           padding: 1.2rem 2rem;
@@ -195,12 +253,7 @@ const Hero = () => {
         }
 
         .search-button:hover {
-          background: linear-gradient(
-            135deg,
-            var(--color-cinnamon-dark) 0%,
-            var(--color-cinnamon-darker) 100%
-          );
-          transform: translateY(-2px);
+          background: var(--color-rust);
         }
 
         .search-icon {
@@ -213,16 +266,16 @@ const Hero = () => {
         @media (max-width: 768px) {
           .hero-background,
           .hero-overlay {
-            background-attachment: scroll; /* Mejor performance en móviles */
+            background-attachment: scroll;
             height: 100vh;
           }
 
-          .hero-title {
-            font-size: 3.5rem;
+          .hero-video {
+            height: 100vh;
           }
 
           .hero-subtitle {
-            font-size: 1.5rem;
+            font-size: 2.5rem;
             margin-bottom: 3rem;
           }
 
@@ -249,14 +302,6 @@ const Hero = () => {
         }
 
         /* === OPTIMIZACIÓN PARALLAX === */
-        @media (prefers-reduced-motion: reduce) {
-          .hero-background,
-          .hero-overlay {
-            transform: none !important;
-          }
-        }
-
-        /* Mejora performance en dispositivos móviles */
         @media (max-width: 1024px) {
           .hero-background,
           .hero-overlay {

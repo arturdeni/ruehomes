@@ -1,17 +1,17 @@
 .text-rotate {
   /* ✅ Cuando tiene transición de ancho, necesita ser inline-block */
   display: inline-block;
-  color: var(--color-cinnamon-dark);
+  color: burlywood;
   /* ✅ Alineación vertical clave - MUY ESPECÍFICA para inline-block */
   vertical-align: baseline !important;
   /* ✅ Eliminar márgenes y padding que puedan desalinear */
   margin: 0;
   padding: 0;
   /* ✅ Forzar line-height para que coincida con el texto circundante */
-  line-height: 1;
+  line-height: 1.12;
   /* ✅ Ajuste fino: bajar ligeramente el elemento */
   position: relative;
-  top: 0.15em;
+  top: 0.275em;
 }
 
 /* ✅ Cuando NO tiene transición de ancho, puede ser inline */
