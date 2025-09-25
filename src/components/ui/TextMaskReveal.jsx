@@ -1,21 +1,29 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 
-const TextMaskReveal = ({ children, className = "" }) => {
+const TextMaskReveal = ({
+  children,
+  className = "",
+  trigger = true,
+  delay = 0,
+}) => {
   const containerRef = useRef(null);
+  const animationExecutedRef = useRef(false);
+  const textLinesRef = useRef([]);
 
+  // Preparar el texto con máscaras desde el inicio
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || animationExecutedRef.current) return;
 
     const container = containerRef.current;
     const originalText =
       typeof children === "string" ? children : container.textContent;
 
-    // Primero renderizar el texto normalmente para que el navegador calcule las líneas
+    // Renderizar el texto normalmente para calcular líneas
     container.innerHTML = originalText;
     container.style.lineHeight = "1.4";
 
-    // Esperar a que se renderice completamente
+    // Preparar la estructura animada
     setTimeout(() => {
       // Obtener la altura total del texto
       const totalHeight = container.offsetHeight;
@@ -50,8 +58,9 @@ const TextMaskReveal = ({ children, className = "" }) => {
         }
       }
 
-      // Limpiar y crear las líneas con máscaras
+      // Limpiar y crear las líneas con máscaras (OCULTAS inicialmente)
       container.innerHTML = "";
+      textLinesRef.current = [];
 
       lines.forEach((lineText, index) => {
         // Contenedor con máscara
@@ -60,7 +69,7 @@ const TextMaskReveal = ({ children, className = "" }) => {
         maskWrapper.style.height = actualLineHeight + "px";
         maskWrapper.style.position = "relative";
 
-        // El texto que se va a animar
+        // El texto que se va a animar - OCULTO inicialmente
         const textLine = document.createElement("div");
         textLine.textContent = lineText;
         textLine.style.transform = "translateY(100%)";
@@ -70,7 +79,20 @@ const TextMaskReveal = ({ children, className = "" }) => {
         maskWrapper.appendChild(textLine);
         container.appendChild(maskWrapper);
 
-        // Animar cada línea
+        // Guardar referencia para animar luego
+        textLinesRef.current.push(textLine);
+      });
+
+      animationExecutedRef.current = true;
+    }, 100);
+  }, [children]);
+
+  // Ejecutar la animación cuando trigger sea true
+  useEffect(() => {
+    if (!trigger || textLinesRef.current.length === 0) return;
+
+    setTimeout(() => {
+      textLinesRef.current.forEach((textLine, index) => {
         gsap.to(textLine, {
           y: 0,
           duration: 1.1,
@@ -78,8 +100,8 @@ const TextMaskReveal = ({ children, className = "" }) => {
           delay: index * 0.1 + 0.3,
         });
       });
-    }, 100); // Dar tiempo suficiente para el renderizado
-  }, [children]);
+    }, delay);
+  }, [trigger, delay]);
 
   return (
     <div ref={containerRef} className={className}>

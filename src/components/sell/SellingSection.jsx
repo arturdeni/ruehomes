@@ -181,9 +181,9 @@ const SellingSection = () => {
 
             // Distribución más equilibrada: Fase 1 más corta, Fase 4 más larga
             let newPhaseIndex;
-            if (progress < 0.2) {
+            if (progress < 0.15) {
               newPhaseIndex = 0;
-            } else if (progress < 0.5) {
+            } else if (progress < 0.4) {
               newPhaseIndex = 1;
             } else if (progress < 0.7) {
               newPhaseIndex = 2;
@@ -302,7 +302,7 @@ const SellingSection = () => {
 
       <style jsx>{`
         .selling-section {
-          height: 250vh;
+          height: 320vh;
           position: relative;
           transition: background-color 0.3s ease;
         }

@@ -1,11 +1,15 @@
 // src/components/sell/SellHero.jsx
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import TextMaskReveal from "../ui/TextMaskReveal";
 
 const SellHero = () => {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const textRef = useRef(null);
+
+  // Estados para controlar las animaciones del TextMaskReveal
+  const [triggerFirstParagraph, setTriggerFirstParagraph] = useState(false);
+  const [triggerSecondParagraph, setTriggerSecondParagraph] = useState(false);
 
   // Función para manejar el scroll suave
   const handleScrollDown = () => {
@@ -37,8 +41,17 @@ const SellHero = () => {
               setTimeout(() => {
                 textRef.current.style.opacity = "1";
                 textRef.current.style.transform = "translateY(0)";
-              }, 600); // Un poco después del título
+              }, 600);
             }
+
+            // Activar las animaciones de TextMaskReveal en secuencia
+            setTimeout(() => {
+              setTriggerFirstParagraph(true);
+            }, 100);
+
+            setTimeout(() => {
+              setTriggerSecondParagraph(true);
+            }, 600); // Ligeramente después del primero
 
             observer.unobserve(entry.target);
           }
@@ -63,7 +76,11 @@ const SellHero = () => {
           </h1>
           <div ref={textRef} className="sell-hero-text">
             <div className="text-paragraph-container">
-              <TextMaskReveal className="text-paragraph">
+              <TextMaskReveal
+                className="text-paragraph"
+                trigger={triggerFirstParagraph}
+                delay={0}
+              >
                 En Rue Homes, cada venta es el inicio de una nueva historia.
                 Nuestro nombre y logotipo nacen de un símbolo urbano universal:
                 las placas que nombran las calles, capaces de otorgar identidad
@@ -72,7 +89,11 @@ const SellHero = () => {
             </div>
 
             <div className="text-paragraph-container">
-              <TextMaskReveal className="text-paragraph">
+              <TextMaskReveal
+                className="text-paragraph"
+                trigger={triggerSecondParagraph}
+                delay={0}
+              >
                 Así concebimos nuestro trabajo: dotamos a cada propiedad de una
                 identidad propia, la posicionamos estratégicamente mediante un
                 sistema respaldado por datos y la acompañamos hasta encontrar a

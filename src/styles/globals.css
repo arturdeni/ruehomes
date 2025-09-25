@@ -149,7 +149,6 @@ p {
     var(--color-cinnamon-dark) 0%,
     var(--color-cinnamon-darker) 100%
   );
-  transform: translateY(-2px);
 }
 
 .btn-secondary {
