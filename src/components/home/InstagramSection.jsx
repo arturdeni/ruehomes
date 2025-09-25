@@ -116,7 +116,7 @@ const InstagramSection = () => {
       <style jsx>{`
         .instagram__section {
           padding: 6rem 0;
-          background-color: #f0e5d5;
+          background-color: var(--color-marble-lighter);
           position: relative;
           overflow: hidden;
         }

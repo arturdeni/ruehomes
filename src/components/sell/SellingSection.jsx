@@ -31,7 +31,7 @@ const SellingSection = () => {
         "Consejos de presentación y mejoras para maximizar el valor.",
       ],
       image: fase1Image,
-      bgColor: "#EAE6DF",
+      bgColor: "#e7d2c3",
     },
     {
       id: 2,
@@ -44,7 +44,7 @@ const SellingSection = () => {
         "Campañas segmentadas en redes sociales y Google Ads.",
       ],
       image: fase2Image,
-      bgColor: "#dfc9b6",
+      bgColor: "#C1946A",
     },
     {
       id: 3,
@@ -56,7 +56,7 @@ const SellingSection = () => {
         "Negociación estratégica para lograr el mejor precio y condiciones.",
       ],
       image: fase3Image,
-      bgColor: "#cda077",
+      bgColor: "#b97e59",
     },
     {
       id: 4,
@@ -68,7 +68,7 @@ const SellingSection = () => {
         "Entrega de llaves y asistencia postventa.",
       ],
       image: fase4Image,
-      bgColor: "#c18f64",
+      bgColor: "#b97e59",
     },
   ];
 
@@ -132,6 +132,7 @@ const SellingSection = () => {
           trigger: sectionRef.current,
           start: "top top",
           end: "bottom bottom",
+          markers: true,
           scrub: 1,
           pin: contentRef.current,
           anticipatePin: 1,
@@ -141,9 +142,9 @@ const SellingSection = () => {
 
             // Distribución más equilibrada: Fase 1 más corta, Fase 4 más larga
             let newPhaseIndex;
-            if (progress < 0.15) {
+            if (progress < 0.2) {
               newPhaseIndex = 0;
-            } else if (progress < 0.4) {
+            } else if (progress < 0.5) {
               newPhaseIndex = 1;
             } else if (progress < 0.7) {
               newPhaseIndex = 2;
@@ -165,7 +166,7 @@ const SellingSection = () => {
         sectionRef.current,
         {
           backgroundColor: phases[1].bgColor,
-          duration: 0.3,
+          duration: 0.2,
           ease: "power2.inOut",
         },
         0.3
@@ -174,7 +175,7 @@ const SellingSection = () => {
           sectionRef.current,
           {
             backgroundColor: phases[2].bgColor,
-            duration: 0.3,
+            duration: 0.2,
             ease: "power2.inOut",
           },
           0.6
@@ -183,7 +184,7 @@ const SellingSection = () => {
           sectionRef.current,
           {
             backgroundColor: phases[3].bgColor,
-            duration: 0.3,
+            duration: 0.2,
             ease: "power2.inOut",
           },
           0.85
@@ -262,7 +263,7 @@ const SellingSection = () => {
 
       <style jsx>{`
         .selling-section {
-          height: 400vh;
+          height: 250vh;
           position: relative;
           transition: background-color 0.3s ease;
         }
@@ -275,7 +276,8 @@ const SellingSection = () => {
           z-index: 1;
         }
 
-        .container {
+        .selling-content .container {
+          justify-content: space-around;
           width: 100%;
         }
 

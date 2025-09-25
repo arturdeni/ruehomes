@@ -1,5 +1,6 @@
 // src/components/home/Hero.jsx
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import RotatingText from "../ui/RotatingText";
 import heroImageStatic from "../../assets/images/hero/hero-background-static.png";
 
@@ -7,6 +8,7 @@ const Hero = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [videoLoaded, setVideoLoaded] = useState(false);
   const videoRef = useRef(null);
+  const navigate = useNavigate();
 
   const [isMobile, setIsMobile] = useState(false);
 
@@ -48,11 +50,10 @@ const Hero = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
-      window.location.href = `/propiedades?search=${encodeURIComponent(
-        searchQuery.trim()
-      )}`;
-    }
+    // Usar el valor del input controlado
+    const ciudad = searchQuery;
+
+    navigate(`/propiedades?city=${encodeURIComponent(ciudad)}`);
   };
 
   return (

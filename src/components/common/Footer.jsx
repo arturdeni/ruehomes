@@ -258,7 +258,7 @@ const Footer = () => {
               reservados.
             </p>
             <p className="copyright-subtitle">
-              Desarrollado por Lexmake (lexmake.com)
+              Desarrollado por Lexmake | lexmake.com
             </p>
           </div>
         </div>
@@ -267,9 +267,9 @@ const Footer = () => {
       <style jsx>{`
         .footer-main {
           background: linear-gradient(
-            135deg,
-            var(--color-rust-darker) 0%,
-            var(--color-rust) 100%
+            180deg,
+            var(--color-rust) 0%,
+            var(--color-rust-light) 100%
           );
           color: white;
           position: relative;
@@ -385,7 +385,6 @@ const Footer = () => {
         .footer-title {
           font-family: var(--font-primary);
           font-size: 1.25rem;
-          font-weight: 600;
           color: white;
           margin-bottom: 1.5rem;
           position: relative;
@@ -527,7 +526,7 @@ const Footer = () => {
         }
 
         .copyright-subtitle {
-          color: var(--color-rust-light);
+          color: var(--color-honeyfield);
           font-family: var(--font-secondary);
           font-size: 0.85rem;
         }

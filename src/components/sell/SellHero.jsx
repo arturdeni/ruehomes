@@ -1,19 +1,17 @@
 // src/components/sell/SellHero.jsx
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import TextMaskReveal from "../ui/TextMaskReveal";
 
 const SellHero = () => {
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const textRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setIsVisible(true);
-
             // Animar el título
             if (titleRef.current) {
               setTimeout(() => {
@@ -22,12 +20,12 @@ const SellHero = () => {
               }, 300);
             }
 
-            // Animar el texto
+            // Animar el contenedor de texto ANTES que se ejecute TextMaskReveal
             if (textRef.current) {
               setTimeout(() => {
                 textRef.current.style.opacity = "1";
                 textRef.current.style.transform = "translateY(0)";
-              }, 600);
+              }, 600); // Un poco después del título
             }
 
             observer.unobserve(entry.target);
@@ -52,24 +50,77 @@ const SellHero = () => {
             <strong>Vender tu propiedad con Rue Homes</strong>
           </h1>
           <div ref={textRef} className="sell-hero-text">
-            <p>
-              <strong>
+            <div className="text-paragraph-container">
+              <TextMaskReveal className="text-paragraph">
                 En Rue Homes, cada venta es el inicio de una nueva historia.
-              </strong>
-            </p>
-            <p>
-              Nuestro nombre y logotipo nacen de un símbolo urbano universal:
-              las placas que nombran las calles, capaces de otorgar identidad a
-              un lugar y hacerlo único.
-            </p>
-            <p>
-              Así concebimos nuestro trabajo: dotamos a cada propiedad de una
-              identidad propia, la posicionamos estratégicamente mediante un
-              sistema respaldado por datos y la acompañamos hasta encontrar a
-              sus nuevos propietarios.
-            </p>
+                Nuestro nombre y logotipo nacen de un símbolo urbano universal:
+                las placas que nombran las calles, capaces de otorgar identidad
+                a un lugar y hacerlo único.
+              </TextMaskReveal>
+            </div>
+
+            <div className="text-paragraph-container">
+              <TextMaskReveal className="text-paragraph">
+                Así concebimos nuestro trabajo: dotamos a cada propiedad de una
+                identidad propia, la posicionamos estratégicamente mediante un
+                sistema respaldado por datos y la acompañamos hasta encontrar a
+                sus nuevos propietarios.
+              </TextMaskReveal>
+            </div>
           </div>
         </div>
+      </div>
+      {/* Scroll indicator movido fuera del content y posicionado absolutamente */}
+      <div className="sell-hero-scroll-down">
+        <p>Conoce el proceso de venta</p>
+        <span
+          className="scroll-down-indicator"
+          aria-label="Desplázate hacia abajo"
+        >
+          <svg
+            width="32"
+            height="32"
+            viewBox="0 0 32 32"
+            fill="none"
+            style={{ display: "block", margin: "0 auto" }}
+          >
+            <g>
+              <circle
+                cx="16"
+                cy="16"
+                r="15"
+                stroke="#935835"
+                strokeWidth="2"
+                fill="none"
+                opacity="0.15"
+              />
+              <polyline
+                points="12,14 16,20 20,14"
+                fill="none"
+                stroke="#935835"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </g>
+          </svg>
+          <style jsx>{`
+            .scroll-down-indicator {
+              display: inline-block;
+              animation: bounce 1.6s infinite;
+              cursor: pointer;
+            }
+            @keyframes bounce {
+              0%,
+              100% {
+                transform: translateY(0);
+              }
+              50% {
+                transform: translateY(12px);
+              }
+            }
+          `}</style>
+        </span>
       </div>
 
       <style jsx>{`
@@ -79,12 +130,11 @@ const SellHero = () => {
           align-items: center;
           justify-content: center;
           background: linear-gradient(
-            135deg,
+            180deg,
             var(--color-marble-lighter) 0%,
             var(--color-marble) 50%,
             var(--color-softdune-lighter) 100%
           );
-          padding: 6rem 0;
           position: relative;
           overflow: hidden;
         }
@@ -104,18 +154,27 @@ const SellHero = () => {
         .container {
           position: relative;
           z-index: 1;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
         }
 
         .sell-hero-content {
-          max-width: 900px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
           margin: 0 auto;
           text-align: center;
+          flex: 1;
+          justify-content: center;
         }
 
         .sell-hero-title {
           font-family: var(--font-primary);
-          font-size: 3.5rem;
+          font-size: 4.5rem;
           line-height: 1.2;
+          max-width: 600px;
           color: var(--color-rust);
           margin-bottom: 3rem;
           opacity: 0;
@@ -124,28 +183,49 @@ const SellHero = () => {
         }
 
         .sell-hero-text {
+          display: flex;
+          justify-content: space-between;
+          gap: 3rem;
+          margin-left: 1rem;
+          width: 90%;
           font-family: var(--font-secondary);
           font-size: 1.25rem;
-          line-height: 1.7;
+          line-height: 1.4;
           color: var(--color-rust-dark);
           opacity: 0;
+          margin-top: 3rem;
           transform: translateY(30px);
           transition: all 0.8s cubic-bezier(0.25, 0.4, 0.25, 1);
         }
 
-        .sell-hero-text p {
-          margin-bottom: 1.5rem;
+        /* Estilos para los párrafos dentro de TextMaskReveal */
+        .text-paragraph-container {
+          max-width: 520px;
         }
 
-        .sell-hero-text p:first-child {
-          font-size: 1.375rem;
-          font-weight: 600;
-          color: var(--color-cinnamon);
-          margin-bottom: 2rem;
+        .sell-hero-text .text-paragraph-container:first-child {
+          text-align: left;
         }
 
-        .sell-hero-text p:last-child {
-          margin-bottom: 0;
+        .sell-hero-text .text-paragraph-container:last-child {
+          text-align: left;
+        }
+
+        /* Scroll indicator posicionado en la parte inferior */
+        .sell-hero-scroll-down {
+          position: absolute;
+          bottom: 2rem;
+          left: 50%;
+          transform: translateX(-50%);
+          text-align: center;
+          color: var(--color-rust);
+          font-family: var(--font-secondary);
+          font-size: 0.9rem;
+        }
+
+        .sell-hero-scroll-down p {
+          margin-bottom: 1rem;
+          opacity: 0.8;
         }
 
         /* === RESPONSIVE === */
@@ -158,14 +238,14 @@ const SellHero = () => {
             font-size: 1.125rem;
           }
 
-          .sell-hero-text p:first-child {
+          .sell-hero-text :global(.text-paragraph:first-child) {
             font-size: 1.25rem;
           }
         }
 
         @media (max-width: 768px) {
           .sell-hero {
-            padding: 4rem 0;
+            padding: 4rem 0 2rem 0;
             text-align: left;
           }
 
@@ -182,17 +262,29 @@ const SellHero = () => {
           .sell-hero-text {
             font-size: 1rem;
             text-align: left;
+            flex-direction: column;
+            gap: 2rem;
           }
 
-          .sell-hero-text p:first-child {
+          .sell-hero-text :global(.text-paragraph:first-child) {
             font-size: 1.125rem;
             margin-bottom: 1.5rem;
+            text-align: left;
+          }
+
+          .sell-hero-text :global(.text-paragraph:last-child) {
+            text-align: left;
+            margin-top: 0;
+          }
+
+          .sell-hero-scroll-down {
+            bottom: 1.5rem;
           }
         }
 
         @media (max-width: 480px) {
           .sell-hero {
-            padding: 3rem 0;
+            padding: 3rem 0 2rem 0;
           }
 
           .sell-hero-title {
@@ -201,6 +293,10 @@ const SellHero = () => {
 
           .sell-hero-text {
             font-size: 0.95rem;
+          }
+
+          .sell-hero-scroll-down {
+            bottom: 1rem;
           }
         }
       `}</style>
