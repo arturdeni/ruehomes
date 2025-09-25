@@ -229,6 +229,18 @@ const SellingSection = () => {
           0.85
         );
 
+      // ScrollTrigger independiente para la barra de progreso
+      gsap.to(".progress-fill", {
+        width: "100%",
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1,
+        },
+      });
+
       // Animación inicial cuando la sección es visible
       gsap.set(
         [
@@ -297,6 +309,11 @@ const SellingSection = () => {
               </div>
             </div>
           </div>
+
+          {/* Progress Bar - Simple */}
+          <div className="progress-bar">
+            <div className="progress-fill" />
+          </div>
         </div>
       </div>
 
@@ -305,6 +322,7 @@ const SellingSection = () => {
           height: 320vh;
           position: relative;
           transition: background-color 0.3s ease;
+          overflow: hidden;
         }
 
         .selling-content {
@@ -389,7 +407,6 @@ const SellingSection = () => {
           max-width: 500px;
           width: 100%;
           position: relative;
-          /* Removemos overflow: hidden para que la imagen pueda salir del contenedor */
         }
 
         .phase-image img {
@@ -397,6 +414,24 @@ const SellingSection = () => {
           height: auto;
           border-radius: 16px;
           display: block;
+        }
+
+        /* Progress Bar - Super Simple */
+        .progress-bar {
+          position: fixed;
+          bottom: 150px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 200px;
+          height: 2px;
+          background: rgba(255, 255, 255, 0.3);
+          z-index: 1000;
+        }
+
+        .progress-fill {
+          height: 100%;
+          background: rgba(255, 255, 255, 0.9);
+          width: 0%;
         }
 
         /* === RESPONSIVE === */
@@ -472,6 +507,10 @@ const SellingSection = () => {
           .phase-points .phase-point {
             text-align: left;
           }
+
+          .progress-bar {
+            width: 150px;
+          }
         }
 
         @media (max-width: 480px) {
@@ -489,6 +528,10 @@ const SellingSection = () => {
 
           .phase-image {
             max-width: 300px;
+          }
+
+          .progress-bar {
+            width: 120px;
           }
         }
       `}</style>

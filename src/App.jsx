@@ -7,6 +7,8 @@ import Home from "./pages/Home";
 import Properties from "./pages/Properties";
 import PropertyDetailPage from "./pages/PropertyDetailPage";
 import Sell from "./pages/Sell";
+import TailoredServices from "./pages/TailoredServices";
+import Agency from "./pages/Agency";
 
 // Estilos
 import "./styles/variables.css";
@@ -37,14 +39,8 @@ function App() {
           <Route path="/propiedades" element={<Properties />} />
           <Route path="/propiedad/:id" element={<PropertyDetailPage />} />
           <Route path="/vender" element={<Sell />} />
-          <Route
-            path="/tailored-services"
-            element={<ComingSoon pageName="Servicios Premium" />}
-          />
-          <Route
-            path="/la-agencia"
-            element={<ComingSoon pageName="La Agencia" />}
-          />
+          <Route path="/tailored-services" element={<TailoredServices />} />
+          <Route path="/la-agencia" element={<Agency />} />
           <Route
             path="/contacto"
             element={<ComingSoon pageName="Contacto" />}

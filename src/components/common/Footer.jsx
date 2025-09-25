@@ -553,9 +553,12 @@ const Footer = () => {
             gap: 2rem;
           }
 
+          .footer-logo {
+            justify-content: center;
+          }
+
           .footer-logo-image {
-            height: 4rem;
-            margin-right: 0.75rem;
+            height: 5rem;
           }
 
           .footer-bottom-content {
