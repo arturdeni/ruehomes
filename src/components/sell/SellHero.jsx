@@ -7,6 +7,18 @@ const SellHero = () => {
   const titleRef = useRef(null);
   const textRef = useRef(null);
 
+  // Función para manejar el scroll suave
+  const handleScrollDown = () => {
+    const viewportHeight = window.innerHeight;
+    const currentPosition = window.scrollY;
+    const targetPosition = currentPosition + viewportHeight;
+
+    window.scrollTo({
+      top: targetPosition,
+      behavior: "smooth",
+    });
+  };
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -76,6 +88,7 @@ const SellHero = () => {
         <span
           className="scroll-down-indicator"
           aria-label="Desplázate hacia abajo"
+          onClick={handleScrollDown}
         >
           <svg
             width="32"
@@ -109,6 +122,13 @@ const SellHero = () => {
               display: inline-block;
               animation: bounce 1.6s infinite;
               cursor: pointer;
+              transition: transform 0.2s ease;
+            }
+            .scroll-down-indicator:hover {
+              transform: translateY(4px);
+            }
+            .scroll-down-indicator:active {
+              transform: translateY(6px);
             }
             @keyframes bounce {
               0%,

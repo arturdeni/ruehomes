@@ -78,22 +78,52 @@ const SellingSection = () => {
 
       // Función para actualizar contenido
       const updateContent = (phase) => {
-        const elements = [
+        const textElements = [
           titleRef.current,
           subtitleRef.current,
           pointsRef.current,
-          imageRef.current,
         ];
 
-        // Fade out
-        elements.forEach((el) => {
+        // Fade out para el texto (mantener como estaba)
+        textElements.forEach((el) => {
           if (el) {
             el.style.transition = "opacity 0.2s ease";
             el.style.opacity = "0";
           }
         });
 
-        // Actualizar contenido después del fade out
+        // Transición de la imagen: salir por la derecha
+        if (imageRef.current) {
+          // Primero killamos cualquier animación anterior
+          gsap.killTweensOf(imageRef.current);
+
+          // Animar hacia la derecha para que desaparezca completamente del viewport
+          gsap.to(imageRef.current, {
+            x: "100vw",
+            duration: 0.3,
+            ease: "power2.inOut",
+            onComplete: () => {
+              // Actualizar la imagen cuando haya salido completamente
+              imageRef.current.src = phase.image;
+              imageRef.current.alt = `Ilustración ${phase.title}`;
+
+              // Posicionar la nueva imagen fuera del viewport por la derecha
+              gsap.set(imageRef.current, {
+                x: "100vw",
+              });
+
+              // Animar la nueva imagen entrando desde la derecha
+              gsap.to(imageRef.current, {
+                x: "0%",
+                duration: 0.4,
+                ease: "power2.out",
+                delay: 0.1,
+              });
+            },
+          });
+        }
+
+        // Actualizar contenido del texto después del fade out
         setTimeout(() => {
           if (titleRef.current) {
             titleRef.current.innerHTML = `<strong>${phase.title}</strong>`;
@@ -106,14 +136,10 @@ const SellingSection = () => {
               .map((point) => `<li class="phase-point">${point}</li>`)
               .join("");
           }
-          if (imageRef.current) {
-            imageRef.current.src = phase.image;
-            imageRef.current.alt = `Ilustración ${phase.title}`;
-          }
 
-          // Fade in
+          // Fade in para el texto
           requestAnimationFrame(() => {
-            elements.forEach((el) => {
+            textElements.forEach((el) => {
               if (el) {
                 el.style.transition = "opacity 0.3s ease";
                 el.style.opacity = "1";
@@ -124,7 +150,21 @@ const SellingSection = () => {
       };
 
       // Inicializar con la primera fase
-      updateContent(phases[0]);
+      if (titleRef.current) {
+        titleRef.current.innerHTML = `<strong>${phases[0].title}</strong>`;
+      }
+      if (subtitleRef.current) {
+        subtitleRef.current.innerHTML = `<em>${phases[0].subtitle}</em>`;
+      }
+      if (pointsRef.current) {
+        pointsRef.current.innerHTML = phases[0].points
+          .map((point) => `<li class="phase-point">${point}</li>`)
+          .join("");
+      }
+      // Para la imagen inicial, asegurarnos de que esté en posición normal
+      if (imageRef.current) {
+        gsap.set(imageRef.current, { x: "0%" });
+      }
 
       // Timeline principal para el pin scrolling y cambios de color
       const tl = gsap.timeline({
@@ -132,7 +172,6 @@ const SellingSection = () => {
           trigger: sectionRef.current,
           start: "top top",
           end: "bottom bottom",
-          markers: true,
           scrub: 1,
           pin: contentRef.current,
           anticipatePin: 1,
@@ -349,6 +388,8 @@ const SellingSection = () => {
         .phase-image {
           max-width: 500px;
           width: 100%;
+          position: relative;
+          /* Removemos overflow: hidden para que la imagen pueda salir del contenedor */
         }
 
         .phase-image img {
