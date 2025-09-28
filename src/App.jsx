@@ -1,6 +1,7 @@
 // src/App.jsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./components/layout/Layout";
+import ScrollToTop from "./components/common/ScrollToTop"; // 👈 Nuevo import
 
 // Páginas que existen
 import Home from "./pages/Home";
@@ -33,6 +34,7 @@ const ComingSoon = ({ pageName }) => (
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
