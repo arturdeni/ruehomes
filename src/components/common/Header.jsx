@@ -273,7 +273,7 @@ const Header = () => {
             font-family: var(--font-secondary);
             font-weight: 500;
             color: black;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
           }
 
           .header-instagram-link {
