@@ -50,7 +50,7 @@ const ScrollToTopButton = () => {
         </button>
       )}
 
-      <style jsx>{`
+      <style>{`
         .scroll-to-top-button {
           position: fixed;
           bottom: 2rem;

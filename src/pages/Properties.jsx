@@ -2,127 +2,13 @@
 import { useState, useEffect } from "react";
 import PropertyCard from "../components/property/PropertyCard";
 import PropertiesFilters from "../components/property/PropertiesFilters";
-
-// Datos mockeados - temporal hasta que tengamos Hygraph configurado
-const mockProperties = [
-  {
-    id: 1,
-    title: "Piso moderno en zona exclusiva",
-    price: 850000,
-    propertyType: "apartment",
-    status: "sale",
-    bedrooms: 3,
-    bathrooms: 2,
-    area: 120,
-    address: "Calle Serrano 45",
-    city: "Madrid",
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        alt: "Piso moderno en Madrid",
-      },
-    ],
-    features: ["Ascensor", "Terraza", "Parking", "Aire acondicionado"],
-  },
-  {
-    id: 2,
-    title: "Chalet independiente con jardín",
-    price: 1200000,
-    propertyType: "house",
-    status: "sold",
-    bedrooms: 4,
-    bathrooms: 3,
-    area: 250,
-    address: "Urbanización Los Robles",
-    city: "Pozuelo de Alarcón",
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        alt: "Chalet independiente",
-      },
-    ],
-    features: ["Jardín", "Piscina", "Garaje", "Chimenea"],
-  },
-  {
-    id: 3,
-    title: "Apartamento céntrico con vistas",
-    price: 2200,
-    propertyType: "apartment",
-    status: "rent",
-    bedrooms: 2,
-    bathrooms: 1,
-    area: 85,
-    address: "Gran Vía 28",
-    city: "Madrid",
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        alt: "Apartamento céntrico",
-      },
-    ],
-    features: ["Vistas", "Ascensor", "Amueblado"],
-  },
-  {
-    id: 4,
-    title: "Casa unifamiliar en barrio residencial",
-    price: 650000,
-    propertyType: "house",
-    status: "sale",
-    bedrooms: 3,
-    bathrooms: 2,
-    area: 180,
-    address: "Calle de la Paz 12",
-    city: "Getafe",
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        alt: "Casa unifamiliar",
-      },
-    ],
-    features: ["Jardín", "Garaje", "Trastero"],
-  },
-  {
-    id: 5,
-    title: "Ático con terraza panorámica",
-    price: 1800000,
-    propertyType: "apartment",
-    status: "sale",
-    bedrooms: 4,
-    bathrooms: 3,
-    area: 200,
-    address: "Paseo de la Castellana 180",
-    city: "Madrid",
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        alt: "Ático con terraza",
-      },
-    ],
-    features: ["Terraza", "Vistas panorámicas", "Parking", "Portero"],
-  },
-  {
-    id: 6,
-    title: "Piso en alquiler zona universitaria",
-    price: 1200,
-    propertyType: "apartment",
-    status: "rent",
-    bedrooms: 2,
-    bathrooms: 1,
-    area: 75,
-    address: "Calle Bravo Murillo 85",
-    city: "Madrid",
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        alt: "Piso zona universitaria",
-      },
-    ],
-    features: ["Amueblado", "Cerca metro", "Ascensor"],
-  },
-];
+import { getProperties } from "../services/hygraph";
 
 const Properties = () => {
-  const [filteredProperties, setFilteredProperties] = useState(mockProperties);
+  const [allProperties, setAllProperties] = useState([]);
+  const [filteredProperties, setFilteredProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [filters, setFilters] = useState({
     city: "",
     propertyType: "",
@@ -135,9 +21,28 @@ const Properties = () => {
   const [sortBy, setSortBy] = useState("recent");
   const propertiesPerPage = 9;
 
+  // Fetch properties from Hygraph
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        setLoading(true);
+        const data = await getProperties();
+        setAllProperties(data.properties);
+        setFilteredProperties(data.properties);
+      } catch (err) {
+        console.error("Error fetching properties:", err);
+        setError("Error al cargar las propiedades. Por favor, intenta de nuevo.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProperties();
+  }, []);
+
   // Aplicar filtros
   useEffect(() => {
-    let filtered = [...mockProperties];
+    let filtered = [...allProperties];
 
     // Filtro por ciudad
     if (filters.city) {
@@ -203,7 +108,7 @@ const Properties = () => {
 
     setFilteredProperties(filtered);
     setCurrentPage(1); // Reset a la primera página al aplicar filtros
-  }, [filters, sortBy]);
+  }, [filters, sortBy, allProperties]);
 
   // Paginación
   const indexOfLastProperty = currentPage * propertiesPerPage;
@@ -223,6 +128,66 @@ const Properties = () => {
     // Scroll suave hacia arriba
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="properties-page">
+        <section className="properties__hero py-20">
+          <div className="container">
+            <div className="properties__hero-content text-center">
+              <h1 className="properties__hero-title font-primary text-rust mb-6">
+                Nuestras Propiedades
+              </h1>
+            </div>
+          </div>
+        </section>
+        <section className="properties__content py-12">
+          <div className="container">
+            <div className="flex justify-center items-center py-20">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-cinnamon mx-auto mb-4"></div>
+                <p className="font-secondary text-rust">Cargando propiedades...</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="properties-page">
+        <section className="properties__hero py-20">
+          <div className="container">
+            <div className="properties__hero-content text-center">
+              <h1 className="properties__hero-title font-primary text-rust mb-6">
+                Nuestras Propiedades
+              </h1>
+            </div>
+          </div>
+        </section>
+        <section className="properties__content py-12">
+          <div className="container">
+            <div className="text-center py-20">
+              <div className="bg-red-50 border border-red-200 rounded-lg p-8 max-w-md mx-auto">
+                <h3 className="font-primary text-rust text-xl mb-4">Error</h3>
+                <p className="font-secondary text-rust-light mb-6">{error}</p>
+                <button
+                  onClick={() => window.location.reload()}
+                  className="btn btn-primary"
+                >
+                  Recargar página
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    );
+  }
 
   return (
     <div className="properties-page">
@@ -259,8 +224,8 @@ const Properties = () => {
             <div className="properties__results-info">
               <p className="font-secondary text-rust">
                 {filteredProperties.length} propiedades encontradas
-                {filteredProperties.length !== mockProperties.length &&
-                  ` de ${mockProperties.length} total`}
+                {filteredProperties.length !== allProperties.length &&
+                  ` de ${allProperties.length} total`}
               </p>
             </div>
             <div className="properties__sort">

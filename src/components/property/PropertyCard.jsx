@@ -6,8 +6,8 @@ const PropertyCard = ({ property }) => {
     id,
     title,
     price,
-    propertyType,
-    status,
+    propertyType = 'apartment',
+    propertyStatus = 'sale',
     bedrooms,
     bathrooms,
     area,
@@ -15,6 +15,9 @@ const PropertyCard = ({ property }) => {
     city,
     images,
   } = property;
+
+  // For backwards compatibility
+  const status = propertyStatus;
 
   // Formatear precio
   const formatPrice = (price) => {

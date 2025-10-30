@@ -1,87 +1,7 @@
 // src/components/property/PropertyDetail.jsx
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-
-// Datos mockeados ampliados para la vista de detalle
-const mockPropertyDetail = {
-  id: 1,
-  title: "Piso moderno en zona exclusiva de Madrid",
-  price: 850000,
-  propertyType: "apartment",
-  status: "sale",
-  bedrooms: 3,
-  bathrooms: 2,
-  area: 120,
-  address: "Calle Serrano 45, 3º Izquierda",
-  city: "Madrid",
-  neighborhood: "Salamanca",
-  postalCode: "28001",
-  description:
-    "Espectacular piso de 120m² completamente reformado en una de las zonas más exclusivas de Madrid. Ubicado en la prestigiosa calle Serrano, este inmueble ofrece acabados de primera calidad, abundante luz natural y una distribución funcional perfecta para familias modernas. El edificio cuenta con portero físico y está situado en el corazón del barrio de Salamanca.",
-  images: [
-    {
-      url: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-      alt: "Salón principal con grandes ventanales",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-      alt: "Cocina moderna completamente equipada",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-      alt: "Dormitorio principal con vestidor",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1571508601891-ca5e7a713859?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-      alt: "Baño principal con bañera",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-      alt: "Terraza con vistas a la ciudad",
-    },
-  ],
-  features: [
-    "Ascensor",
-    "Terraza 15m²",
-    "Parking incluido",
-    "Aire acondicionado",
-    "Calefacción central",
-    "Portero físico",
-    "Reformado 2023",
-    "Orientación Sur",
-  ],
-  yearBuilt: 1985,
-  lastReform: 2023,
-  energyRating: "B",
-  floor: "3º",
-  totalFloors: 6,
-  elevator: true,
-  parking: true,
-  storage: true,
-  terrace: true,
-  garden: false,
-  pool: false,
-  heatingType: "Central",
-  coordinates: {
-    lat: 40.4378,
-    lng: -3.6795,
-  },
-  nearbyPlaces: [
-    { name: "Metro Serrano", distance: "2 min", type: "metro" },
-    { name: "Parque del Retiro", distance: "5 min", type: "park" },
-    { name: "El Corte Inglés", distance: "1 min", type: "shopping" },
-    { name: "Colegio Santa Patricio", distance: "8 min", type: "school" },
-  ],
-  agent: {
-    name: "María González",
-    phone: "+34 600 123 456",
-    email: "maria@ruehomes.com",
-    photo:
-      "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
-  },
-  createdAt: "2024-01-15",
-  updatedAt: "2024-01-20",
-};
+import { getPropertyById } from "../../services/hygraph";
 
 const PropertyDetail = () => {
   const { id } = useParams();
@@ -91,21 +11,48 @@ const PropertyDetail = () => {
   const [showContactForm, setShowContactForm] = useState(false);
 
   useEffect(() => {
-    // Simular carga de datos - reemplazar con llamada real a Hygraph
     const loadProperty = async () => {
       try {
         setLoading(true);
-        // Aquí irá la llamada real: const data = await getPropertyById(id);
-        await new Promise((resolve) => setTimeout(resolve, 500)); // Simular carga
-        setProperty(mockPropertyDetail);
+        const data = await getPropertyById(id);
+
+        if (data) {
+          // Transformar datos de Hygraph al formato del componente
+          const transformedProperty = {
+            ...data,
+            description: data.description?.text || data.description || "",
+            images: data.images?.map(img => ({
+              url: img.url,
+              alt: img.fileName || data.title,
+              fileName: img.fileName
+            })) || [],
+            // Backwards compatibility: use propertyStatus as status
+            status: data.propertyStatus || 'sale',
+            // Add missing fields with defaults
+            features: data.features || [],
+            nearbyPlaces: [], // Not in schema
+            agent: {
+              name: "Rue Homes",
+              phone: "+34 600 000 000",
+              email: "info@ruehomes.com",
+              photo: "https://ui-avatars.com/api/?name=Rue+Homes&size=150&background=D4A574&color=fff"
+            }
+          };
+          setProperty(transformedProperty);
+        } else {
+          setProperty(null);
+        }
       } catch (error) {
         console.error("Error loading property:", error);
+        setProperty(null);
       } finally {
         setLoading(false);
       }
     };
 
-    loadProperty();
+    if (id) {
+      loadProperty();
+    }
   }, [id]);
 
   if (loading) {
@@ -424,62 +371,37 @@ const PropertyDetail = () => {
                   Información Detallada
                 </h2>
                 <div className="property-detail__specs-grid">
-                  <div className="property-detail__spec-item">
-                    <span className="property-detail__spec-label">
-                      Año de construcción
-                    </span>
-                    <span className="property-detail__spec-value">
-                      {property.yearBuilt}
-                    </span>
-                  </div>
-                  <div className="property-detail__spec-item">
-                    <span className="property-detail__spec-label">
-                      Última reforma
-                    </span>
-                    <span className="property-detail__spec-value">
-                      {property.lastReform}
-                    </span>
-                  </div>
-                  <div className="property-detail__spec-item">
-                    <span className="property-detail__spec-label">
-                      Certificado energético
-                    </span>
-                    <span className="property-detail__spec-value">
-                      {property.energyRating}
-                    </span>
-                  </div>
-                  <div className="property-detail__spec-item">
-                    <span className="property-detail__spec-label">Planta</span>
-                    <span className="property-detail__spec-value">
-                      {property.floor}
-                    </span>
-                  </div>
-                  <div className="property-detail__spec-item">
-                    <span className="property-detail__spec-label">
-                      Plantas del edificio
-                    </span>
-                    <span className="property-detail__spec-value">
-                      {property.totalFloors}
-                    </span>
-                  </div>
-                  <div className="property-detail__spec-item">
-                    <span className="property-detail__spec-label">
-                      Calefacción
-                    </span>
-                    <span className="property-detail__spec-value">
-                      {property.heatingType}
-                    </span>
-                  </div>
+                  {property.yearBuilt && (
+                    <div className="property-detail__spec-item">
+                      <span className="property-detail__spec-label">
+                        Año de construcción
+                      </span>
+                      <span className="property-detail__spec-value">
+                        {property.yearBuilt}
+                      </span>
+                    </div>
+                  )}
+                  {property.energyRating && (
+                    <div className="property-detail__spec-item">
+                      <span className="property-detail__spec-label">
+                        Certificado energético
+                      </span>
+                      <span className="property-detail__spec-value">
+                        {property.energyRating}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
 
-              {/* Lugares cercanos */}
-              <div className="property-detail__nearby">
-                <h2 className="property-detail__section-title">
-                  Lugares de Interés
-                </h2>
-                <div className="property-detail__nearby-list">
-                  {property.nearbyPlaces.map((place, index) => (
+              {/* Lugares cercanos - Hidden if no data */}
+              {property.nearbyPlaces && property.nearbyPlaces.length > 0 && (
+                <div className="property-detail__nearby">
+                  <h2 className="property-detail__section-title">
+                    Lugares de Interés
+                  </h2>
+                  <div className="property-detail__nearby-list">
+                    {property.nearbyPlaces.map((place, index) => (
                     <div key={index} className="property-detail__nearby-item">
                       <div className="property-detail__nearby-icon">
                         {place.type === "metro" && (
@@ -557,6 +479,7 @@ const PropertyDetail = () => {
                   ))}
                 </div>
               </div>
+              )}
             </div>
 
             {/* Columna Lateral - Información de Contacto */}

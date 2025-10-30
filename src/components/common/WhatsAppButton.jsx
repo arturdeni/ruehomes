@@ -26,7 +26,7 @@ const WhatsAppButton = () => {
         </svg>
       </button>
 
-      <style jsx>{`
+      <style>{`
         .whatsapp-button {
           position: fixed;
           bottom: 6rem; /* Por encima del botón de scroll (que está a 2rem) */

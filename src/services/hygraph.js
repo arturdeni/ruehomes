@@ -8,16 +8,17 @@ if (!endpoint) {
   throw new Error("VITE_HYGRAPH_ENDPOINT environment variable is required");
 }
 
+// Configure headers only if token exists
+const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
 export const hygraph = new GraphQLClient(endpoint, {
-  headers: {
-    Authorization: token ? `Bearer ${token}` : "",
-  },
+  headers,
 });
 
-// Queries para propiedades
+// Queries para propiedades - Updated to match Hygraph schema
 export const GET_PROPERTIES = `
-  query GetProperties($first: Int, $skip: Int, $where: PropertyWhereInput) {
-    properties(first: $first, skip: $skip, where: $where, orderBy: createdAt_DESC) {
+  query GetProperties {
+    properties(orderBy: createdAt_DESC) {
       id
       title
       description {
@@ -25,7 +26,7 @@ export const GET_PROPERTIES = `
       }
       price
       propertyType
-      status
+      propertyStatus
       bedrooms
       bathrooms
       area
@@ -38,19 +39,13 @@ export const GET_PROPERTIES = `
       images {
         id
         url
-        alt
+        fileName
       }
       features
       energyRating
       yearBuilt
-      featured
       createdAt
       updatedAt
-    }
-    propertiesConnection(where: $where) {
-      aggregate {
-        count
-      }
     }
   }
 `;
@@ -66,7 +61,7 @@ export const GET_PROPERTY_BY_ID = `
       }
       price
       propertyType
-      status
+      propertyStatus
       bedrooms
       bathrooms
       area
@@ -79,14 +74,13 @@ export const GET_PROPERTY_BY_ID = `
       images {
         id
         url
-        alt
+        fileName
         width
         height
       }
       features
       energyRating
       yearBuilt
-      featured
       createdAt
       updatedAt
     }
@@ -95,7 +89,7 @@ export const GET_PROPERTY_BY_ID = `
 
 export const GET_FEATURED_PROPERTIES = `
   query GetFeaturedProperties($first: Int = 6) {
-    properties(first: $first, where: { featured: true }, orderBy: createdAt_DESC) {
+    properties(first: $first, orderBy: createdAt_DESC) {
       id
       title
       description {
@@ -103,7 +97,7 @@ export const GET_FEATURED_PROPERTIES = `
       }
       price
       propertyType
-      status
+      propertyStatus
       bedrooms
       bathrooms
       area
@@ -112,48 +106,9 @@ export const GET_FEATURED_PROPERTIES = `
       images(first: 1) {
         id
         url
-        alt
+        fileName
       }
       features
-    }
-  }
-`;
-
-export const GET_AGENCY_INFO = `
-  query GetAgencyInfo {
-    agencies(first: 1) {
-      id
-      name
-      description {
-        html
-      }
-      phone
-      email
-      address
-      logo {
-        url
-        alt
-      }
-      socialMedia
-    }
-  }
-`;
-
-export const GET_AGENTS = `
-  query GetAgents {
-    agents {
-      id
-      name
-      position
-      phone
-      email
-      photo {
-        url
-        alt
-      }
-      bio {
-        html
-      }
     }
   }
 `;
@@ -185,26 +140,6 @@ export const getFeaturedProperties = async (first = 6) => {
     return data.properties;
   } catch (error) {
     console.error("Error fetching featured properties:", error);
-    throw error;
-  }
-};
-
-export const getAgencyInfo = async () => {
-  try {
-    const data = await hygraph.request(GET_AGENCY_INFO);
-    return data.agencies[0];
-  } catch (error) {
-    console.error("Error fetching agency info:", error);
-    throw error;
-  }
-};
-
-export const getAgents = async () => {
-  try {
-    const data = await hygraph.request(GET_AGENTS);
-    return data.agents;
-  } catch (error) {
-    console.error("Error fetching agents:", error);
     throw error;
   }
 };
