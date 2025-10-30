@@ -14,7 +14,6 @@ const PropertyCard = ({ property }) => {
     address,
     city,
     images,
-    features,
   } = property;
 
   // Formatear precio
@@ -232,21 +231,6 @@ const PropertyCard = ({ property }) => {
             )}
           </div>
 
-          {/* Tags de características destacadas */}
-          {features && features.length > 0 && (
-            <div className="property-card__tags">
-              {features.slice(0, 3).map((feature, index) => (
-                <span key={index} className="property-card__tag">
-                  {feature}
-                </span>
-              ))}
-              {features.length > 3 && (
-                <span className="property-card__tag property-card__tag--more">
-                  +{features.length - 3}
-                </span>
-              )}
-            </div>
-          )}
         </div>
       </article>
 
@@ -389,8 +373,7 @@ const PropertyCard = ({ property }) => {
 
         /* === CONTENIDO === */
         .property-card__content {
-          padding: 1.5rem;
-          flex: 1;
+          padding: 1.25rem;
           display: flex;
           flex-direction: column;
         }
@@ -399,7 +382,7 @@ const PropertyCard = ({ property }) => {
           display: flex;
           justify-content: space-between;
           align-items: flex-start;
-          margin-bottom: 1rem;
+          margin-bottom: 0.875rem;
         }
 
         .property-card__price {
@@ -435,7 +418,7 @@ const PropertyCard = ({ property }) => {
           font-weight: 600;
           color: var(--color-rust);
           line-height: 1.3;
-          margin-bottom: 0.75rem;
+          margin-bottom: 0.625rem;
           display: -webkit-box;
           -webkit-line-clamp: 2;
           -webkit-box-orient: vertical;
@@ -446,7 +429,7 @@ const PropertyCard = ({ property }) => {
           display: flex;
           align-items: flex-start;
           gap: 0.5rem;
-          margin-bottom: 1rem;
+          margin-bottom: 0.875rem;
         }
 
         .property-card__location-icon {
@@ -472,7 +455,6 @@ const PropertyCard = ({ property }) => {
         .property-card__features {
           display: flex;
           gap: 1.25rem;
-          margin-bottom: 1rem;
         }
 
         .property-card__feature {
@@ -492,29 +474,6 @@ const PropertyCard = ({ property }) => {
           font-size: 0.85rem;
           color: var(--color-rust);
           font-weight: 500;
-        }
-
-        /* Tags de características */
-        .property-card__tags {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.5rem;
-          margin-top: auto;
-        }
-
-        .property-card__tag {
-          font-family: var(--font-secondary);
-          font-size: 0.75rem;
-          font-weight: 500;
-          color: var(--color-rust-light);
-          background: var(--color-marble);
-          padding: 0.25rem 0.6rem;
-          border-radius: 10px;
-        }
-
-        .property-card__tag--more {
-          color: var(--color-rust);
-          background: var(--color-softdune);
         }
 
         /* === RESPONSIVE === */

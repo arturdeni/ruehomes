@@ -1,43 +1,8 @@
-// src/components/common/Footer.jsx - Versión mejorada
+// src/components/common/Footer.jsx
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { getAgencyInfo } from "../../services/hygraph";
 
 const Footer = () => {
-  const [agencyInfo, setAgencyInfo] = useState(null);
-
-  useEffect(() => {
-    const loadAgencyInfo = async () => {
-      try {
-        const info = await getAgencyInfo();
-        setAgencyInfo(info);
-      } catch (error) {
-        console.error("Error loading agency info:", error);
-      }
-    };
-
-    loadAgencyInfo();
-  }, []);
-
   const navigation = {
-    propiedades: [
-      { name: "Todas las Propiedades", href: "/propiedades" },
-      { name: "Casas", href: "/propiedades?type=house" },
-      { name: "Pisos", href: "/propiedades?type=apartment" },
-      { name: "Locales Comerciales", href: "/propiedades?type=commercial" },
-    ],
-    servicios: [
-      { name: "Vender Propiedad", href: "/vender" },
-      { name: "Servicios Premium", href: "/tailored-services" },
-      { name: "Valoraciones", href: "/contacto" },
-      { name: "Asesoramiento", href: "/contacto" },
-    ],
-    empresa: [
-      { name: "Sobre Nosotros", href: "/la-agencia" },
-      { name: "Contacto", href: "/contacto" },
-      { name: "Blog", href: "#" },
-      { name: "Trabajar con Nosotros", href: "#" },
-    ],
     legal: [
       { name: "Política de Privacidad", href: "#" },
       { name: "Términos y Condiciones", href: "#" },
@@ -82,185 +47,60 @@ const Footer = () => {
   return (
     <footer className="footer-main">
       <div className="footer-container">
+        {/* Sección principal del footer */}
         <div className="footer-content">
-          {/* Información de la empresa */}
-          <div className="footer-company">
-            <Link to="/" className="footer-logo">
-              <img
-                src="/logo.png"
-                alt="RueHomes"
-                className="footer-logo-image"
-              />
-            </Link>
+          {/* Logo */}
+          <Link to="/" className="footer-logo">
+            <img
+              src="/logo.png"
+              alt="RueHomes"
+              className="footer-logo-image"
+            />
+          </Link>
 
-            {agencyInfo && (
-              <div className="company-description">
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: agencyInfo.description?.html || "",
-                  }}
-                />
-              </div>
-            )}
-
-            {/* Información de contacto */}
-            <div className="contact-info">
-              {agencyInfo?.phone && (
-                <div className="contact-item">
-                  <div className="contact-icon">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                      />
-                    </svg>
-                  </div>
-                  <a href={`tel:${agencyInfo.phone}`} className="contact-link">
-                    {agencyInfo.phone}
-                  </a>
-                </div>
-              )}
-
-              {agencyInfo?.email && (
-                <div className="contact-item">
-                  <div className="contact-icon">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                      />
-                    </svg>
-                  </div>
-                  <a
-                    href={`mailto:${agencyInfo.email}`}
-                    className="contact-link"
-                  >
-                    {agencyInfo.email}
-                  </a>
-                </div>
-              )}
-
-              {agencyInfo?.address && (
-                <div className="contact-item">
-                  <div className="contact-icon">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                    </svg>
-                  </div>
-                  <span className="contact-text">{agencyInfo.address}</span>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Enlaces de navegación */}
-          <div className="footer-links">
-            {/* Propiedades */}
-            <div className="footer-section">
-              <h3 className="footer-title">Propiedades</h3>
-              <ul className="footer-list">
-                {navigation.propiedades.map((item) => (
-                  <li key={item.name}>
-                    <Link to={item.href} className="footer-link">
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Servicios */}
-            <div className="footer-section">
-              <h3 className="footer-title">Servicios</h3>
-              <ul className="footer-list">
-                {navigation.servicios.map((item) => (
-                  <li key={item.name}>
-                    <Link to={item.href} className="footer-link">
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Empresa */}
-            <div className="footer-section">
-              <h3 className="footer-title">Empresa</h3>
-              <ul className="footer-list">
-                {navigation.empresa.map((item) => (
-                  <li key={item.name}>
-                    <Link to={item.href} className="footer-link">
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom section */}
-        <div className="footer-bottom">
-          <div className="footer-bottom-content">
-            {/* Redes sociales */}
-            <div className="social-section">
-              <span className="social-title">Síguenos:</span>
-              <div className="social-links">
-                {socialLinks.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="social-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={item.name}
-                  >
-                    {item.icon}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Enlaces legales */}
-            <div className="legal-links">
-              {navigation.legal.map((item, index) => (
-                <span key={item.name} className="legal-item">
-                  <Link to={item.href} className="legal-link">
-                    {item.name}
-                  </Link>
-                  {index < navigation.legal.length - 1 && (
-                    <span className="legal-separator">•</span>
-                  )}
-                </span>
+          {/* Redes sociales */}
+          <div className="social-section">
+            <span className="social-title">Síguenos:</span>
+            <div className="social-links">
+              {socialLinks.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="social-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={item.name}
+                >
+                  {item.icon}
+                </a>
               ))}
             </div>
           </div>
 
-          {/* Copyright */}
-          <div className="copyright">
-            <p className="copyright-text">
-              © {new Date().getFullYear()} RueHomes. Todos los derechos
-              reservados.
-            </p>
-            <p className="copyright-subtitle">
-              Desarrollado por Lexmake | lexmake.com
-            </p>
+          {/* Enlaces legales */}
+          <div className="legal-links">
+            {navigation.legal.map((item, index) => (
+              <span key={item.name} className="legal-item">
+                <Link to={item.href} className="legal-link">
+                  {item.name}
+                </Link>
+                {index < navigation.legal.length - 1 && (
+                  <span className="legal-separator">•</span>
+                )}
+              </span>
+            ))}
           </div>
+        </div>
+
+        {/* Copyright */}
+        <div className="copyright">
+          <p className="copyright-text">
+            © {new Date().getFullYear()} RueHomes. Todos los derechos
+            reservados.
+          </p>
+          <p className="copyright-subtitle">
+            Desarrollado por Lexmake | lexmake.com
+          </p>
         </div>
       </div>
 
@@ -294,167 +134,50 @@ const Footer = () => {
         .footer-container {
           max-width: 1400px;
           margin: 0 auto;
-          padding: 4rem 2rem 2rem;
+          padding: 2rem 2rem;
         }
 
         .footer-content {
-          display: grid;
-          grid-template-columns: 1fr 2fr;
-          gap: 4rem;
-          margin-bottom: 3rem;
-        }
-
-        .footer-company {
-          max-width: 400px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 2rem;
+          padding: 1rem 0;
         }
 
         .footer-logo {
           display: flex;
           align-items: center;
           text-decoration: none;
-          margin-bottom: 2rem;
           transition: transform 0.3s ease;
-        }
-
-        .footer-logo-image {
-          height: 6rem;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .company-description {
-          margin-bottom: 2rem;
-          color: var(--color-softdune-light);
-          line-height: 1.6;
-        }
-
-        .company-description p {
-          margin-bottom: 1rem;
-        }
-
-        .contact-info {
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-        }
-
-        .contact-item {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-        }
-
-        .contact-icon {
-          width: 20px;
-          height: 20px;
-          color: var(--color-cinnamon);
           flex-shrink: 0;
         }
 
-        .contact-icon svg {
-          width: 100%;
-          height: 100%;
+        .footer-logo:hover {
+          transform: scale(1.05);
         }
 
-        .contact-link {
-          color: var(--color-softdune-light);
-          text-decoration: none;
-          transition: color 0.3s ease;
-          font-family: var(--font-secondary);
-        }
-
-        .contact-link:hover {
-          color: white;
-        }
-
-        .contact-text {
-          color: var(--color-softdune-light);
-          font-family: var(--font-secondary);
-        }
-
-        .footer-links {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 3rem;
-        }
-
-        .footer-section {
-        }
-
-        .footer-title {
-          font-family: var(--font-primary);
-          font-size: 1.25rem;
-          color: white;
-          margin-bottom: 1.5rem;
-          position: relative;
-        }
-
-        .footer-title::after {
-          content: "";
-          position: absolute;
-          bottom: -0.5rem;
-          left: 0;
-          width: 30px;
-          height: 2px;
-          background: linear-gradient(
-            90deg,
-            var(--color-cinnamon) 0%,
-            var(--color-cinnamon-light) 100%
-          );
-        }
-
-        .footer-list {
-          list-style: none;
-          padding: 0;
-        }
-
-        .footer-list li {
-          margin-bottom: 0.75rem;
-        }
-
-        .footer-link {
-          color: var(--color-softdune-light);
-          text-decoration: none;
-          font-family: var(--font-secondary);
-          transition: all 0.3s ease;
-          position: relative;
-        }
-
-        .footer-link:hover {
-          color: white;
-          padding-left: 0.5rem;
-        }
-
-        .footer-bottom {
-          border-top: 1px solid var(--color-rust-light);
-          padding-top: 2rem;
-        }
-
-        .footer-bottom-content {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 2rem;
-          flex-wrap: wrap;
-          gap: 2rem;
+        .footer-logo-image {
+          height: 80px;
         }
 
         .social-section {
           display: flex;
           align-items: center;
-          gap: 1.5rem;
+          gap: 1rem;
+          flex-shrink: 0;
         }
 
         .social-title {
           color: var(--color-softdune-light);
           font-family: var(--font-secondary);
           font-weight: 500;
+          font-size: 0.9rem;
         }
 
         .social-links {
           display: flex;
-          gap: 1rem;
+          gap: 0.75rem;
         }
 
         .social-link {
@@ -488,6 +211,7 @@ const Footer = () => {
           flex-wrap: wrap;
           gap: 0.5rem 1rem;
           align-items: center;
+          margin-left: auto;
         }
 
         .legal-item {
@@ -502,6 +226,7 @@ const Footer = () => {
           font-size: 0.9rem;
           font-family: var(--font-secondary);
           transition: color 0.3s ease;
+          white-space: nowrap;
         }
 
         .legal-link:hover {
@@ -514,8 +239,9 @@ const Footer = () => {
 
         .copyright {
           text-align: center;
-          border-top: 1px solid var(--color-rust-light);
-          padding-top: 2rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          padding-top: 1.5rem;
+          margin-top: 1.5rem;
         }
 
         .copyright-text {
@@ -531,48 +257,40 @@ const Footer = () => {
           font-size: 0.85rem;
         }
 
-        @media (max-width: 1024px) {
-          .footer-links {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-
         @media (max-width: 768px) {
           .footer-container {
-            padding: 3rem 1rem 2rem;
+            padding: 2rem 1rem;
           }
 
           .footer-content {
-            grid-template-columns: 1fr;
-            gap: 3rem;
-            margin-bottom: 2rem;
-          }
-
-          .footer-links {
-            grid-template-columns: 1fr;
-            gap: 2rem;
-          }
-
-          .footer-logo {
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1.5rem;
           }
 
           .footer-logo-image {
-            height: 5rem;
-          }
-
-          .footer-bottom-content {
-            flex-direction: column;
-            text-align: center;
-          }
-
-          .legal-links {
-            justify-content: center;
+            height: 60px;
           }
 
           .social-section {
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.75rem;
+          }
+
+          .legal-links {
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-left: 0;
+          }
+
+          .legal-item {
+            flex-direction: column;
+            gap: 0.5rem;
+          }
+
+          .legal-separator {
+            display: none;
           }
         }
       `}</style>

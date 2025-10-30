@@ -61,8 +61,7 @@ const TailoredSection = () => {
 
       <style jsx>{`
         .tailored-section {
-          min-height: 100vh;
-          padding: 8rem 0;
+          padding: 5rem 0;
           background: var(--color-softdune-lighter);
         }
 
@@ -95,7 +94,7 @@ const TailoredSection = () => {
 
         /* Imagen pequeña arriba */
         .tailored-small-image {
-          height: 280px;
+          height: 350px;
           width: 100%;
           margin-bottom: 2rem;
           position: relative;

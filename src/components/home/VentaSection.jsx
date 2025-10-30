@@ -53,7 +53,7 @@ const VentaSection = () => {
 
       <style jsx>{`
         .venta-section {
-          padding: 8rem 0;
+          padding: 5rem 0;
           background: white;
         }
 
@@ -75,14 +75,14 @@ const VentaSection = () => {
         .venta-images .image-large {
           height: 650px !important;
           width: 550px !important;
-          top: 20px;
+          top: 10px;
         }
 
         .venta-images .image-small {
-          width: 470px !important;
-          height: 350px !important;
-          top: -340px;
-          left: -660px;
+          width: 550px !important;
+          height: 420px !important;
+          top: -410px;
+          left: -654px;
         }
 
         /* === RESPONSIVE === */

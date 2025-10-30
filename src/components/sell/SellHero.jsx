@@ -228,7 +228,7 @@ const SellHero = () => {
           justify-content: space-between;
           gap: 3rem;
           margin-left: 1rem;
-          width: 90%;
+          width: 100%;
           font-family: var(--font-secondary);
           font-size: 1.25rem;
           line-height: 1.4;
@@ -237,6 +237,10 @@ const SellHero = () => {
           margin-top: 3rem;
           transform: translateY(30px);
           transition: all 0.8s cubic-bezier(0.25, 0.4, 0.25, 1);
+        }
+
+        sell-hero-text__bold {
+          font-weight: 600;
         }
 
         /* Estilos para los párrafos dentro de TextMaskReveal */

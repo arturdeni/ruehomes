@@ -1,7 +1,9 @@
 // src/App.jsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./components/layout/Layout";
-import ScrollToTop from "./components/common/ScrollToTop"; // 👈 Nuevo import
+import ScrollToTop from "./components/common/ScrollToTop";
+import ScrollToTopButton from "./components/common/ScrollToTopButton";
+import WhatsAppButton from "./components/common/WhatsAppButton";
 
 // Páginas que existen
 import Home from "./pages/Home";
@@ -10,6 +12,7 @@ import PropertyDetailPage from "./pages/PropertyDetailPage";
 import Sell from "./pages/Sell";
 import TailoredServices from "./pages/TailoredServices";
 import Agency from "./pages/Agency";
+import Contact from "./pages/Contact";
 
 // Estilos
 import "./styles/variables.css";
@@ -35,6 +38,8 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
+      <ScrollToTopButton />
+      <WhatsAppButton />
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -43,10 +48,7 @@ function App() {
           <Route path="/vender" element={<Sell />} />
           <Route path="/tailored-services" element={<TailoredServices />} />
           <Route path="/la-agencia" element={<Agency />} />
-          <Route
-            path="/contacto"
-            element={<ComingSoon pageName="Contacto" />}
-          />
+          <Route path="/contacto" element={<Contact />} />
 
           {/* 404 */}
           <Route

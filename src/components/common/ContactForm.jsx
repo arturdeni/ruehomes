@@ -36,7 +36,7 @@ const ContactForm = ({
       case "premium":
         return "Contacto Servicios Premium";
       default:
-        return "Contacto General";
+        return "Envíanos un mensaje";
     }
   };
 
@@ -166,200 +166,448 @@ const ContactForm = ({
 
   if (success) {
     return (
-      <div
-        className={`bg-green-50 border border-green-200 rounded-lg p-6 text-center ${className}`}
-      >
-        <div className="flex justify-center mb-4">
+      <div className={`contact-form-success ${className}`}>
+        <div className="success-icon">
           <svg
-            className="w-12 h-12 text-green-500"
+            width="48"
+            height="48"
+            viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            viewBox="0 0 24 24"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
           </svg>
         </div>
-        <h3 className="text-lg font-semibold text-green-800 mb-2">
-          ¡Mensaje enviado correctamente!
-        </h3>
-        <p className="text-green-700">
+        <h3 className="success-title">¡Mensaje enviado!</h3>
+        <p className="success-text">
           Gracias por contactarnos. Nos pondremos en contacto contigo lo antes
           posible.
         </p>
+
+        <style jsx>{`
+          .contact-form-success {
+            background-color: var(--color-white);
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+          }
+
+          .success-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background-color: var(--color-success);
+            color: var(--color-white);
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+          }
+
+          .success-title {
+            font-family: var(--font-primary);
+            font-size: 2rem;
+            color: var(--color-rust);
+            font-weight: 400;
+            margin-bottom: 1rem;
+          }
+
+          .success-text {
+            font-family: var(--font-secondary);
+            font-size: 1rem;
+            color: var(--color-rust);
+            font-weight: 300;
+            line-height: 1.6;
+          }
+        `}</style>
       </div>
     );
   }
 
   return (
-    <div className={`bg-white ${className}`}>
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-6">
-            {getFormTitle()}
-          </h3>
-        </div>
+    <div className={`contact-form-container ${className}`}>
+      <form onSubmit={handleSubmit} className="contact-form">
+        <h3 className="form-title">{getFormTitle()}</h3>
 
-        {/* Nombre */}
-        <div>
-          <label htmlFor="name" className="form-label">
-            Nombre completo *
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className={`form-input ${errors.name ? "border-red-300" : ""}`}
-            placeholder="Introduce tu nombre completo"
-          />
-          {errors.name && <p className="form-error">{errors.name}</p>}
-        </div>
-
-        {/* Email */}
-        <div>
-          <label htmlFor="email" className="form-label">
-            Email *
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className={`form-input ${errors.email ? "border-red-300" : ""}`}
-            placeholder="tu@email.com"
-          />
-          {errors.email && <p className="form-error">{errors.email}</p>}
-        </div>
-
-        {/* Teléfono */}
-        <div>
-          <label htmlFor="phone" className="form-label">
-            Teléfono *
-          </label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            className={`form-input ${errors.phone ? "border-red-300" : ""}`}
-            placeholder="+34 123 456 789"
-          />
-          {errors.phone && <p className="form-error">{errors.phone}</p>}
-        </div>
-
-        {/* Asunto (opcional para algunos tipos) */}
-        {type === "general" && (
-          <div>
-            <label htmlFor="subject" className="form-label">
-              Asunto
+        <div className="form-grid">
+          {/* Nombre */}
+          <div className="form-field">
+            <label htmlFor="name" className="form-field-label">
+              Nombre completo
             </label>
             <input
               type="text"
-              id="subject"
-              name="subject"
-              value={formData.subject}
+              id="name"
+              name="name"
+              value={formData.name}
               onChange={handleChange}
-              className="form-input"
-              placeholder="Asunto de tu consulta"
+              className={`form-field-input ${errors.name ? "error" : ""}`}
+              placeholder="Tu nombre"
             />
+            {errors.name && <p className="form-field-error">{errors.name}</p>}
           </div>
-        )}
+
+          {/* Email */}
+          <div className="form-field">
+            <label htmlFor="email" className="form-field-label">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className={`form-field-input ${errors.email ? "error" : ""}`}
+              placeholder="tu@email.com"
+            />
+            {errors.email && <p className="form-field-error">{errors.email}</p>}
+          </div>
+
+          {/* Teléfono */}
+          <div className="form-field">
+            <label htmlFor="phone" className="form-field-label">
+              Teléfono
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className={`form-field-input ${errors.phone ? "error" : ""}`}
+              placeholder="+34 123 456 789"
+            />
+            {errors.phone && <p className="form-field-error">{errors.phone}</p>}
+          </div>
+
+          {/* Asunto (opcional para algunos tipos) */}
+          {type === "general" && (
+            <div className="form-field">
+              <label htmlFor="subject" className="form-field-label">
+                Asunto <span className="optional">(opcional)</span>
+              </label>
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
+                className="form-field-input"
+                placeholder="Asunto de tu consulta"
+              />
+            </div>
+          )}
+        </div>
 
         {/* Mensaje */}
-        <div>
-          <label htmlFor="message" className="form-label">
-            Mensaje *
+        <div className="form-field">
+          <label htmlFor="message" className="form-field-label">
+            Mensaje
           </label>
           <textarea
             id="message"
             name="message"
-            rows={5}
+            rows={6}
             value={formData.message}
             onChange={handleChange}
-            className={`form-input ${errors.message ? "border-red-300" : ""}`}
+            className={`form-field-textarea ${errors.message ? "error" : ""}`}
             placeholder={getDefaultMessage()}
           />
-          {errors.message && <p className="form-error">{errors.message}</p>}
+          {errors.message && (
+            <p className="form-field-error">{errors.message}</p>
+          )}
         </div>
 
         {/* Checkbox privacidad */}
-        <div className="flex items-start">
+        <div className="form-privacy">
           <input
             id="acceptPrivacy"
             name="acceptPrivacy"
             type="checkbox"
             checked={formData.acceptPrivacy}
             onChange={handleChange}
-            className={`mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 ${
-              errors.acceptPrivacy ? "border-red-300" : ""
-            }`}
+            className="form-checkbox"
           />
-          <label htmlFor="acceptPrivacy" className="ml-3 text-sm text-gray-700">
-            Acepto la{" "}
-            <a href="#" className="text-blue-600 hover:text-blue-500">
-              política de privacidad
-            </a>{" "}
-            y el tratamiento de mis datos personales *
+          <label htmlFor="acceptPrivacy" className="form-privacy-label">
+            Acepto la política de privacidad y el tratamiento de mis datos
+            personales
           </label>
         </div>
         {errors.acceptPrivacy && (
-          <p className="form-error ml-7">{errors.acceptPrivacy}</p>
+          <p className="form-field-error">{errors.acceptPrivacy}</p>
         )}
 
         {/* Error de envío */}
         {errors.submit && (
-          <div className="bg-red-50 border border-red-200 rounded-md p-4">
-            <p className="text-red-800">{errors.submit}</p>
+          <div className="form-submit-error">
+            <p>{errors.submit}</p>
           </div>
         )}
 
         {/* Botón enviar */}
-        <div>
-          <button
-            type="submit"
-            disabled={loading}
-            className={`w-full btn-primary ${
-              loading ? "opacity-50 cursor-not-allowed" : ""
-            }`}
-          >
-            {loading ? (
-              <span className="flex items-center justify-center">
-                <div className="loading-spinner mr-2"></div>
-                Enviando...
-              </span>
-            ) : (
-              "Enviar Mensaje"
-            )}
-          </button>
-        </div>
+        <button
+          type="submit"
+          disabled={loading}
+          className={`form-submit-button ${loading ? "loading" : ""}`}
+        >
+          {loading ? (
+            <span className="loading-content">
+              <div className="loading-spinner"></div>
+              Enviando...
+            </span>
+          ) : (
+            "Enviar Mensaje"
+          )}
+        </button>
 
         {/* Información adicional */}
-        <div className="text-center text-sm text-gray-600">
-          <p>También puedes contactarnos directamente:</p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-2">
-            <a
-              href="tel:+34123456789"
-              className="text-blue-600 hover:text-blue-500"
-            >
-              📞 +34 123 456 789
+        <div className="form-footer">
+          <p className="form-footer-text">
+            O escríbenos directamente a{" "}
+            <a href="mailto:info@ruehomes.com" className="form-footer-link">
+              info@ruehomes.com
             </a>
-            <a
-              href="mailto:info@ruehomes.com"
-              className="text-blue-600 hover:text-blue-500"
-            >
-              ✉️ info@ruehomes.com
-            </a>
-          </div>
+          </p>
         </div>
       </form>
+
+      <style jsx>{`
+        .contact-form-container {
+          background-color: var(--color-white);
+          border-radius: var(--radius-xl);
+          padding: 3rem;
+          box-shadow: var(--shadow-md);
+        }
+
+        .contact-form {
+          display: flex;
+          flex-direction: column;
+          gap: 2rem;
+        }
+
+        .form-title {
+          font-family: var(--font-primary);
+          font-size: 2rem;
+          color: var(--color-rust);
+          font-weight: 400;
+          margin-bottom: 0.5rem;
+          text-align: center;
+        }
+
+        .form-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1.5rem;
+        }
+
+        .form-field {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .form-field-label {
+          font-family: var(--font-secondary);
+          font-size: 0.875rem;
+          color: var(--color-rust);
+          font-weight: 500;
+          letter-spacing: 0.02em;
+        }
+
+        .optional {
+          font-weight: 300;
+          opacity: 0.7;
+        }
+
+        .form-field-input,
+        .form-field-textarea {
+          font-family: var(--font-secondary);
+          font-size: 1rem;
+          color: var(--color-rust);
+          background-color: var(--color-marble);
+          border: 1px solid transparent;
+          border-radius: var(--radius-lg);
+          padding: 0.875rem 1rem;
+          transition: all var(--transition-normal);
+          outline: none;
+        }
+
+        .form-field-input:focus,
+        .form-field-textarea:focus {
+          background-color: var(--color-white);
+          border-color: var(--color-rust);
+        }
+
+        .form-field-input.error,
+        .form-field-textarea.error {
+          border-color: var(--color-error);
+        }
+
+        .form-field-input::placeholder,
+        .form-field-textarea::placeholder {
+          color: var(--color-rust);
+          opacity: 0.5;
+        }
+
+        .form-field-textarea {
+          resize: vertical;
+          min-height: 120px;
+        }
+
+        .form-field-error {
+          font-family: var(--font-secondary);
+          font-size: 0.8rem;
+          color: var(--color-error);
+          font-weight: 400;
+        }
+
+        .form-privacy {
+          display: flex;
+          align-items: flex-start;
+          gap: 0.75rem;
+        }
+
+        .form-checkbox {
+          width: 20px;
+          height: 20px;
+          margin-top: 0.1rem;
+          cursor: pointer;
+          accent-color: var(--color-rust);
+        }
+
+        .form-privacy-label {
+          font-family: var(--font-secondary);
+          font-size: 0.875rem;
+          color: var(--color-rust);
+          font-weight: 300;
+          line-height: 1.5;
+          cursor: pointer;
+        }
+
+        .form-submit-error {
+          background-color: var(--color-marble);
+          border: 1px solid var(--color-error);
+          border-radius: var(--radius-lg);
+          padding: 1rem;
+          text-align: center;
+        }
+
+        .form-submit-error p {
+          font-family: var(--font-secondary);
+          font-size: 0.875rem;
+          color: var(--color-error);
+          font-weight: 400;
+        }
+
+        .form-submit-button {
+          font-family: var(--font-secondary);
+          font-size: 1rem;
+          font-weight: 500;
+          color: var(--color-white);
+          background-color: var(--color-rust);
+          border: none;
+          border-radius: var(--radius-lg);
+          padding: 1rem 2rem;
+          cursor: pointer;
+          transition: all var(--transition-normal);
+          letter-spacing: 0.03em;
+        }
+
+        .form-submit-button:hover:not(:disabled) {
+          background-color: var(--color-rust-dark);
+          transform: translateY(-2px);
+          box-shadow: var(--shadow-lg);
+        }
+
+        .form-submit-button:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
+        .loading-content {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.75rem;
+        }
+
+        .loading-spinner {
+          width: 16px;
+          height: 16px;
+          border: 2px solid var(--color-white);
+          border-top-color: transparent;
+          border-radius: 50%;
+          animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        .form-footer {
+          text-align: center;
+          padding-top: 1rem;
+          border-top: 1px solid var(--color-marble);
+        }
+
+        .form-footer-text {
+          font-family: var(--font-secondary);
+          font-size: 0.875rem;
+          color: var(--color-rust);
+          font-weight: 300;
+        }
+
+        .form-footer-link {
+          color: var(--color-rust);
+          font-weight: 500;
+          text-decoration: none;
+          border-bottom: 1px solid var(--color-rust);
+          transition: all var(--transition-normal);
+        }
+
+        .form-footer-link:hover {
+          color: var(--color-rust-dark);
+          border-bottom-color: var(--color-rust-dark);
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+          .contact-form-container {
+            padding: 2rem;
+          }
+
+          .form-title {
+            font-size: 1.75rem;
+          }
+
+          .form-grid {
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+          }
+
+          .contact-form {
+            gap: 1.5rem;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .contact-form-container {
+            padding: 1.5rem;
+          }
+
+          .form-title {
+            font-size: 1.5rem;
+          }
+        }
+      `}</style>
     </div>
   );
 };
