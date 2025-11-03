@@ -192,7 +192,7 @@ const Properties = () => {
   return (
     <div className="properties-page">
       {/* Hero Section */}
-      <section className="properties__hero py-20">
+      <section className="properties__hero py-8">
         <div className="container">
           <div className="properties__hero-content text-center">
             <h1 className="properties__hero-title font-primary text-rust mb-6">
@@ -256,7 +256,7 @@ const Properties = () => {
             <div className="properties__no-results text-center py-20">
               <div className="properties__no-results-icon mb-6">
                 <svg
-                  className="w-16 h-16 text-softdune mx-auto"
+                  className="text-softdune mx-auto w-16 h-16"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"

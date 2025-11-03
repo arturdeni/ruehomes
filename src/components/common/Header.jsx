@@ -12,7 +12,7 @@ const Header = () => {
     { name: "Inicio", href: "/" },
     { name: "Propiedades", href: "/propiedades" },
     { name: "Vender", href: "/vender" },
-    { name: "Tailored Service", href: "/tailored-services" },
+    { name: "Tailored Services", href: "/tailored-services" },
     { name: "La Agencia", href: "/la-agencia" },
     { name: "Contacto", href: "/contacto" },
   ];
@@ -284,8 +284,8 @@ const Header = () => {
           }
 
           .header-instagram-icon {
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 23px;
           }
 
           /* === HAMBURGER BUTTON === */

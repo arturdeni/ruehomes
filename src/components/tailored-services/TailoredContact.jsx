@@ -61,7 +61,7 @@ const TailoredContact = () => {
           </SimpleReveal>
 
           <SimpleReveal className="tailored-contact-button-wrapper" delay={0.4}>
-            <a href="/contacto" className="btn btn-primary btn-lg">
+            <a href="/contacto" className="btn btn-primary btn-md">
               Contactar
             </a>
           </SimpleReveal>
@@ -86,7 +86,7 @@ const TailoredContact = () => {
 
         .tailored-contact-subtitle {
           font-family: var(--font-secondary);
-          font-size: 1.5rem;
+          font-size: 1.2rem;
           color: var(--color-rust-light);
           font-style: italic;
           font-weight: 300;
@@ -99,7 +99,7 @@ const TailoredContact = () => {
 
         .tailored-contact-title {
           font-family: var(--font-primary);
-          font-size: 3.5rem;
+          font-size: 2.5rem;
           color: var(--color-rust);
           font-weight: 400;
           line-height: 1.2;

@@ -2,6 +2,7 @@
 import AgencyHero from "../components/agency/AgencyHero";
 import AgencyMarcosJan from "../components/agency/AgencyMarcosJan";
 import AgencyAboutUs from "../components/agency/AgencyAboutUs";
+import AgencyClosing from "../components/agency/AgencyClosing";
 
 const Agency = () => {
   return (
@@ -9,6 +10,7 @@ const Agency = () => {
       <AgencyHero />
       <AgencyMarcosJan />
       <AgencyAboutUs />
+      <AgencyClosing />
 
       <style jsx>{`
         .agency-page {
