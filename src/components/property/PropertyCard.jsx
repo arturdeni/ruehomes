@@ -1,13 +1,17 @@
 // src/components/property/PropertyCard.jsx
 import { Link } from "react-router-dom";
+import { optimizeImageUrl } from "../../utils/helpers";
+import HotelIcon from "@mui/icons-material/Hotel";
+import BathtubIcon from "@mui/icons-material/Bathtub";
+import SquareFootIcon from "@mui/icons-material/SquareFoot";
 
 const PropertyCard = ({ property }) => {
   const {
     id,
     title,
     price,
-    propertyType = 'apartment',
-    propertyStatus = 'sale',
+    propertyType = "apartment",
+    propertyStatus = "sale",
     bedrooms,
     bathrooms,
     area,
@@ -22,9 +26,9 @@ const PropertyCard = ({ property }) => {
   // Formatear precio
   const formatPrice = (price) => {
     if (price >= 1000000) {
-      return `${(price / 1000000).toFixed(1)}M`;
+      return `${(price / 1000000).toFixed(1)}.000.000`;
     } else if (price >= 1000) {
-      return `${(price / 1000).toFixed(0)}K`;
+      return `${(price / 1000).toFixed(0)}.000`;
     }
     return price.toString();
   };
@@ -32,38 +36,43 @@ const PropertyCard = ({ property }) => {
   // Imagen principal
   const mainImage = images && images.length > 0 ? images[0] : null;
 
-  // Traducir tipo de propiedad
-  const getPropertyTypeLabel = (type) => {
-    const types = {
-      apartment: "Piso",
-      house: "Casa",
-      commercial: "Local",
-      office: "Oficina",
-      warehouse: "Nave",
-      land: "Terreno",
+  // Obtener el display name del tipo de propiedad
+  const getPropertyTypeDisplayName = (typeId) => {
+    const typeMap = {
+      piso: "Piso",
+      atico: "Ático",
+      casaUnifamiliar: "Casa Unifamiliar",
+      casaAdosada: "Casa Adosada",
+      villa: "Villa",
+      duplex: "Dúplex",
+      loft: "Loft",
+      local: "Local",
+      nave: "Nave",
+      oficinas: "Oficinas",
     };
-    return types[type] || type;
+    return typeMap[typeId] || typeId;
   };
 
-  // Traducir estado
-  const getStatusLabel = (status) => {
-    const statuses = {
-      sale: "Venta",
-      rent: "Alquiler",
-      sold: "Vendido",
-      rented: "Alquilado",
+  // Obtener el display name del estado
+  const getStatusDisplayName = (statusId) => {
+    const statusMap = {
+      enVenta: "En Venta",
+      vendido: "Vendido",
+      enAlquiler: "En Alquiler",
+      alquilado: "Alquilado",
     };
-    return statuses[status] || status;
+    return statusMap[statusId] || statusId;
   };
 
-  const getStatusColor = (status) => {
+  // Obtener color según el estado
+  const getStatusColor = (statusId) => {
     const colors = {
-      sale: "property-card__badge--sale",
-      rent: "property-card__badge--rent",
-      sold: "property-card__badge--sold",
-      rented: "property-card__badge--rented",
+      enVenta: "property-card__badge--sale",
+      enAlquiler: "property-card__badge--rent",
+      vendido: "property-card__badge--sold",
+      alquilado: "property-card__badge--rented",
     };
-    return colors[status] || "property-card__badge--default";
+    return colors[statusId] || "property-card__badge--default";
   };
 
   return (
@@ -73,7 +82,11 @@ const PropertyCard = ({ property }) => {
         <div className="property-card__image-container">
           {mainImage ? (
             <img
-              src={mainImage.url}
+              src={optimizeImageUrl(mainImage.url, {
+                width: 600,
+                height: 400,
+                quality: 80,
+              })}
               alt={mainImage.alt || title}
               className="property-card__image"
               loading="lazy"
@@ -99,7 +112,7 @@ const PropertyCard = ({ property }) => {
           {/* Badge de estado */}
           <div className="property-card__badge-container">
             <span className={`property-card__badge ${getStatusColor(status)}`}>
-              {getStatusLabel(status)}
+              {getStatusDisplayName(status)}
             </span>
           </div>
 
@@ -132,12 +145,12 @@ const PropertyCard = ({ property }) => {
           <div className="property-card__header">
             <div className="property-card__price">
               {formatPrice(price)}€
-              {status === "rent" && (
+              {status === "enAlquiler" && (
                 <span className="property-card__price-period">/mes</span>
               )}
             </div>
             <div className="property-card__type">
-              {getPropertyTypeLabel(propertyType)}
+              {getPropertyTypeDisplayName(propertyType)}
             </div>
           </div>
 
@@ -174,19 +187,7 @@ const PropertyCard = ({ property }) => {
           <div className="property-card__features">
             {bedrooms && (
               <div className="property-card__feature">
-                <svg
-                  className="property-card__feature-icon"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2 2v0"
-                  />
-                </svg>
+                <HotelIcon className="property-card__feature-icon" />
                 <span className="property-card__feature-text">
                   {bedrooms} hab
                 </span>
@@ -195,19 +196,7 @@ const PropertyCard = ({ property }) => {
 
             {bathrooms && (
               <div className="property-card__feature">
-                <svg
-                  className="property-card__feature-icon"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11M20 10v11"
-                  />
-                </svg>
+                <BathtubIcon className="property-card__feature-icon" />
                 <span className="property-card__feature-text">
                   {bathrooms} baños
                 </span>
@@ -216,24 +205,11 @@ const PropertyCard = ({ property }) => {
 
             {area && (
               <div className="property-card__feature">
-                <svg
-                  className="property-card__feature-icon"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-                  />
-                </svg>
+                <SquareFootIcon className="property-card__feature-icon" />
                 <span className="property-card__feature-text">{area}m²</span>
               </div>
             )}
           </div>
-
         </div>
       </article>
 

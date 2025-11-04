@@ -36,7 +36,7 @@ export const GET_PROPERTIES = `
         latitude
         longitude
       }
-      images {
+      images(first: 50) {
         id
         url
         fileName
@@ -71,7 +71,7 @@ export const GET_PROPERTY_BY_ID = `
         latitude
         longitude
       }
-      images {
+      images(first: 50) {
         id
         url
         fileName

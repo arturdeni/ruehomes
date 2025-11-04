@@ -2,6 +2,10 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getPropertyById } from "../../services/hygraph";
+import { optimizeImageUrl } from "../../utils/helpers";
+import HotelIcon from "@mui/icons-material/Hotel";
+import BathtubIcon from "@mui/icons-material/Bathtub";
+import SquareFootIcon from "@mui/icons-material/SquareFoot";
 
 const PropertyDetail = () => {
   const { id } = useParams();
@@ -32,13 +36,6 @@ const PropertyDetail = () => {
             // Add missing fields with defaults
             features: data.features || [],
             nearbyPlaces: [], // Not in schema
-            agent: {
-              name: "Rue Homes",
-              phone: "+34 600 000 000",
-              email: "info@ruehomes.com",
-              photo:
-                "https://ui-avatars.com/api/?name=Rue+Homes&size=150&background=D4A574&color=fff",
-            },
           };
           setProperty(transformedProperty);
         } else {
@@ -88,26 +85,32 @@ const PropertyDetail = () => {
     return new Intl.NumberFormat("es-ES").format(price);
   };
 
-  const getPropertyTypeLabel = (type) => {
-    const types = {
-      apartment: "Piso",
-      house: "Casa",
-      commercial: "Local",
-      office: "Oficina",
-      warehouse: "Nave",
-      land: "Terreno",
+  // Obtener el display name del tipo de propiedad
+  const getPropertyTypeDisplayName = (typeId) => {
+    const typeMap = {
+      piso: "Piso",
+      atico: "Ático",
+      casaUnifamiliar: "Casa Unifamiliar",
+      casaAdosada: "Casa Adosada",
+      villa: "Villa",
+      duplex: "Dúplex",
+      loft: "Loft",
+      local: "Local",
+      nave: "Nave",
+      oficinas: "Oficinas",
     };
-    return types[type] || type;
+    return typeMap[typeId] || typeId;
   };
 
-  const getStatusLabel = (status) => {
-    const statuses = {
-      sale: "En Venta",
-      rent: "En Alquiler",
-      sold: "Vendido",
-      rented: "Alquilado",
+  // Obtener el display name del estado
+  const getStatusDisplayName = (statusId) => {
+    const statusMap = {
+      enVenta: "En Venta",
+      vendido: "Vendido",
+      enAlquiler: "En Alquiler",
+      alquilado: "Alquilado",
     };
-    return statuses[status] || status;
+    return statusMap[statusId] || statusId;
   };
 
   const nextImage = () => {
@@ -134,7 +137,10 @@ const PropertyDetail = () => {
           {/* Imagen principal */}
           <div className="property-detail__main-image">
             <img
-              src={property.images[currentImageIndex].url}
+              src={optimizeImageUrl(property.images[currentImageIndex].url, {
+                width: 1400,
+                quality: 85,
+              })}
               alt={property.images[currentImageIndex].alt}
               className="property-detail__image"
             />
@@ -195,7 +201,11 @@ const PropertyDetail = () => {
                     }`}
                   >
                     <img
-                      src={image.url}
+                      src={optimizeImageUrl(image.url, {
+                        width: 150,
+                        height: 100,
+                        quality: 75,
+                      })}
                       alt={image.alt}
                       className="property-detail__thumbnail-image"
                     />
@@ -217,10 +227,10 @@ const PropertyDetail = () => {
               <div className="property-detail__header">
                 <div className="property-detail__header-top">
                   <div className="property-detail__badge">
-                    {getStatusLabel(property.status)}
+                    {getStatusDisplayName(property.status)}
                   </div>
                   <div className="property-detail__type">
-                    {getPropertyTypeLabel(property.propertyType)}
+                    {getPropertyTypeDisplayName(property.propertyType)}
                   </div>
                 </div>
 
@@ -253,7 +263,7 @@ const PropertyDetail = () => {
 
                 <div className="property-detail__price">
                   {formatPrice(property.price)}€
-                  {property.status === "rent" && (
+                  {property.status === "enAlquiler" && (
                     <span className="property-detail__price-period">/mes</span>
                   )}
                 </div>
@@ -262,19 +272,7 @@ const PropertyDetail = () => {
               {/* Características principales */}
               <div className="property-detail__key-features">
                 <div className="property-detail__feature-item">
-                  <svg
-                    className="property-detail__feature-icon"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2 2v0"
-                    />
-                  </svg>
+                  <HotelIcon className="property-detail__feature-icon" />
                   <div>
                     <span className="property-detail__feature-number">
                       {property.bedrooms}
@@ -286,19 +284,7 @@ const PropertyDetail = () => {
                 </div>
 
                 <div className="property-detail__feature-item">
-                  <svg
-                    className="property-detail__feature-icon"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11M20 10v11"
-                    />
-                  </svg>
+                  <BathtubIcon className="property-detail__feature-icon" />
                   <div>
                     <span className="property-detail__feature-number">
                       {property.bathrooms}
@@ -310,19 +296,7 @@ const PropertyDetail = () => {
                 </div>
 
                 <div className="property-detail__feature-item">
-                  <svg
-                    className="property-detail__feature-icon"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-                    />
-                  </svg>
+                  <SquareFootIcon className="property-detail__feature-icon" />
                   <div>
                     <span className="property-detail__feature-number">
                       {property.area}
@@ -336,7 +310,14 @@ const PropertyDetail = () => {
               <div className="property-detail__description">
                 <h2 className="property-detail__section-title">Descripción</h2>
                 <p className="property-detail__description-text">
-                  {property.description}
+                  {property.description
+                    .split(/\\n|\n/)
+                    .map((line, index, array) => (
+                      <span key={index}>
+                        {line}
+                        {index < array.length - 1 && <br />}
+                      </span>
+                    ))}
                 </p>
               </div>
 
@@ -487,25 +468,16 @@ const PropertyDetail = () => {
             {/* Columna Lateral - Información de Contacto */}
             <div className="property-detail__sidebar">
               <div className="property-detail__contact-card">
-                <div className="property-detail__agent">
-                  <img
-                    src={property.agent.photo}
-                    alt={property.agent.name}
-                    className="property-detail__agent-photo"
-                  />
-                  <div className="property-detail__agent-info">
-                    <h3 className="property-detail__agent-name">
-                      {property.agent.name}
-                    </h3>
-                    <p className="property-detail__agent-title">
-                      Agente Inmobiliario
-                    </p>
-                  </div>
-                </div>
+                <h3 className="property-detail__contact-title">
+                  ¿Te interesa esta propiedad?
+                </h3>
+                <p className="property-detail__contact-subtitle">
+                  Contáctanos para más información
+                </p>
 
                 <div className="property-detail__contact-methods">
                   <a
-                    href={`tel:${property.agent.phone}`}
+                    href="tel:+34600000000"
                     className="property-detail__contact-btn property-detail__contact-btn--phone"
                   >
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -520,7 +492,7 @@ const PropertyDetail = () => {
                   </a>
 
                   <a
-                    href={`mailto:${property.agent.email}?subject=Consulta sobre ${property.title}&body=Hola, estoy interesado en esta propiedad y me gustaría obtener más información.`}
+                    href={`mailto:info@ruehomes.com?subject=Consulta sobre ${property.title}&body=Hola, estoy interesado en esta propiedad y me gustaría obtener más información.`}
                     className="property-detail__contact-btn property-detail__contact-btn--email"
                   >
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -612,22 +584,6 @@ const PropertyDetail = () => {
                     </span>
                     <span className="property-detail__info-value">
                       REF-{property.id.toString().padStart(4, "0")}
-                    </span>
-                  </div>
-                  <div className="property-detail__info-item">
-                    <span className="property-detail__info-label">
-                      Publicado:
-                    </span>
-                    <span className="property-detail__info-value">
-                      {new Date(property.createdAt).toLocaleDateString("es-ES")}
-                    </span>
-                  </div>
-                  <div className="property-detail__info-item">
-                    <span className="property-detail__info-label">
-                      Actualizado:
-                    </span>
-                    <span className="property-detail__info-value">
-                      {new Date(property.updatedAt).toLocaleDateString("es-ES")}
                     </span>
                   </div>
                 </div>
@@ -1114,35 +1070,21 @@ const PropertyDetail = () => {
           padding: 2rem;
         }
 
-        .property-detail__agent {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          margin-bottom: 2rem;
-          padding-bottom: 1.5rem;
-          border-bottom: 1px solid var(--color-softdune-light);
-        }
-
-        .property-detail__agent-photo {
-          width: 4rem;
-          height: 4rem;
-          border-radius: 50%;
-          object-fit: cover;
-        }
-
-        .property-detail__agent-name {
-          font-family: var(--font-secondary);
-          font-size: 1.1rem;
-          font-weight: 600;
+        .property-detail__contact-title {
+          font-family: var(--font-primary);
+          font-size: 1.5rem;
+          font-weight: 400;
           color: var(--color-rust);
-          margin-bottom: 0.25rem;
+          margin-bottom: 0.5rem;
+          text-align: center;
         }
 
-        .property-detail__agent-title {
+        .property-detail__contact-subtitle {
           font-family: var(--font-secondary);
-          font-size: 0.85rem;
+          font-size: 0.95rem;
           color: var(--color-rust-light);
-          margin: 0;
+          text-align: center;
+          margin-bottom: 2rem;
         }
 
         /* Métodos de contacto */

@@ -3,7 +3,7 @@
 /**
  * Valida formato de email
  * @param {string} email - Email a validar
- * @returns {boolean} - True si el formato es v·lido
+ * @returns {boolean} - True si el formato es vÔøΩlido
  */
 export const validateEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -11,9 +11,9 @@ export const validateEmail = (email) => {
 };
 
 /**
- * Valida formato de telÈfono espaÒol
- * @param {string} phone - TelÈfono a validar
- * @returns {boolean} - True si el formato es v·lido
+ * Valida formato de telÔøΩfono espaÔøΩol
+ * @param {string} phone - TelÔøΩfono a validar
+ * @returns {boolean} - True si el formato es vÔøΩlido
  */
 export const validatePhone = (phone) => {
   // Acepta formatos: +34 123 456 789, 123456789, +34123456789, etc.
@@ -36,12 +36,54 @@ export const formatPrice = (price) => {
 };
 
 /**
- * Trunca un texto a un n˙mero m·ximo de caracteres
+ * Trunca un texto a un nÔøΩmero mÔøΩximo de caracteres
  * @param {string} text - Texto a truncar
- * @param {number} maxLength - Longitud m·xima
+ * @param {number} maxLength - Longitud mÔøΩxima
  * @returns {string} - Texto truncado
  */
 export const truncateText = (text, maxLength) => {
   if (text.length <= maxLength) return text;
   return text.substring(0, maxLength) + "...";
+};
+
+/**
+ * Optimiza una URL de imagen de Hygraph aplicando transformaciones
+ * @param {string} url - URL original de la imagen
+ * @param {object} options - Opciones de optimizaci√≥n
+ * @param {number} options.width - Ancho deseado (opcional)
+ * @param {number} options.height - Alto deseado (opcional)
+ * @param {number} options.quality - Calidad de la imagen 0-100 (default: 80)
+ * @param {string} options.format - Formato de imagen (default: 'webp')
+ * @returns {string} - URL optimizada
+ */
+export const optimizeImageUrl = (
+  url,
+  { width, height, quality = 80, format = "webp" } = {}
+) => {
+  if (!url) return "";
+
+  const params = new URLSearchParams();
+
+  // Formato y compresi√≥n autom√°tica
+  params.append("auto", "format,compress");
+
+  // Formato espec√≠fico (WebP por defecto)
+  if (format) {
+    params.append("fm", format);
+  }
+
+  // Calidad
+  params.append("q", quality.toString());
+
+  // Dimensiones
+  if (width) {
+    params.append("w", width.toString());
+  }
+  if (height) {
+    params.append("h", height.toString());
+  }
+
+  // Construir URL final
+  const separator = url.includes("?") ? "&" : "?";
+  return `${url}${separator}${params.toString()}`;
 };

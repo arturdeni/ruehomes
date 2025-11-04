@@ -91,7 +91,7 @@ const Header = () => {
             <div className="header-contact">
               <span className="header-phone">+34 642 711 331</span>
               <a
-                href="https://www.instagram.com/ruehomes/"
+                href="https://www.instagram.com/rue.homes/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="header-instagram-link"
