@@ -97,52 +97,6 @@ const TailoredMain = () => {
 
   return (
     <div className="tailored-main">
-      {/* Hero Section */}
-      <section className="tailored-intro-section">
-        <div className="container">
-          <div className="tailored-intro-content">
-            {/* Contenido de texto */}
-            <div className="tailored-intro-text">
-              <SimpleReveal className="tailored-intro-title-wrapper">
-                <h1 className="tailored-intro-title">
-                  Rue Homes{" "}
-                  <span className="tailored-title-highlight">Tailored</span>
-                </h1>
-              </SimpleReveal>
-
-              <SimpleReveal
-                className="tailored-intro-description-wrapper"
-                delay={0.2}
-              >
-                <p className="tailored-intro-description">
-                  Nuestro servicio más{" "}
-                  <strong>personalizado y exclusivo</strong>, pensado para
-                  clientes exigentes que valoran la{" "}
-                  <strong>
-                    excelencia, la privacidad y el cuidado en cada detalle
-                  </strong>
-                  , y que buscan{" "}
-                  <strong>
-                    optimizar su tiempo mientras encuentran su hogar ideal
-                  </strong>
-                  .
-                </p>
-              </SimpleReveal>
-            </div>
-
-            {/* Imagen principal */}
-            <div className="tailored-intro-visual">
-              <div className="tailored-intro-image-wrapper">
-                <AnimatedImageContainer
-                  src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2075&q=80"
-                  delay={0.4}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Cómo funciona Section */}
       <section className="tailored-process-section">
         <div className="container">
@@ -218,65 +172,6 @@ const TailoredMain = () => {
       <style jsx>{`
         .tailored-main {
           min-height: 100vh;
-        }
-
-        /* ===== INTRO SECTION ===== */
-        .tailored-intro-section {
-          padding: 8rem 0;
-          background: var(--color-marble-lighter);
-          background: linear-gradient(
-            135deg,
-            var(--color-marble-lighter) 0%,
-            var(--color-marble) 100%
-          );
-        }
-
-        .tailored-intro-content {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 6rem;
-          align-items: center;
-          min-height: 60vh;
-        }
-
-        .tailored-intro-title-wrapper {
-          margin-bottom: 1.5rem;
-        }
-
-        .tailored-intro-title {
-          font-family: var(--font-primary);
-          font-size: 4rem;
-          color: var(--color-rust);
-          font-weight: 400;
-          margin-bottom: 2rem;
-          line-height: 1.1;
-        }
-
-        .tailored-title-highlight {
-          color: var(--color-cinnamon);
-        }
-
-        .tailored-intro-description-wrapper {
-          margin-bottom: 2rem;
-        }
-
-        .tailored-intro-description {
-          font-family: var(--font-secondary);
-          font-size: 1.25rem;
-          color: var(--color-rust-light);
-          line-height: 1.7;
-          font-weight: 300;
-        }
-
-        .tailored-intro-description strong {
-          color: var(--color-rust);
-          font-weight: 500;
-        }
-
-        .tailored-intro-image-wrapper {
-          width: 100%;
-          height: 500px;
-          position: relative;
         }
 
         /* ===== PROCESS SECTION ===== */
@@ -438,15 +333,10 @@ const TailoredMain = () => {
 
         /* ===== RESPONSIVE DESIGN ===== */
         @media (max-width: 968px) {
-          .tailored-intro-content,
           .tailored-benefits-content {
             grid-template-columns: 1fr;
             gap: 3rem;
             text-align: center;
-          }
-
-          .tailored-intro-title {
-            font-size: 3rem;
           }
 
           .tailored-process-title,
@@ -454,13 +344,8 @@ const TailoredMain = () => {
             font-size: 2.5rem;
           }
 
-          .tailored-intro-image-wrapper,
           .tailored-benefits-image-wrapper {
             height: 400px;
-          }
-
-          .tailored-intro-section {
-            padding: 6rem 0;
           }
 
           .tailored-process-section,
@@ -475,10 +360,6 @@ const TailoredMain = () => {
         }
 
         @media (max-width: 640px) {
-          .tailored-intro-title {
-            font-size: 2.5rem;
-          }
-
           .tailored-process-title,
           .tailored-benefits-title {
             font-size: 2rem;
@@ -502,7 +383,6 @@ const TailoredMain = () => {
             padding: 1.5rem;
           }
 
-          .tailored-intro-image-wrapper,
           .tailored-benefits-image-wrapper {
             height: 300px;
           }

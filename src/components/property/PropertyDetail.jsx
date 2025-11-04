@@ -21,13 +21,14 @@ const PropertyDetail = () => {
           const transformedProperty = {
             ...data,
             description: data.description?.text || data.description || "",
-            images: data.images?.map(img => ({
-              url: img.url,
-              alt: img.fileName || data.title,
-              fileName: img.fileName
-            })) || [],
+            images:
+              data.images?.map((img) => ({
+                url: img.url,
+                alt: img.fileName || data.title,
+                fileName: img.fileName,
+              })) || [],
             // Backwards compatibility: use propertyStatus as status
-            status: data.propertyStatus || 'sale',
+            status: data.propertyStatus || "sale",
             // Add missing fields with defaults
             features: data.features || [],
             nearbyPlaces: [], // Not in schema
@@ -35,8 +36,9 @@ const PropertyDetail = () => {
               name: "Rue Homes",
               phone: "+34 600 000 000",
               email: "info@ruehomes.com",
-              photo: "https://ui-avatars.com/api/?name=Rue+Homes&size=150&background=D4A574&color=fff"
-            }
+              photo:
+                "https://ui-avatars.com/api/?name=Rue+Homes&size=150&background=D4A574&color=fff",
+            },
           };
           setProperty(transformedProperty);
         } else {
@@ -366,7 +368,7 @@ const PropertyDetail = () => {
               </div>
 
               {/* Información detallada */}
-              <div className="property-detail__specs">
+              {/* <div className="property-detail__specs">
                 <h2 className="property-detail__section-title">
                   Información Detallada
                 </h2>
@@ -392,7 +394,7 @@ const PropertyDetail = () => {
                     </div>
                   )}
                 </div>
-              </div>
+              </div> */}
 
               {/* Lugares cercanos - Hidden if no data */}
               {property.nearbyPlaces && property.nearbyPlaces.length > 0 && (
@@ -402,83 +404,83 @@ const PropertyDetail = () => {
                   </h2>
                   <div className="property-detail__nearby-list">
                     {property.nearbyPlaces.map((place, index) => (
-                    <div key={index} className="property-detail__nearby-item">
-                      <div className="property-detail__nearby-icon">
-                        {place.type === "metro" && (
-                          <svg
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                          </svg>
-                        )}
-                        {place.type === "park" && (
-                          <svg
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-                            />
-                          </svg>
-                        )}
-                        {place.type === "shopping" && (
-                          <svg
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-                            />
-                          </svg>
-                        )}
-                        {place.type === "school" && (
-                          <svg
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M12 14l9-5-9-5-9 5 9 5z"
-                            />
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M12 14v7"
-                            />
-                          </svg>
-                        )}
+                      <div key={index} className="property-detail__nearby-item">
+                        <div className="property-detail__nearby-icon">
+                          {place.type === "metro" && (
+                            <svg
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                              />
+                            </svg>
+                          )}
+                          {place.type === "park" && (
+                            <svg
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                              />
+                            </svg>
+                          )}
+                          {place.type === "shopping" && (
+                            <svg
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                              />
+                            </svg>
+                          )}
+                          {place.type === "school" && (
+                            <svg
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M12 14l9-5-9-5-9 5 9 5z"
+                              />
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M12 14v7"
+                              />
+                            </svg>
+                          )}
+                        </div>
+                        <div className="property-detail__nearby-info">
+                          <span className="property-detail__nearby-name">
+                            {place.name}
+                          </span>
+                          <span className="property-detail__nearby-distance">
+                            a {place.distance} andando
+                          </span>
+                        </div>
                       </div>
-                      <div className="property-detail__nearby-info">
-                        <span className="property-detail__nearby-name">
-                          {place.name}
-                        </span>
-                        <span className="property-detail__nearby-distance">
-                          a {place.distance} andando
-                        </span>
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
               )}
             </div>
 

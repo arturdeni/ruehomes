@@ -1,10 +1,12 @@
 // src/pages/TailoredServices.jsx
+import TailoredHero from "../components/tailored-services/TailoredHero";
 import TailoredMain from "../components/tailored-services/TailoredMain";
 import TailoredContact from "../components/tailored-services/TailoredContact";
 
 const TailoredServices = () => {
   return (
     <div className="tailored-services-page">
+      <TailoredHero />
       <TailoredMain />
       <TailoredContact />
 
