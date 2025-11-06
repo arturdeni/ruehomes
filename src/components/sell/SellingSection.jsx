@@ -77,6 +77,11 @@ const SellingSection = () => {
   ];
 
   useEffect(() => {
+    // Forzar que la imagen esté visible al montar el componente
+    if (imageRef.current) {
+      imageRef.current.style.transform = "translateX(0%)";
+    }
+
     const ctx = gsap.context(() => {
       let currentPhaseIndex = 0;
 
@@ -189,6 +194,16 @@ const SellingSection = () => {
           pin: contentRef.current,
           anticipatePin: 1,
           refreshPriority: -1,
+          onRefresh: () => {
+            // Cuando ScrollTrigger se recalcula (ej: al recargar la página),
+            // resetear la posición de la imagen para que sea visible
+            if (imageRef.current) {
+              gsap.killTweensOf(imageRef.current);
+              gsap.set(imageRef.current, { x: 0, clearProps: "all" });
+              imageRef.current.style.transform = "translateX(0%)";
+              imageRef.current.style.opacity = "1";
+            }
+          },
           onUpdate: (self) => {
             const progress = Math.max(0, Math.min(1, self.progress));
 
@@ -295,6 +310,26 @@ const SellingSection = () => {
 
     return () => ctx.revert();
   }, [phases]);
+
+  // Efecto adicional para manejar la recarga de la página
+  useEffect(() => {
+    const handleLoad = () => {
+      if (imageRef.current) {
+        // Resetear la imagen inmediatamente
+        imageRef.current.style.transform = "translateX(0%)";
+        imageRef.current.style.transition = "none";
+      }
+      // Refrescar ScrollTrigger después de un breve delay
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
+    };
+
+    // Ejecutar al montar el componente (cuando se recarga la página)
+    handleLoad();
+
+    return () => {};
+  }, []);
 
   return (
     <section
