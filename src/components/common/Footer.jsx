@@ -1,14 +1,29 @@
 // src/components/common/Footer.jsx
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import LegalModal from "./LegalModal";
 
 const Footer = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedSection, setSelectedSection] = useState(null);
+
   const navigation = {
     legal: [
-      { name: "Política de Privacidad", href: "#" },
-      { name: "Términos y Condiciones", href: "#" },
-      { name: "Cookies", href: "#" },
-      { name: "Aviso Legal", href: "#" },
+      { name: "Política de Privacidad" },
+      { name: "Términos y Condiciones" },
+      { name: "Cookies" },
+      { name: "Aviso Legal" },
     ],
+  };
+
+  const handleLegalClick = (name) => {
+    setSelectedSection(name);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setSelectedSection(null);
   };
 
   const socialLinks = [
@@ -81,9 +96,12 @@ const Footer = () => {
           <div className="legal-links">
             {navigation.legal.map((item, index) => (
               <span key={item.name} className="legal-item">
-                <Link to={item.href} className="legal-link">
+                <button
+                  onClick={() => handleLegalClick(item.name)}
+                  className="legal-link"
+                >
                   {item.name}
-                </Link>
+                </button>
                 {index < navigation.legal.length - 1 && (
                   <span className="legal-separator">•</span>
                 )}
@@ -91,6 +109,13 @@ const Footer = () => {
             ))}
           </div>
         </div>
+
+        {/* Modal Legal */}
+        <LegalModal
+          isOpen={modalOpen}
+          onClose={closeModal}
+          section={selectedSection}
+        />
 
         {/* Copyright */}
         <div className="copyright">
@@ -227,6 +252,10 @@ const Footer = () => {
           font-family: var(--font-secondary);
           transition: color 0.3s ease;
           white-space: nowrap;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 0;
         }
 
         .legal-link:hover {

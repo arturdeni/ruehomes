@@ -50,12 +50,12 @@ const AgencyClosing = () => {
 
       <style jsx>{`
         .agency-closing-section {
-          padding: 6rem 0 15rem;
+          padding: 2rem 0 8rem;
           background: var(--color-marble-light);
         }
 
         .agency-closing-content {
-          max-width: 800px;
+          max-width: 700px;
           margin: 0 auto;
           text-align: center;
         }
@@ -80,31 +80,21 @@ const AgencyClosing = () => {
         /* ===== RESPONSIVE DESIGN ===== */
         @media (max-width: 968px) {
           .agency-closing-section {
-            padding: 5rem 0 8rem;
+            padding: 5rem 0;
           }
 
           .agency-closing-title {
             font-size: var(--text-3xl);
           }
-
-          .agency-closing-text {
-            font-size: var(--text-lg);
-          }
         }
 
         @media (max-width: 640px) {
           .agency-closing-section {
-            padding: 4rem 0 8rem;
-          }
-
-          .agency-closing-title {
-            font-size: var(--text-2xl);
-            margin-bottom: var(--space-4);
+            padding: 4rem 0;
           }
 
           .agency-closing-text {
-            font-size: var(--text-base);
-            line-height: 1.7;
+            font-size: 1.1rem;
           }
         }
       `}</style>

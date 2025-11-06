@@ -2,6 +2,9 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import TrendingUpOutlinedIcon from "@mui/icons-material/TrendingUpOutlined";
+import VerifiedOutlinedIcon from "@mui/icons-material/VerifiedOutlined";
+import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,80 +16,21 @@ const SellMetrics = () => {
   const metrics = [
     {
       id: 1,
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="metric-icon"
-        >
-          <path
-            d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      ),
+      icon: <TrendingUpOutlinedIcon className="metric-icon" />,
       value: "30%",
       label: "Venta más rápida",
       description: "que la media del mercado nacional",
     },
     {
       id: 2,
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="metric-icon"
-        >
-          <path
-            d="M22 11.08V12a10 10 0 1 1-5.93-9.14"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <polyline
-            points="22 4 12 14.01 9 11.01"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      ),
+      icon: <VerifiedOutlinedIcon className="metric-icon" />,
       value: "+90%",
       label: "Tasa de éxito",
       description: "en operaciones de venta y alquiler",
     },
     {
       id: 3,
-      icon: (
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="metric-icon"
-        >
-          <circle
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            strokeWidth="2"
-          />
-          <polyline
-            points="12 6 12 12 16 14"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      ),
+      icon: <AccessTimeOutlinedIcon className="metric-icon" />,
       value: "25%",
       label: "Menos días en mercado",
       description: "desde el anuncio hasta el cierre",
@@ -254,6 +198,11 @@ const SellMetrics = () => {
           justify-content: center;
           border-radius: 50%;
           transition: all 0.4s ease;
+        }
+
+        .metric-icon {
+          width: 3em;
+          height: 3em;
         }
 
         .metric-card :global(.metric-icon) {

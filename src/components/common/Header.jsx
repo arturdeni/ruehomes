@@ -272,7 +272,7 @@ const Header = () => {
           .header-phone {
             font-family: var(--font-secondary);
             font-weight: 500;
-            color: black;
+            color: var(--color-rust);
             font-size: 0.9rem;
           }
 
@@ -280,7 +280,7 @@ const Header = () => {
             display: flex;
             align-items: center;
             justify-content: center;
-            color: black;
+            color: var(--color-rust);
           }
 
           .header-instagram-icon {
@@ -310,7 +310,7 @@ const Header = () => {
           .hamburger-line {
             width: 24px;
             height: 2px;
-            background-color: black;
+            background-color: var(--color-rust);
             border-radius: 1px;
             transition: all 0.3s ease;
           }

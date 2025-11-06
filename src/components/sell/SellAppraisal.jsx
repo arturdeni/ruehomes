@@ -86,7 +86,7 @@ const SellAppraisal = () => {
           </div>
 
           <div ref={buttonRef} className="sell-appraisal-button">
-            <Link to="/contacto" className="btn btn-primary btn-lg">
+            <Link to="/contacto" className="btn btn-primary btn-sm">
               Solicitar valoración gratuita
             </Link>
           </div>
@@ -100,8 +100,7 @@ const SellAppraisal = () => {
             var(--color-rust-lighter) 20%,
             var(--color-rust) 100%
           );
-          min-height: 800px;
-          padding: 8rem 0;
+          padding: 5rem 0;
           position: relative;
         }
 
@@ -116,7 +115,6 @@ const SellAppraisal = () => {
           font-size: 3rem;
           line-height: 1.2;
           color: white;
-          margin-bottom: 1.5rem;
           opacity: 0;
           transform: translateY(30px);
           transition: all 0.8s cubic-bezier(0.25, 0.4, 0.25, 1);

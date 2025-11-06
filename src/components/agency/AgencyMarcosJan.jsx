@@ -51,14 +51,14 @@ const AgencyMarcosJan = () => {
       image:
         "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
       description:
-        "Se caracteriza por su dedicación y compromiso con el cliente, garantizando que cada experiencia sea clara, cómoda y satisfactoria. Gracias a su profundo conocimiento del mercado y a su amplia red de contactos, logra conectar a las personas con la propiedad adecuada, convirtiendo cada transacción en algo más que un negocio: en una experiencia auténtica y memorable.",
+        "Destaca por su compromiso con el cliente y su conocimiento del mercado, conectando a las personas con la propiedad ideal y ofreciendo experiencias auténticas y satisfactorias.",
     },
     {
       name: "Jan",
       image:
         "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
       description:
-        "Apasionado por ayudar a las personas a dar el siguiente paso en sus vidas, Jan combina su experiencia en el sector inmobiliario y financiero con una visión cercana y honesta. Cree que cada cliente merece atención personalizada, comunicación clara y la tranquilidad de saber que su propiedad está en buenas manos.",
+        "Combina su experiencia inmobiliaria y financiera con una visión cercana y honesta, ofreciendo atención personalizada y confianza en cada paso del proceso.",
     },
   ];
 
@@ -133,8 +133,8 @@ const AgencyMarcosJan = () => {
         }
 
         .agency-team-member-image-container {
-          width: 280px;
-          height: 280px;
+          width: 330px;
+          height: 310px;
           margin: 0 auto;
           position: relative;
           overflow: hidden;
@@ -158,17 +158,19 @@ const AgencyMarcosJan = () => {
         }
 
         .agency-team-member-description-wrapper {
-          margin: 0;
+          margin: 0 auto;
+          max-width: 330px;
         }
 
         .agency-team-member-description {
           font-family: var(--font-secondary);
-          font-size: 1.1rem;
+          font-size: 1rem;
           color: var(--color-rust-light);
-          line-height: 1.7;
+          line-height: 1.5;
           font-weight: 300;
           margin: 0;
-          text-align: left;
+          text-align: justify;
+          max-width: 400px;
         }
 
         /* ===== RESPONSIVE DESIGN ===== */
@@ -189,11 +191,6 @@ const AgencyMarcosJan = () => {
 
           .agency-team-member-name {
             font-size: 2.2rem;
-          }
-
-          .agency-team-member-description {
-            font-size: 1.05rem;
-            text-align: center;
           }
 
           .agency-team-member-info {
@@ -217,10 +214,6 @@ const AgencyMarcosJan = () => {
 
           .agency-team-member-name {
             font-size: 1.8rem;
-          }
-
-          .agency-team-member-description {
-            font-size: 1rem;
           }
 
           .agency-team-member-info {

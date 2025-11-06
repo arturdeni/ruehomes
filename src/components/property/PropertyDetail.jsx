@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getPropertyById } from "../../services/hygraph";
-import { optimizeImageUrl } from "../../utils/helpers";
+import { optimizeImageUrl, validateEmail, validatePhone } from "../../utils/helpers";
 import HotelIcon from "@mui/icons-material/Hotel";
 import BathtubIcon from "@mui/icons-material/Bathtub";
 import SquareFootIcon from "@mui/icons-material/SquareFoot";
@@ -13,6 +13,22 @@ const PropertyDetail = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [showContactForm, setShowContactForm] = useState(false);
+
+  // Estado del formulario
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+  const [formErrors, setFormErrors] = useState({});
+  const [formLoading, setFormLoading] = useState(false);
+  const [formSuccess, setFormSuccess] = useState(false);
+
+  // Configurar Brevo
+  const BREVO_API_KEY = import.meta.env.VITE_BREVO_API_KEY;
+  const BREVO_SENDER_EMAIL = import.meta.env.VITE_BREVO_SENDER_EMAIL;
+  const BREVO_SENDER_NAME = import.meta.env.VITE_BREVO_SENDER_NAME;
 
   useEffect(() => {
     const loadProperty = async () => {
@@ -127,6 +143,152 @@ const PropertyDetail = () => {
 
   const goToImage = (index) => {
     setCurrentImageIndex(index);
+  };
+
+  // Funciones del formulario
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = "El nombre es obligatorio";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "El email es obligatorio";
+    } else if (!validateEmail(formData.email)) {
+      newErrors.email = "El formato del email no es válido";
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = "El teléfono es obligatorio";
+    } else if (!validatePhone(formData.phone)) {
+      newErrors.phone = "El formato del teléfono no es válido";
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = "El mensaje es obligatorio";
+    }
+
+    return newErrors;
+  };
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    // Limpiar error del campo al escribir
+    if (formErrors[name]) {
+      setFormErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+    }
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    const errors = validateForm();
+    setFormErrors(errors);
+
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
+
+    setFormLoading(true);
+
+    try {
+      // Preparar el contenido HTML del email
+      const emailHtml = `
+        <h2>Nueva Consulta sobre Propiedad desde RueHomes</h2>
+
+        <h3>Propiedad de interés:</h3>
+        <ul>
+          <li><strong>Título:</strong> ${property.title}</li>
+          <li><strong>Referencia:</strong> REF-${property.reference}</li>
+          <li><strong>Precio:</strong> ${formatPrice(property.price)}€</li>
+          <li><strong>Ubicación:</strong> ${property.address}, ${property.city}</li>
+          <li><strong>Tipo:</strong> ${getPropertyTypeDisplayName(property.propertyType)}</li>
+        </ul>
+
+        <h3>Datos del contacto:</h3>
+        <ul>
+          <li><strong>Nombre:</strong> ${formData.name}</li>
+          <li><strong>Email:</strong> ${formData.email}</li>
+          <li><strong>Teléfono:</strong> ${formData.phone}</li>
+        </ul>
+
+        <h3>Mensaje:</h3>
+        <p>${formData.message.replace(/\n/g, '<br>')}</p>
+
+        <hr>
+        <p><small>Este mensaje fue enviado desde el formulario de consulta de propiedad de RueHomes.</small></p>
+      `;
+
+      // Enviar email usando Brevo API
+      if (BREVO_API_KEY) {
+        const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+          method: 'POST',
+          headers: {
+            'accept': 'application/json',
+            'api-key': BREVO_API_KEY,
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            sender: {
+              name: BREVO_SENDER_NAME || 'RueHomes',
+              email: BREVO_SENDER_EMAIL || 'info@ruehomes.com',
+            },
+            to: [
+              {
+                email: 'info@ruehomes.com',
+                name: 'RueHomes',
+              },
+            ],
+            subject: `Consulta sobre: ${property.title} (REF-${property.reference})`,
+            htmlContent: emailHtml,
+            replyTo: {
+              email: formData.email,
+              name: formData.name,
+            },
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Error al enviar el email');
+        }
+      } else {
+        console.warn("Brevo no configurado. Simulando envío...");
+        // Simular delay
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }
+
+      setFormSuccess(true);
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
+      setFormErrors({});
+
+      // Ocultar mensaje de éxito después de 5 segundos
+      setTimeout(() => {
+        setFormSuccess(false);
+        setShowContactForm(false);
+      }, 5000);
+    } catch (error) {
+      console.error("Error enviando formulario:", error);
+      setFormErrors({
+        submit: "Error al enviar el formulario. Por favor, inténtelo de nuevo.",
+      });
+    } finally {
+      setFormLoading(false);
+    }
   };
 
   return (
@@ -477,7 +639,7 @@ const PropertyDetail = () => {
 
                 <div className="property-detail__contact-methods">
                   <a
-                    href="tel:+34600000000"
+                    href="tel:+34642711331"
                     className="property-detail__contact-btn property-detail__contact-btn--phone"
                   >
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -492,7 +654,7 @@ const PropertyDetail = () => {
                   </a>
 
                   <a
-                    href={`mailto:info@ruehomes.com?subject=Consulta sobre ${property.title}&body=Hola, estoy interesado en esta propiedad y me gustaría obtener más información.`}
+                    href={`mailto:info@ruehomes.com?subject=Consulta sobre ${property.title}&body=Hola, estoy interesado en esta propiedad (REF ${property.reference}) y me gustaría obtener más información.`}
                     className="property-detail__contact-btn property-detail__contact-btn--email"
                   >
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -525,54 +687,123 @@ const PropertyDetail = () => {
                 {/* Formulario de contacto expandible */}
                 {showContactForm && (
                   <div className="property-detail__contact-form">
-                    <form className="property-detail__form">
-                      <div className="property-detail__form-group">
-                        <label className="property-detail__form-label">
-                          Nombre completo
-                        </label>
-                        <input
-                          type="text"
-                          className="property-detail__form-input"
-                          placeholder="Tu nombre"
-                        />
+                    {formSuccess ? (
+                      <div className="property-detail__form-success">
+                        <div className="success-icon">
+                          <svg
+                            width="40"
+                            height="40"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                          </svg>
+                        </div>
+                        <h4 className="success-title">¡Mensaje enviado!</h4>
+                        <p className="success-text">
+                          Gracias por tu interés. Nos pondremos en contacto contigo lo antes posible.
+                        </p>
                       </div>
-                      <div className="property-detail__form-group">
-                        <label className="property-detail__form-label">
-                          Email
-                        </label>
-                        <input
-                          type="email"
-                          className="property-detail__form-input"
-                          placeholder="tu@email.com"
-                        />
-                      </div>
-                      <div className="property-detail__form-group">
-                        <label className="property-detail__form-label">
-                          Teléfono
-                        </label>
-                        <input
-                          type="tel"
-                          className="property-detail__form-input"
-                          placeholder="+34 600 000 000"
-                        />
-                      </div>
-                      <div className="property-detail__form-group">
-                        <label className="property-detail__form-label">
-                          Mensaje
-                        </label>
-                        <textarea
-                          className="property-detail__form-textarea"
-                          placeholder="Me gustaría recibir más información sobre esta propiedad..."
-                          rows="4"
-                        ></textarea>
-                      </div>
-                      <button
-                        type="submit"
-                        className="property-detail__form-submit"
-                      >
-                        Enviar Consulta
-                      </button>
-                    </form>
+                    ) : (
+                      <form className="property-detail__form" onSubmit={handleFormSubmit}>
+                        <div className="property-detail__form-group">
+                          <label className="property-detail__form-label">
+                            Nombre completo
+                          </label>
+                          <input
+                            type="text"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleFormChange}
+                            className={`property-detail__form-input ${formErrors.name ? 'error' : ''}`}
+                            placeholder="Tu nombre"
+                          />
+                          {formErrors.name && (
+                            <span className="property-detail__form-error">
+                              {formErrors.name}
+                            </span>
+                          )}
+                        </div>
+                        <div className="property-detail__form-group">
+                          <label className="property-detail__form-label">
+                            Email
+                          </label>
+                          <input
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleFormChange}
+                            className={`property-detail__form-input ${formErrors.email ? 'error' : ''}`}
+                            placeholder="tu@email.com"
+                          />
+                          {formErrors.email && (
+                            <span className="property-detail__form-error">
+                              {formErrors.email}
+                            </span>
+                          )}
+                        </div>
+                        <div className="property-detail__form-group">
+                          <label className="property-detail__form-label">
+                            Teléfono
+                          </label>
+                          <input
+                            type="tel"
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleFormChange}
+                            className={`property-detail__form-input ${formErrors.phone ? 'error' : ''}`}
+                            placeholder="+34 600 000 000"
+                          />
+                          {formErrors.phone && (
+                            <span className="property-detail__form-error">
+                              {formErrors.phone}
+                            </span>
+                          )}
+                        </div>
+                        <div className="property-detail__form-group">
+                          <label className="property-detail__form-label">
+                            Mensaje
+                          </label>
+                          <textarea
+                            name="message"
+                            value={formData.message}
+                            onChange={handleFormChange}
+                            className={`property-detail__form-textarea ${formErrors.message ? 'error' : ''}`}
+                            placeholder="Me gustaría recibir más información sobre esta propiedad..."
+                            rows="4"
+                          ></textarea>
+                          {formErrors.message && (
+                            <span className="property-detail__form-error">
+                              {formErrors.message}
+                            </span>
+                          )}
+                        </div>
+                        {formErrors.submit && (
+                          <div className="property-detail__form-submit-error">
+                            <p>{formErrors.submit}</p>
+                          </div>
+                        )}
+                        <button
+                          type="submit"
+                          disabled={formLoading}
+                          className={`property-detail__form-submit ${formLoading ? 'loading' : ''}`}
+                        >
+                          {formLoading ? (
+                            <span className="loading-content">
+                              <div className="loading-spinner"></div>
+                              Enviando...
+                            </span>
+                          ) : (
+                            "Enviar Consulta"
+                          )}
+                        </button>
+                      </form>
+                    )}
                   </div>
                 )}
 
@@ -580,10 +811,18 @@ const PropertyDetail = () => {
                 <div className="property-detail__additional-info">
                   <div className="property-detail__info-item">
                     <span className="property-detail__info-label">
-                      Referencia:
+                      Referencia Rue Homes:
                     </span>
                     <span className="property-detail__info-value">
-                      REF-{property.id.toString().padStart(4, "0")}
+                      REF-{property.reference}
+                    </span>
+                  </div>
+                  <div className="property-detail__info-item">
+                    <span className="property-detail__info-label">
+                      Referencia Web:
+                    </span>
+                    <span className="property-detail__info-value">
+                      {property.id.toString().padStart(4, "0")}
                     </span>
                   </div>
                 </div>
@@ -1208,9 +1447,37 @@ const PropertyDetail = () => {
           border-color: var(--color-cinnamon);
         }
 
+        .property-detail__form-input.error,
+        .property-detail__form-textarea.error {
+          border-color: var(--color-error);
+        }
+
+        .property-detail__form-error {
+          display: block;
+          font-family: var(--font-secondary);
+          font-size: 0.75rem;
+          color: var(--color-error);
+          margin-top: 0.25rem;
+        }
+
         .property-detail__form-textarea {
           resize: vertical;
           min-height: 100px;
+        }
+
+        .property-detail__form-submit-error {
+          background: var(--color-marble);
+          border: 1px solid var(--color-error);
+          border-radius: 8px;
+          padding: 0.75rem;
+          margin-bottom: 1rem;
+        }
+
+        .property-detail__form-submit-error p {
+          font-family: var(--font-secondary);
+          font-size: 0.85rem;
+          color: var(--color-error);
+          margin: 0;
         }
 
         .property-detail__form-submit {
@@ -1231,13 +1498,73 @@ const PropertyDetail = () => {
           transition: all 0.3s ease;
         }
 
-        .property-detail__form-submit:hover {
+        .property-detail__form-submit:hover:not(:disabled) {
           background: linear-gradient(
             135deg,
             var(--color-cinnamon-dark) 0%,
             var(--color-cinnamon-darker) 100%
           );
           transform: translateY(-1px);
+        }
+
+        .property-detail__form-submit:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
+        .loading-content {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.75rem;
+        }
+
+        .loading-spinner {
+          width: 16px;
+          height: 16px;
+          border: 2px solid white;
+          border-top-color: transparent;
+          border-radius: 50%;
+          animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        /* Mensaje de éxito */
+        .property-detail__form-success {
+          text-align: center;
+          padding: 2rem 1rem;
+        }
+
+        .property-detail__form-success .success-icon {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 60px;
+          height: 60px;
+          background: var(--color-cinnamon);
+          color: white;
+          border-radius: 50%;
+          margin-bottom: 1rem;
+        }
+
+        .property-detail__form-success .success-title {
+          font-family: var(--font-primary);
+          font-size: 1.25rem;
+          color: var(--color-rust);
+          font-weight: 400;
+          margin-bottom: 0.5rem;
+        }
+
+        .property-detail__form-success .success-text {
+          font-family: var(--font-secondary);
+          font-size: 0.9rem;
+          color: var(--color-rust-light);
+          line-height: 1.5;
         }
 
         /* Información adicional */

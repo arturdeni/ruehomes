@@ -32,6 +32,7 @@ export const GET_PROPERTIES = `
       area
       address
       city
+      reference
       coordinates {
         latitude
         longitude
@@ -67,6 +68,7 @@ export const GET_PROPERTY_BY_ID = `
       area
       address
       city
+      reference
       coordinates {
         latitude
         longitude
@@ -103,6 +105,7 @@ export const GET_FEATURED_PROPERTIES = `
       area
       address
       city
+      reference
       images(first: 1) {
         id
         url

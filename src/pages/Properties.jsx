@@ -1,21 +1,25 @@
 // src/pages/Properties.jsx
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import PropertyCard from "../components/property/PropertyCard";
 import PropertiesFilters from "../components/property/PropertiesFilters";
 import { getProperties } from "../services/hygraph";
 
 const Properties = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [allProperties, setAllProperties] = useState([]);
   const [filteredProperties, setFilteredProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Inicializar filtros desde URL
   const [filters, setFilters] = useState({
-    city: "",
-    propertyType: "",
-    bedrooms: "",
-    minPrice: "",
-    maxPrice: "",
-    search: "",
+    city: searchParams.get("city") || "",
+    propertyType: searchParams.get("propertyType") || "",
+    bedrooms: searchParams.get("bedrooms") || "",
+    minPrice: searchParams.get("minPrice") || "",
+    maxPrice: searchParams.get("maxPrice") || "",
+    search: searchParams.get("search") || "",
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState("recent");
@@ -121,6 +125,15 @@ const Properties = () => {
 
   const handleFiltersChange = (newFilters) => {
     setFilters(newFilters);
+
+    // Actualizar URL con los nuevos filtros
+    const params = new URLSearchParams();
+    Object.entries(newFilters).forEach(([key, value]) => {
+      if (value) {
+        params.set(key, value);
+      }
+    });
+    setSearchParams(params);
   };
 
   const handlePageChange = (page) => {

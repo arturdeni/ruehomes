@@ -135,7 +135,7 @@ const AgencyAboutUs = () => {
 
       <style jsx>{`
         .agency-about-section {
-          padding: 10rem 0;
+          padding: 6rem 0 3rem;
           background: var(--color-marble-light);
         }
 
@@ -279,9 +279,9 @@ const AgencyAboutUs = () => {
 
         .agency-philosophy-text {
           font-family: var(--font-secondary);
-          font-size: 1.3rem;
+          font-size: var(--text-xl);
           color: var(--color-rust-light);
-          line-height: 1.7;
+          line-height: 1.6;
           font-weight: 300;
           text-align: center;
           margin: 0;
@@ -295,7 +295,7 @@ const AgencyAboutUs = () => {
         /* ===== RESPONSIVE DESIGN ===== */
         @media (max-width: 968px) {
           .agency-about-section {
-            padding: 8rem 0;
+            padding: 8rem 0 0;
           }
 
           .agency-about-content {
@@ -317,15 +317,11 @@ const AgencyAboutUs = () => {
             height: 45px;
             font-size: 1.1rem;
           }
-
-          .agency-philosophy-text {
-            font-size: 1.2rem;
-          }
         }
 
         @media (max-width: 640px) {
           .agency-about-section {
-            padding: 6rem 0;
+            padding: 6rem 0 0;
           }
 
           .agency-about-content {
@@ -361,7 +357,6 @@ const AgencyAboutUs = () => {
 
           .agency-philosophy-text {
             font-size: 1.1rem;
-            text-align: left;
           }
 
           .agency-services-title-wrapper,

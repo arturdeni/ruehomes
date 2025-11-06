@@ -1,6 +1,5 @@
 // src/components/common/ContactForm.jsx
 import { useState } from "react";
-import emailjs from "@emailjs/browser";
 import { validateEmail, validatePhone } from "../../utils/helpers";
 
 const ContactForm = ({
@@ -22,10 +21,10 @@ const ContactForm = ({
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  // Configurar EmailJS (estas variables deberían estar en .env)
-  const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-  const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-  const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+  // Configurar Brevo
+  const BREVO_API_KEY = import.meta.env.VITE_BREVO_API_KEY;
+  const BREVO_SENDER_EMAIL = import.meta.env.VITE_BREVO_SENDER_EMAIL;
+  const BREVO_SENDER_NAME = import.meta.env.VITE_BREVO_SENDER_NAME;
 
   const getFormTitle = () => {
     switch (type) {
@@ -96,29 +95,64 @@ const ContactForm = ({
     setLoading(true);
 
     try {
-      // Preparar datos para EmailJS
-      const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        phone: formData.phone,
-        message: formData.message,
-        subject: formData.subject || getFormTitle(),
-        form_type: type,
-        property_id: propertyId || "",
-        property_title: propertyTitle || "",
-        to_email: "info@ruehomes.com", // Email de destino
-      };
+      // Preparar el contenido HTML del email
+      const emailHtml = `
+        <h2>Nueva Consulta desde RueHomes</h2>
+        <p><strong>Tipo de formulario:</strong> ${type}</p>
 
-      // Enviar email usando EmailJS
-      if (EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY) {
-        await emailjs.send(
-          EMAILJS_SERVICE_ID,
-          EMAILJS_TEMPLATE_ID,
-          templateParams,
-          EMAILJS_PUBLIC_KEY
-        );
+        <h3>Datos del contacto:</h3>
+        <ul>
+          <li><strong>Nombre:</strong> ${formData.name}</li>
+          <li><strong>Email:</strong> ${formData.email}</li>
+          <li><strong>Teléfono:</strong> ${formData.phone}</li>
+        </ul>
+
+        ${propertyTitle ? `
+          <h3>Propiedad de interés:</h3>
+          <p><strong>${propertyTitle}</strong> ${propertyId ? `(ID: ${propertyId})` : ''}</p>
+        ` : ''}
+
+        <h3>Mensaje:</h3>
+        <p>${formData.message.replace(/\n/g, '<br>')}</p>
+
+        <hr>
+        <p><small>Este mensaje fue enviado desde el formulario de contacto de RueHomes.</small></p>
+      `;
+
+      // Enviar email usando Brevo API
+      if (BREVO_API_KEY) {
+        const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+          method: 'POST',
+          headers: {
+            'accept': 'application/json',
+            'api-key': BREVO_API_KEY,
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            sender: {
+              name: BREVO_SENDER_NAME || 'RueHomes',
+              email: BREVO_SENDER_EMAIL || 'info@ruehomes.com',
+            },
+            to: [
+              {
+                email: 'info@ruehomes.com',
+                name: 'RueHomes',
+              },
+            ],
+            subject: formData.subject || getFormTitle(),
+            htmlContent: emailHtml,
+            replyTo: {
+              email: formData.email,
+              name: formData.name,
+            },
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Error al enviar el email');
+        }
       } else {
-        console.warn("EmailJS no configurado. Simulando envío...");
+        console.warn("Brevo no configurado. Simulando envío...");
         // Simular delay
         await new Promise((resolve) => setTimeout(resolve, 1000));
       }

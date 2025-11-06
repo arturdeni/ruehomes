@@ -5,6 +5,8 @@ import TailoredSection from "../components/home/TailoredSection";
 import ValoresSection from "../components/home/ValoresSection";
 import InstagramSection from "../components/home/InstagramSection";
 
+import SellAppraisal from "../components/sell/SellAppraisal";
+
 const Home = () => {
   return (
     <div className="home-page">
@@ -13,6 +15,7 @@ const Home = () => {
       <TailoredSection />
       <ValoresSection />
       <InstagramSection />
+      <SellAppraisal />
 
       <style jsx>{`
         .home-page {
