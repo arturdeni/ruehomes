@@ -2,7 +2,11 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getPropertyById } from "../../services/hygraph";
-import { optimizeImageUrl, validateEmail, validatePhone } from "../../utils/helpers";
+import {
+  optimizeImageUrl,
+  validateEmail,
+  validatePhone,
+} from "../../utils/helpers";
 import HotelIcon from "@mui/icons-material/Hotel";
 import BathtubIcon from "@mui/icons-material/Bathtub";
 import SquareFootIcon from "@mui/icons-material/SquareFoot";
@@ -211,8 +215,12 @@ const PropertyDetail = () => {
           <li><strong>Título:</strong> ${property.title}</li>
           <li><strong>Referencia:</strong> REF-${property.reference}</li>
           <li><strong>Precio:</strong> ${formatPrice(property.price)}€</li>
-          <li><strong>Ubicación:</strong> ${property.address}, ${property.city}</li>
-          <li><strong>Tipo:</strong> ${getPropertyTypeDisplayName(property.propertyType)}</li>
+          <li><strong>Ubicación:</strong> ${property.address}, ${
+        property.city
+      }</li>
+          <li><strong>Tipo:</strong> ${getPropertyTypeDisplayName(
+            property.propertyType
+          )}</li>
         </ul>
 
         <h3>Datos del contacto:</h3>
@@ -223,7 +231,7 @@ const PropertyDetail = () => {
         </ul>
 
         <h3>Mensaje:</h3>
-        <p>${formData.message.replace(/\n/g, '<br>')}</p>
+        <p>${formData.message.replace(/\n/g, "<br>")}</p>
 
         <hr>
         <p><small>Este mensaje fue enviado desde el formulario de consulta de propiedad de RueHomes.</small></p>
@@ -231,22 +239,22 @@ const PropertyDetail = () => {
 
       // Enviar email usando Brevo API
       if (BREVO_API_KEY) {
-        const response = await fetch('https://api.brevo.com/v3/smtp/email', {
-          method: 'POST',
+        const response = await fetch("https://api.brevo.com/v3/smtp/email", {
+          method: "POST",
           headers: {
-            'accept': 'application/json',
-            'api-key': BREVO_API_KEY,
-            'content-type': 'application/json',
+            accept: "application/json",
+            "api-key": BREVO_API_KEY,
+            "content-type": "application/json",
           },
           body: JSON.stringify({
             sender: {
-              name: BREVO_SENDER_NAME || 'RueHomes',
-              email: BREVO_SENDER_EMAIL || 'info@ruehomes.com',
+              name: BREVO_SENDER_NAME || "RueHomes",
+              email: BREVO_SENDER_EMAIL || "info@ruehomes.com",
             },
             to: [
               {
-                email: 'info@ruehomes.com',
-                name: 'RueHomes',
+                email: "info@ruehomes.com",
+                name: "RueHomes",
               },
             ],
             subject: `Consulta sobre: ${property.title} (REF-${property.reference})`,
@@ -259,7 +267,7 @@ const PropertyDetail = () => {
         });
 
         if (!response.ok) {
-          throw new Error('Error al enviar el email');
+          throw new Error("Error al enviar el email");
         }
       } else {
         console.warn("Brevo no configurado. Simulando envío...");
@@ -706,11 +714,15 @@ const PropertyDetail = () => {
                         </div>
                         <h4 className="success-title">¡Mensaje enviado!</h4>
                         <p className="success-text">
-                          Gracias por tu interés. Nos pondremos en contacto contigo lo antes posible.
+                          Gracias por tu interés. Nos pondremos en contacto
+                          contigo lo antes posible.
                         </p>
                       </div>
                     ) : (
-                      <form className="property-detail__form" onSubmit={handleFormSubmit}>
+                      <form
+                        className="property-detail__form"
+                        onSubmit={handleFormSubmit}
+                      >
                         <div className="property-detail__form-group">
                           <label className="property-detail__form-label">
                             Nombre completo
@@ -720,7 +732,9 @@ const PropertyDetail = () => {
                             name="name"
                             value={formData.name}
                             onChange={handleFormChange}
-                            className={`property-detail__form-input ${formErrors.name ? 'error' : ''}`}
+                            className={`property-detail__form-input ${
+                              formErrors.name ? "error" : ""
+                            }`}
                             placeholder="Tu nombre"
                           />
                           {formErrors.name && (
@@ -738,7 +752,9 @@ const PropertyDetail = () => {
                             name="email"
                             value={formData.email}
                             onChange={handleFormChange}
-                            className={`property-detail__form-input ${formErrors.email ? 'error' : ''}`}
+                            className={`property-detail__form-input ${
+                              formErrors.email ? "error" : ""
+                            }`}
                             placeholder="tu@email.com"
                           />
                           {formErrors.email && (
@@ -756,7 +772,9 @@ const PropertyDetail = () => {
                             name="phone"
                             value={formData.phone}
                             onChange={handleFormChange}
-                            className={`property-detail__form-input ${formErrors.phone ? 'error' : ''}`}
+                            className={`property-detail__form-input ${
+                              formErrors.phone ? "error" : ""
+                            }`}
                             placeholder="+34 600 000 000"
                           />
                           {formErrors.phone && (
@@ -773,7 +791,9 @@ const PropertyDetail = () => {
                             name="message"
                             value={formData.message}
                             onChange={handleFormChange}
-                            className={`property-detail__form-textarea ${formErrors.message ? 'error' : ''}`}
+                            className={`property-detail__form-textarea ${
+                              formErrors.message ? "error" : ""
+                            }`}
                             placeholder="Me gustaría recibir más información sobre esta propiedad..."
                             rows="4"
                           ></textarea>
@@ -791,7 +811,9 @@ const PropertyDetail = () => {
                         <button
                           type="submit"
                           disabled={formLoading}
-                          className={`property-detail__form-submit ${formLoading ? 'loading' : ''}`}
+                          className={`property-detail__form-submit ${
+                            formLoading ? "loading" : ""
+                          }`}
                         >
                           {formLoading ? (
                             <span className="loading-content">
@@ -1654,6 +1676,31 @@ const PropertyDetail = () => {
             padding: 1.5rem;
           }
 
+          .property-detail__feature-item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            text-align: left;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+          }
+
+          .property-detail__feature-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            flex-shrink: 0;
+          }
+
+          .property-detail__feature-item > div {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+          }
+
           .property-detail__thumbnails {
             padding: 1rem;
           }
@@ -1678,6 +1725,11 @@ const PropertyDetail = () => {
         }
 
         @media (max-width: 480px) {
+          .property-detail__description-text {
+            font-size: 1rem;
+            line-height: 1.6;
+          }
+
           .property-detail__main-image {
             height: 40vh;
             min-height: 300px;
@@ -1686,12 +1738,6 @@ const PropertyDetail = () => {
           .property-detail__header-top {
             flex-direction: column;
             align-items: flex-start;
-          }
-
-          .property-detail__feature-item {
-            flex-direction: column;
-            text-align: center;
-            gap: 0.5rem;
           }
 
           .property-detail__contact-methods {

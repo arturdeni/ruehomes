@@ -582,7 +582,7 @@ const Properties = () => {
           }
 
           .properties__hero-subtitle {
-            font-size: 1.125rem;
+            font-size: 1rem;
           }
 
           .properties__grid {

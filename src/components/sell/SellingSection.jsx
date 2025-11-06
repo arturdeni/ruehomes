@@ -77,6 +77,14 @@ const SellingSection = () => {
   ];
 
   useEffect(() => {
+    // Detectar si estamos en mobile
+    const isMobile = window.innerWidth <= 768;
+
+    // En mobile, no aplicar animaciones GSAP
+    if (isMobile) {
+      return;
+    }
+
     // Forzar que la imagen esté visible al montar el componente
     if (imageRef.current) {
       imageRef.current.style.transform = "translateX(0%)";
@@ -332,37 +340,92 @@ const SellingSection = () => {
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="selling-section"
-      style={{ backgroundColor: phases[0].bgColor }}
-    >
-      <div ref={contentRef} className="selling-content">
-        <div className="container">
-          <div className="phase-layout">
-            <div className="phase-text">
-              <h2 ref={titleRef} className="phase-title"></h2>
-              <p ref={subtitleRef} className="phase-subtitle"></p>
-              <ul ref={pointsRef} className="phase-points"></ul>
-            </div>
+    <>
+      {/* Version Desktop - con scroll trigger */}
+      <section
+        ref={sectionRef}
+        className="selling-section selling-section-desktop"
+        style={{ backgroundColor: phases[0].bgColor }}
+      >
+        <div ref={contentRef} className="selling-content">
+          <div className="container">
+            <div className="phase-layout">
+              <div className="phase-text">
+                <h2 ref={titleRef} className="phase-title"></h2>
+                <p ref={subtitleRef} className="phase-subtitle"></p>
+                <ul ref={pointsRef} className="phase-points"></ul>
+              </div>
 
-            <div className="phase-visual">
-              <div className="phase-image">
-                <img
-                  ref={imageRef}
-                  src={phases[0].image}
-                  alt="Ilustración fase"
-                  loading="lazy"
-                />
+              <div className="phase-visual">
+                <div className="phase-image">
+                  <img
+                    ref={imageRef}
+                    src={phases[0].image}
+                    alt="Ilustración fase"
+                    loading="lazy"
+                  />
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Progress Bar - Simple */}
-          <div className="progress-bar">
-            <div className="progress-fill" />
+            {/* Progress Bar - Simple */}
+            <div className="progress-bar">
+              <div className="progress-fill" />
+            </div>
           </div>
         </div>
+      </section>
+
+      {/* Version Mobile - sin scroll trigger, todas las fases visibles */}
+      <div className="selling-section-mobile">
+        {phases.map((phase, index) => {
+          // Determinar si esta fase debe tener degradado hacia la siguiente
+          const nextPhase = phases[index + 1];
+          const backgroundStyle = nextPhase
+            ? {
+                background: `linear-gradient(to bottom, ${phase.bgColor} 0%, ${phase.bgColor} 70%, ${nextPhase.bgColor} 100%)`,
+              }
+            : { backgroundColor: phase.bgColor };
+
+          return (
+            <section
+              key={phase.id}
+              className="phase-section-mobile"
+              style={backgroundStyle}
+              data-text-color={phase.textColor}
+            >
+            <div className="container">
+              <div className="phase-layout">
+                <div className="phase-visual">
+                  <div className="phase-image">
+                    <img
+                      src={phase.image}
+                      alt={`Ilustración ${phase.title}`}
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+
+                <div className="phase-text">
+                  <h2 className="phase-title">
+                    <strong>{phase.title}</strong>
+                  </h2>
+                  <p className="phase-subtitle">
+                    <em>{phase.subtitle}</em>
+                  </p>
+                  <ul className="phase-points">
+                    {phase.points.map((point, idx) => (
+                      <li key={idx} className="phase-point">
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+          );
+        })}
       </div>
 
       <style jsx>{`
@@ -605,8 +668,75 @@ const SellingSection = () => {
             width: 120px;
           }
         }
+
+        /* Estilos para mobile */
+        .selling-section-desktop {
+          display: block;
+        }
+
+        .selling-section-mobile {
+          display: none;
+        }
+
+        @media (max-width: 768px) {
+          .selling-section-desktop {
+            display: none;
+          }
+
+          .selling-section-mobile {
+            display: block;
+          }
+        }
+
+        .phase-section-mobile {
+          min-height: 100vh;
+          padding: 1rem 0;
+          transition: background-color 0.3s ease;
+          display: flex;
+          align-items: center;
+        }
+
+        .phase-section-mobile .phase-layout {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .phase-section-mobile .phase-visual {
+          order: -1;
+          padding-left: 0;
+          justify-content: center;
+        }
+
+        .phase-section-mobile .phase-text {
+          max-width: 100%;
+          padding-right: 0;
+          text-align: center;
+        }
+
+        .phase-section-mobile .phase-points .phase-point {
+          text-align: left;
+        }
+
+        /* Aplicar colores blancos en mobile para fases con textColor="light" */
+        .phase-section-mobile[data-text-color="light"] .phase-title {
+          color: #ffffff;
+        }
+
+        .phase-section-mobile[data-text-color="light"] .phase-subtitle {
+          color: #f5f5f5;
+        }
+
+        .phase-section-mobile[data-text-color="light"] .phase-points .phase-point {
+          color: #ffffff;
+        }
+
+        .phase-section-mobile[data-text-color="light"]
+          .phase-points
+          .phase-point::before {
+          color: #ffffff;
+        }
       `}</style>
-    </section>
+    </>
   );
 };
 

@@ -334,6 +334,8 @@ const SellHero = () => {
 
           .sell-hero-title {
             font-size: 2rem;
+            text-align: center;
+            margin: 2rem 2rem;
           }
 
           .sell-hero-text {
@@ -341,7 +343,7 @@ const SellHero = () => {
           }
 
           .sell-hero-scroll-down {
-            bottom: 1rem;
+            display: none;
           }
         }
       `}</style>
