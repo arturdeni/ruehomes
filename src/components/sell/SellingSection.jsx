@@ -4,10 +4,10 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // Importar las imágenes
-import fase1Image from "../../assets/images/selling-section/fase-1.png";
-import fase2Image from "../../assets/images/selling-section/fase-2.png";
-import fase3Image from "../../assets/images/selling-section/fase-3.png";
-import fase4Image from "../../assets/images/selling-section/fase-4.png";
+import fase1Image from "../../assets/images/selling-section/fase-1.webp";
+import fase2Image from "../../assets/images/selling-section/fase-2.webp";
+import fase3Image from "../../assets/images/selling-section/fase-3.webp";
+import fase4Image from "../../assets/images/selling-section/fase-4.webp";
 
 // Registrar el plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -32,6 +32,7 @@ const SellingSection = () => {
       ],
       image: fase1Image,
       bgColor: "#e7d2c3",
+      textColor: "dark", // Colores oscuros para fases 1 y 2
     },
     {
       id: 2,
@@ -44,7 +45,8 @@ const SellingSection = () => {
         "Campañas segmentadas en redes sociales y Google Ads.",
       ],
       image: fase2Image,
-      bgColor: "#C1946A",
+      bgColor: "#cda077",
+      textColor: "dark", // Colores oscuros para fases 1 y 2
     },
     {
       id: 3,
@@ -56,7 +58,8 @@ const SellingSection = () => {
         "Negociación estratégica para lograr el mejor precio y condiciones.",
       ],
       image: fase3Image,
-      bgColor: "#b97e59",
+      bgColor: "#B27C51",
+      textColor: "light", // Texto blanco para fases 3 y 4
     },
     {
       id: 4,
@@ -68,7 +71,8 @@ const SellingSection = () => {
         "Entrega de llaves y asistencia postventa.",
       ],
       image: fase4Image,
-      bgColor: "#b97e59",
+      bgColor: "#B27C51",
+      textColor: "light", // Texto blanco para fases 3 y 4
     },
   ];
 
@@ -91,6 +95,11 @@ const SellingSection = () => {
             el.style.opacity = "0";
           }
         });
+
+        // Actualizar las clases de color del texto
+        if (contentRef.current) {
+          contentRef.current.setAttribute("data-text-color", phase.textColor);
+        }
 
         // Transición de la imagen: salir por la derecha
         if (imageRef.current) {
@@ -164,6 +173,10 @@ const SellingSection = () => {
       // Para la imagen inicial, asegurarnos de que esté en posición normal
       if (imageRef.current) {
         gsap.set(imageRef.current, { x: "0%" });
+      }
+      // Inicializar el color del texto
+      if (contentRef.current) {
+        contentRef.current.setAttribute("data-text-color", phases[0].textColor);
       }
 
       // Timeline principal para el pin scrolling y cambios de color
@@ -357,6 +370,7 @@ const SellingSection = () => {
           line-height: 1.2;
           color: var(--color-rust);
           margin-bottom: 1.5rem;
+          transition: color 0.3s ease;
         }
 
         .phase-subtitle {
@@ -365,6 +379,7 @@ const SellingSection = () => {
           color: var(--color-cinnamon);
           margin-bottom: 2rem;
           font-weight: 500;
+          transition: color 0.3s ease;
         }
 
         .phase-points {
@@ -378,9 +393,10 @@ const SellingSection = () => {
           font-size: 1.125rem;
           line-height: 1.6;
           color: var(--color-rust-dark);
-          margin-bottom: 1.25rem;
+          margin-bottom: 0.3rem;
           padding-left: 1.5rem;
           position: relative;
+          transition: color 0.3s ease;
         }
 
         .phase-points .phase-point::before {
@@ -390,6 +406,26 @@ const SellingSection = () => {
           color: var(--color-cinnamon);
           font-size: 1.5rem;
           line-height: 1;
+          transition: color 0.3s ease;
+        }
+
+        /* Colores para texto claro (fases 3 y 4) */
+        .selling-content[data-text-color="light"] .phase-title {
+          color: #ffffff;
+        }
+
+        .selling-content[data-text-color="light"] .phase-subtitle {
+          color: #f5f5f5;
+        }
+
+        .selling-content[data-text-color="light"] .phase-points .phase-point {
+          color: #ffffff;
+        }
+
+        .selling-content[data-text-color="light"]
+          .phase-points
+          .phase-point::before {
+          color: #ffffff;
         }
 
         .phase-points .phase-point:last-child {
