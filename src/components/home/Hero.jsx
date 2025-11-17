@@ -2,7 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import RotatingText from "../ui/RotatingText";
-import heroImageStatic from "../../assets/images/hero/hero-background-static.png";
+import heroImageStatic from "../../assets/images/hero/hero-background-static.webp";
 
 const Hero = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -41,6 +41,7 @@ const Hero = () => {
   const handleVideoLoad = () => {
     if (videoRef.current) {
       setVideoLoaded(true);
+      videoRef.current.playbackRate = 0.65; // Velocidad al 50%
       videoRef.current.play().catch(() => {
         // Si falla la reproducción, mantener la imagen de fondo visible
         setVideoLoaded(false);
@@ -202,8 +203,8 @@ const Hero = () => {
         }
 
         .hero-subtitle {
-          font-family: var(--font-primary);
-          font-size: 4.5rem;
+          font-family: var(--font-titles);
+          font-size: 4rem;
           color: white;
           margin-bottom: 4rem;
           line-height: 1.12;

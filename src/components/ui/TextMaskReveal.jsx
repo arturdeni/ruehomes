@@ -6,6 +6,7 @@ const TextMaskReveal = ({
   className = "",
   trigger = true,
   delay = 0,
+  textAlign = "left", // "left", "center", "right", "justify"
 }) => {
   const containerRef = useRef(null);
   const animationExecutedRef = useRef(false);
@@ -15,72 +16,54 @@ const TextMaskReveal = ({
 
   // Función para preparar las líneas de texto
   const prepareTextLines = (container, originalText, keepVisible = false) => {
-    const lineHeight = parseFloat(
-      window.getComputedStyle(container).lineHeight
-    );
+    const computedStyle = window.getComputedStyle(container);
+    const lineHeight = parseFloat(computedStyle.lineHeight);
     const actualLineHeight = isNaN(lineHeight) ? 22 : lineHeight;
 
-    // Dividir el texto en líneas según el ancho real del contenedor
-    const words = originalText.split(" ");
-    const lines = [];
+    // Renderizar el texto normalmente y obtener el textAlign del contenedor
+    const tempDiv = document.createElement("div");
+    tempDiv.style.cssText = `
+      position: absolute;
+      visibility: hidden;
+      width: ${container.offsetWidth}px;
+      font: ${computedStyle.font};
+      line-height: ${computedStyle.lineHeight};
+      text-align: ${container.style.textAlign || "left"};
+      word-spacing: ${computedStyle.wordSpacing};
+      letter-spacing: ${computedStyle.letterSpacing};
+    `;
+    tempDiv.innerHTML = originalText;
+    document.body.appendChild(tempDiv);
 
-    // Crear un elemento temporal para medir el ancho de las palabras
-    const measureElement = document.createElement("span");
-    measureElement.style.visibility = "hidden";
-    measureElement.style.position = "absolute";
-    measureElement.style.whiteSpace = "nowrap";
-    measureElement.style.font = window.getComputedStyle(container).font;
-    container.appendChild(measureElement);
+    document.body.removeChild(tempDiv);
 
-    const containerWidth = container.offsetWidth;
-    let currentLine = "";
-
-    words.forEach((word, index) => {
-      const testLine = currentLine ? currentLine + " " + word : word;
-      measureElement.textContent = testLine;
-
-      if (measureElement.offsetWidth > containerWidth && currentLine) {
-        // La línea es demasiado ancha, guardar la línea actual y empezar una nueva
-        lines.push(currentLine);
-        currentLine = word;
-      } else {
-        currentLine = testLine;
-      }
-
-      // Agregar la última línea
-      if (index === words.length - 1 && currentLine) {
-        lines.push(currentLine);
-      }
-    });
-
-    // Limpiar el elemento de medición
-    container.removeChild(measureElement);
-
-    // Limpiar y crear las líneas con máscaras
+    // Crear un contenedor único con el texto completo y aplicar la máscara por palabra
     container.innerHTML = "";
     textLinesRef.current = [];
 
-    lines.forEach((lineText) => {
-      // Contenedor con máscara
-      const maskWrapper = document.createElement("div");
-      maskWrapper.style.overflow = "hidden";
-      maskWrapper.style.height = actualLineHeight + "px";
-      maskWrapper.style.position = "relative";
+    // Dividir en palabras y crear spans
+    const words = originalText.split(/(\s+)/); // Mantener los espacios
+    const wordsWrapper = document.createElement("div");
+    wordsWrapper.style.textAlign = container.style.textAlign || "left";
+    wordsWrapper.style.lineHeight = actualLineHeight + "px";
 
-      // El texto que se va a animar
-      const textLine = document.createElement("div");
-      textLine.textContent = lineText;
-      // Si ya fue animado, mantener visible; si no, ocultar
-      textLine.style.transform = keepVisible || hasAnimatedRef.current ? "translateY(0)" : "translateY(100%)";
-      textLine.style.lineHeight = actualLineHeight + "px";
-      textLine.style.position = "relative";
-
-      maskWrapper.appendChild(textLine);
-      container.appendChild(maskWrapper);
-
-      // Guardar referencia para animar luego
-      textLinesRef.current.push(textLine);
+    words.forEach((word) => {
+      if (word.trim()) {
+        // Es una palabra
+        const wordSpan = document.createElement("span");
+        wordSpan.innerHTML = word;
+        wordSpan.style.display = "inline";
+        wordSpan.style.opacity = keepVisible || hasAnimatedRef.current ? "1" : "0";
+        wordSpan.style.transform = keepVisible || hasAnimatedRef.current ? "translateY(0)" : "translateY(20px)";
+        wordsWrapper.appendChild(wordSpan);
+        textLinesRef.current.push(wordSpan);
+      } else {
+        // Es un espacio
+        wordsWrapper.appendChild(document.createTextNode(word));
+      }
     });
+
+    container.appendChild(wordsWrapper);
   };
 
   // Preparar el texto con máscaras desde el inicio
@@ -125,12 +108,13 @@ const TextMaskReveal = ({
     if (!trigger || textLinesRef.current.length === 0) return;
 
     setTimeout(() => {
-      textLinesRef.current.forEach((textLine, index) => {
-        gsap.to(textLine, {
+      textLinesRef.current.forEach((wordSpan, index) => {
+        gsap.to(wordSpan, {
+          opacity: 1,
           y: 0,
-          duration: 1.1,
+          duration: 0.6,
           ease: "power2.out",
-          delay: index * 0.1 + 0.3,
+          delay: index * 0.03,
           onComplete: () => {
             if (index === textLinesRef.current.length - 1) {
               hasAnimatedRef.current = true;
@@ -142,7 +126,7 @@ const TextMaskReveal = ({
   }, [trigger, delay]);
 
   return (
-    <div ref={containerRef} className={className}>
+    <div ref={containerRef} className={className} style={{ textAlign }}>
       {children}
     </div>
   );

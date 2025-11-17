@@ -10,9 +10,7 @@ const InstagramSection = () => {
       try {
         // Intentar obtener posts desde nuestro backend
         try {
-          const response = await fetch(
-            "http://localhost:3001/api/instagram"
-          );
+          const response = await fetch("http://localhost:3001/api/instagram");
 
           if (response.ok) {
             const data = await response.json();
@@ -404,8 +402,8 @@ const InstagramSection = () => {
             <div className="instagram__text">
               <h2 className="instagram__title">Síguenos en Instagram</h2>
               <p className="instagram__subtitle">
-                Descubre nuestras propiedades exclusivas y el día a día de
-                RueHomes
+                Descubre nuestras propiedades exclusivas y el día a día de Rue
+                Homes.
               </p>
             </div>
           </div>
@@ -536,7 +534,7 @@ const InstagramSection = () => {
         }
 
         .instagram__title {
-          font-family: "Crimson Text", serif;
+          font-family: var(--font-titles);
           font-size: 2.5rem;
           font-weight: 400;
           color: #483228;

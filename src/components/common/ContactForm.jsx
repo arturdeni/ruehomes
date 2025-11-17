@@ -244,7 +244,7 @@ const ContactForm = ({
           }
 
           .success-title {
-            font-family: var(--font-primary);
+            font-family: var(--font-titles);
             font-size: 2rem;
             color: var(--color-rust);
             font-weight: 400;
@@ -396,7 +396,7 @@ const ContactForm = ({
               Enviando...
             </span>
           ) : (
-            "Enviar Mensaje"
+            "Quiero Vender"
           )}
         </button>
 
@@ -426,7 +426,7 @@ const ContactForm = ({
         }
 
         .form-title {
-          font-family: var(--font-primary);
+          font-family: var(--font-titles);
           font-size: 2rem;
           color: var(--color-rust);
           font-weight: 400;

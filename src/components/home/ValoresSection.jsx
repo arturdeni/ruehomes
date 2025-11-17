@@ -132,7 +132,7 @@ const ValoresSection = () => {
         }
 
         .section-title {
-          font-family: var(--font-primary);
+          font-family: var(--font-titles);
           font-size: 3rem;
           color: var(--color-rust);
           margin-bottom: 1.5rem;
@@ -194,7 +194,7 @@ const ValoresSection = () => {
         }
 
         .valor-title {
-          font-family: var(--font-primary);
+          font-family: var(--font-titles);
           font-size: 1.4rem;
           color: var(--color-rust);
           margin-bottom: 1rem;

@@ -1082,7 +1082,7 @@ const PropertyDetail = () => {
         }
 
         .property-detail__title {
-          font-family: var(--font-primary);
+          font-family: var(--font-titles);
           font-size: 2.5rem;
           font-weight: 400;
           color: var(--color-rust);
@@ -1110,7 +1110,7 @@ const PropertyDetail = () => {
         }
 
         .property-detail__price {
-          font-family: var(--font-primary);
+          font-family: var(--font-titles);
           font-size: 3rem;
           font-weight: 400;
           color: var(--color-cinnamon);
@@ -1175,7 +1175,7 @@ const PropertyDetail = () => {
 
         /* Secciones */
         .property-detail__section-title {
-          font-family: var(--font-primary);
+          font-family: var(--font-titles);
           font-size: 1.75rem;
           font-weight: 400;
           color: var(--color-rust);
@@ -1332,7 +1332,7 @@ const PropertyDetail = () => {
         }
 
         .property-detail__contact-title {
-          font-family: var(--font-primary);
+          font-family: var(--font-titles);
           font-size: 1.5rem;
           font-weight: 400;
           color: var(--color-rust);

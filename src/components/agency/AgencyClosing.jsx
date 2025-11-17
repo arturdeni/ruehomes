@@ -1,7 +1,8 @@
 // src/components/agency/AgencyClosing.jsx
 import { useState, useEffect, useRef } from "react";
 
-const AgencyClosing = () => {
+// Componente ScrollReveal simplificado reutilizado
+const SimpleReveal = ({ children, className = "", delay = 0 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef(null);
 
@@ -9,7 +10,7 @@ const AgencyClosing = () => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
+          setTimeout(() => setIsVisible(true), delay * 1000);
           observer.unobserve(entry.target);
         }
       },
@@ -25,26 +26,40 @@ const AgencyClosing = () => {
         observer.unobserve(ref.current);
       }
     };
-  }, []);
+  }, [delay]);
+
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? "translateY(0)" : "translateY(30px)",
+        transition: "all 0.8s cubic-bezier(0.25, 0.4, 0.25, 1)",
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
+const AgencyClosing = () => {
 
   return (
     <section className="agency-closing-section">
       <div className="container">
-        <div
-          ref={ref}
-          className="agency-closing-content"
-          style={{
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? "translateY(0)" : "translateY(20px)",
-            transition: "all 0.8s cubic-bezier(0.25, 0.4, 0.25, 1)",
-          }}
-        >
-          <h2 className="agency-closing-title">Rue Homes</h2>
-          <p className="agency-closing-text">
-            Como las calles que dan nombre a un lugar, damos identidad y
-            personalidad a cada propiedad para que otra persona pueda encontrar
-            un lugar al que llamar hogar.
-          </p>
+        <div className="agency-closing-content">
+          <SimpleReveal className="agency-closing-title-wrapper">
+            <h2 className="agency-closing-title">Rue Homes</h2>
+          </SimpleReveal>
+
+          <SimpleReveal className="agency-closing-text-wrapper" delay={0.2}>
+            <p className="agency-closing-text">
+              Como las calles que dan nombre a un lugar, damos identidad y
+              personalidad a cada propiedad para que otra persona pueda encontrar
+              un lugar al que llamar hogar.
+            </p>
+          </SimpleReveal>
         </div>
       </div>
 
@@ -61,7 +76,7 @@ const AgencyClosing = () => {
         }
 
         .agency-closing-title {
-          font-family: var(--font-primary);
+          font-family: var(--font-titles);
           font-size: var(--text-4xl);
           color: var(--color-rust);
           margin: 0 0 var(--space-6) 0;

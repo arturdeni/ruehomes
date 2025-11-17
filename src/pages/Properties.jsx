@@ -35,7 +35,9 @@ const Properties = () => {
         setFilteredProperties(data.properties);
       } catch (err) {
         console.error("Error fetching properties:", err);
-        setError("Error al cargar las propiedades. Por favor, intenta de nuevo.");
+        setError(
+          "Error al cargar las propiedades. Por favor, intenta de nuevo."
+        );
       } finally {
         setLoading(false);
       }
@@ -160,7 +162,9 @@ const Properties = () => {
             <div className="flex justify-center items-center py-20">
               <div className="text-center">
                 <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-cinnamon mx-auto mb-4"></div>
-                <p className="font-secondary text-rust">Cargando propiedades...</p>
+                <p className="font-secondary text-rust">
+                  Cargando propiedades...
+                </p>
               </div>
             </div>
           </div>
@@ -208,7 +212,7 @@ const Properties = () => {
       <section className="properties__hero py-8">
         <div className="container">
           <div className="properties__hero-content text-center">
-            <h1 className="properties__hero-title font-primary text-rust mb-6">
+            <h1 className="properties__hero-title text-rust mb-6">
               Nuestras Propiedades
             </h1>
             <p className="properties__hero-subtitle font-secondary text-rust-light text-xl max-w-2xl mx-auto">
@@ -428,6 +432,7 @@ const Properties = () => {
         }
 
         .properties__hero-title {
+          font-family: var(--font-titles);
           font-size: 3.5rem;
           line-height: 1.2;
           opacity: 0;

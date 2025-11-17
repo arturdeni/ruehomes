@@ -1,21 +1,54 @@
 // src/components/home/VentaSection.jsx
-import { Link } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollReveal } from "../ui/ScrollReveal";
 import AnimatedImageContainer from "../ui/AnimatedImageContainer";
 import AnimatedButton from "../ui/AnimatedButton";
 import turullCuina from "../../assets/images/vender/Turull-cuina.webp";
 import turullPiano from "../../assets/images/vender/Turull-piano.webp";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const VentaSection = () => {
+  const titleRef = useRef(null);
+
+  useEffect(() => {
+    if (titleRef.current) {
+      gsap.fromTo(
+        titleRef.current,
+        {
+          opacity: 0,
+          y: 30,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.8,
+          delay: 0.3,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }
+  }, []);
+
   return (
     <section className="venta-section">
       <div className="container">
         <div className="venta-content">
           {/* Texto */}
           <div className="venta-text">
+            <h2 ref={titleRef} className="venta-text__title">
+              Vende tu propiedad
+            </h2>
             <ScrollReveal
               containerClassName="mb-6"
-              size="sm"
+              size="xs"
               align="left"
               baseOpacity={0.2}
               baseRotation={0}
@@ -67,6 +100,10 @@ const VentaSection = () => {
           margin-left: 100px;
         }
 
+        .venta-text__title {
+          font-family: var(--font-titles);
+        }
+
         .venta-images {
           position: relative;
           height: 660px;
@@ -80,8 +117,8 @@ const VentaSection = () => {
 
         .venta-images .image-small {
           width: 550px !important;
-          height: 420px !important;
-          top: -410px;
+          height: 390px !important;
+          top: -380px;
           left: -654px;
         }
 
@@ -105,7 +142,7 @@ const VentaSection = () => {
           .venta-images .image-small {
             width: 350px !important;
             height: 300px !important;
-            top: -190px;
+            top: -260px;
             left: -480px;
           }
         }
@@ -153,7 +190,7 @@ const VentaSection = () => {
           }
           
           .venta-content {
-            gap: 1rem;
+            gap: 1.5rem;
           }
 
           .venta-text {

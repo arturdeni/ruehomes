@@ -1,11 +1,10 @@
 // src/components/tailored-services/TailoredHero.jsx
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Lanyard from "../lanyard/Lanyard";
 
 const TailoredHero = () => {
-  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
-  const videoRef = useRef(null);
 
   // Detectar si es desktop (> 850px)
   useEffect(() => {
@@ -22,32 +21,24 @@ const TailoredHero = () => {
     return () => window.removeEventListener("resize", checkIsDesktop);
   }, []);
 
-  // Intentar reproducir el video cuando se cargue
-  const handleVideoLoad = () => {
-    if (videoRef.current) {
-      setVideoLoaded(true);
-      videoRef.current.play().catch(() => {
-        // Si falla la reproducción, mantener la capa visible
-        setVideoLoaded(false);
-      });
-    }
-  };
+  // Manejar la carga de la imagen
+  useEffect(() => {
+    const img = new Image();
+    img.src =
+      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop";
+    img.onload = () => setImageLoaded(true);
+  }, []);
 
   return (
     <section className="tailored-hero-section">
-      {/* Video de fondo */}
-      <video
-        ref={videoRef}
-        className={`hero-video ${videoLoaded ? "loaded" : ""}`}
-        autoPlay
-        muted
-        loop
-        playsInline
-        onCanPlay={handleVideoLoad}
-        onLoadedData={handleVideoLoad}
-      >
-        <source src="/videos/hero-tailored-services.webm" type="video/webm" />
-      </video>
+      {/* Imagen de fondo */}
+      <div
+        className={`hero-background ${imageLoaded ? "loaded" : ""}`}
+        style={{
+          backgroundImage:
+            "url(https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop)",
+        }}
+      ></div>
 
       {/* Gradiente overlay */}
       <div className="hero-overlay"></div>
@@ -68,11 +59,6 @@ const TailoredHero = () => {
         <div className="tailored-hero-content">
           {/* Contenido de texto */}
           <div className="tailored-intro-text">
-            <h1 className="tailored-intro-title">
-              Rue Homes{" "}
-              <span className="tailored-title-highlight">Tailored</span>
-            </h1>
-
             <p className="tailored-intro-description">
               Nuestro servicio más <strong>personalizado y exclusivo</strong>,
               pensado para clientes exigentes que valoran la{" "}
@@ -89,6 +75,15 @@ const TailoredHero = () => {
         </div>
       </div>
 
+      {/* Título en la parte inferior */}
+      <div className="tailored-title-bottom">
+        <div className="container">
+          <h1 className="tailored-intro-title">
+            Rue Homes <span className="tailored-title-highlight">Tailored</span>
+          </h1>
+        </div>
+      </div>
+
       <style jsx>{`
         /* === HERO SECTION === */
         .tailored-hero-section {
@@ -100,8 +95,8 @@ const TailoredHero = () => {
           overflow: hidden;
         }
 
-        /* === VIDEO DE FONDO === */
-        .hero-video {
+        /* === IMAGEN DE FONDO === */
+        .hero-background {
           position: fixed;
           top: 0;
           left: 0;
@@ -109,14 +104,16 @@ const TailoredHero = () => {
           bottom: 0;
           width: 100%;
           height: 120vh;
-          object-fit: cover;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
           z-index: -2;
           opacity: 0;
           transition: opacity 0.8s ease-in-out;
-          will-change: transform, opacity;
+          will-change: opacity;
         }
 
-        .hero-video.loaded {
+        .hero-background.loaded {
           opacity: 1;
         }
 
@@ -169,13 +166,21 @@ const TailoredHero = () => {
           z-index: 55;
         }
 
+        .tailored-title-bottom {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          z-index: 3;
+          padding-bottom: 3rem;
+        }
+
         .tailored-intro-title {
-          font-family: var(--font-primary);
-          font-size: 4.5rem;
+          font-family: var(--font-titles);
+          font-size: clamp(2rem, 10vw, 12rem);
           color: white;
-          font-weight: 400;
-          margin-bottom: 2rem;
-          line-height: 1.1;
+          margin: 0;
+          line-height: 0.2;
         }
 
         .tailored-title-highlight {
@@ -202,7 +207,7 @@ const TailoredHero = () => {
             height: 100vh;
           }
 
-          .hero-video {
+          .hero-background {
             height: 100vh;
           }
 
@@ -217,8 +222,12 @@ const TailoredHero = () => {
             text-align: center;
           }
 
+          .tailored-title-bottom {
+            padding-bottom: 2rem;
+          }
+
           .tailored-intro-title {
-            font-size: 2.5rem;
+            text-align: center;
           }
 
           .tailored-intro-description {
@@ -229,8 +238,8 @@ const TailoredHero = () => {
         }
 
         @media (max-width: 768px) {
-          .tailored-intro-title {
-            font-size: 2.2rem;
+          .tailored-title-bottom {
+            padding-bottom: 1.5rem;
           }
 
           .tailored-intro-description {
@@ -239,8 +248,8 @@ const TailoredHero = () => {
         }
 
         @media (max-width: 640px) {
-          .tailored-intro-title {
-            font-size: 2rem;
+          .tailored-title-bottom {
+            padding-bottom: 1rem;
           }
 
           .tailored-intro-description {

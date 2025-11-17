@@ -154,7 +154,7 @@ const AgencyAboutUs = () => {
         }
 
         .agency-services-title {
-          font-family: var(--font-primary);
+          font-family: var(--font-titles);
           font-size: 3rem;
           color: var(--color-rust);
           font-weight: 400;
@@ -248,7 +248,7 @@ const AgencyAboutUs = () => {
         }
 
         .agency-philosophy-title {
-          font-family: var(--font-primary);
+          font-family: var(--font-titles);
           font-size: 3rem;
           color: var(--color-rust);
           font-weight: 400;

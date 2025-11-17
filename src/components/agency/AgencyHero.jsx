@@ -65,7 +65,7 @@ const AgencyHero = () => {
       <div className="container">
         <div className="agency-hero-content">
           <h1 ref={titleRef} className="agency-hero-title">
-            <strong>La Agencia</strong>
+            La Agencia
           </h1>
           <div ref={textRef} className="agency-hero-text">
             <div className="agency-hero-paragraph-container">
@@ -73,6 +73,7 @@ const AgencyHero = () => {
                 className="agency-hero-paragraph"
                 trigger={triggerFirstParagraph}
                 delay={0}
+                textAlign="justify"
               >
                 En Rue Homes creemos que cada propiedad guarda una historia y
                 cada persona sueña con un lugar donde escribir la suya.
@@ -84,6 +85,7 @@ const AgencyHero = () => {
                 className="agency-hero-paragraph"
                 trigger={triggerSecondParagraph}
                 delay={0}
+                textAlign="justify"
               >
                 Nuestro nombre y logotipo nacen de un elemento urbano que todos
                 reconocemos: las placas que dan nombre a las calles, símbolos
@@ -99,6 +101,7 @@ const AgencyHero = () => {
                 className="agency-hero-paragraph"
                 trigger={triggerThirdParagraph}
                 delay={0}
+                textAlign="justify"
               >
                 Más que una agencia inmobiliaria, somos un equipo que escucha,
                 acompaña y busca soluciones a medida para cada cliente.
@@ -110,17 +113,11 @@ const AgencyHero = () => {
 
       <style jsx>{`
         .agency-hero-section {
-          min-height: 100vh;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 8rem 0;
-          background: linear-gradient(
-            180deg,
-            var(--color-marble-lighter) 0%,
-            var(--color-marble) 50%,
-            var(--color-softdune-lighter) 100%
-          );
+          padding: 10rem 0 3rem;
+          background: var(--color-marble);
           position: relative;
         }
 
@@ -131,8 +128,8 @@ const AgencyHero = () => {
         }
 
         .agency-hero-title {
-          font-family: var(--font-primary);
-          font-size: 4.5rem;
+          font-family: var(--font-titles);
+          font-size: 4rem;
           color: var(--color-rust);
           font-weight: 400;
           margin-bottom: 4rem;
@@ -153,9 +150,9 @@ const AgencyHero = () => {
 
         .agency-hero-paragraph {
           font-family: var(--font-secondary);
-          font-size: 1.4rem;
+          font-size: 1.2rem;
           color: var(--color-rust);
-          line-height: 1.6;
+          line-height: 1.4;
           font-weight: 300;
         }
 

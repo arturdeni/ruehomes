@@ -3,6 +3,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500&display=swap");
 
+/* Custom Font - PP Editorial New */
+@font-face {
+  font-family: "PP Editorial New";
+  src: url("../assets/fonts/PPEditorialNew-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* === PALETA DE COLORES PRINCIPAL === */
 
@@ -14,28 +23,28 @@
   --color-rust-darker: #6d4027;
 
   /* Cinnamon */
-  --color-cinnamon: #B27C51;
+  --color-cinnamon: #b27c51;
   --color-cinnamon-light: #c18f64;
   --color-cinnamon-lighter: #d0a277;
   --color-cinnamon-dark: #9f6945;
   --color-cinnamon-darker: #8c5639;
 
   /* Honeyfield */
-  --color-honeyfield: #C1946A;
+  --color-honeyfield: #c1946a;
   --color-honeyfield-light: #cda077;
   --color-honeyfield-lighter: #d9ac84;
   --color-honeyfield-dark: #ad835d;
   --color-honeyfield-darker: #997250;
 
   /* SoftDune */
-  --color-softdune: #D7C0A9;
+  --color-softdune: #d7c0a9;
   --color-softdune-light: #dfc9b6;
   --color-softdune-lighter: #e7d2c3;
   --color-softdune-dark: #cbb69c;
   --color-softdune-darker: #bfac8f;
 
   /* Marble */
-  --color-marble: #EAE6DF;
+  --color-marble: #eae6df;
   --color-marble-light: #ede9e5;
   --color-marble-lighter: #f0eceb;
   --color-marble-dark: #e1ddd6;
@@ -77,6 +86,7 @@
   --font-primary: "Oranienbaum", serif;
   --font-secondary: "Inter", system-ui, sans-serif;
   --font-logo: "Barlow Condensed", sans-serif;
+  --font-titles: "PP Editorial New", serif;
 
   /* === TAMAÑOS DE FUENTE === */
   --text-xs: 0.75rem; /* 12px */

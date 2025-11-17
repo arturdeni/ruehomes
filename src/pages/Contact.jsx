@@ -57,7 +57,7 @@ const Contact = () => {
         <div className="container">
           {/* Título y subtítulo */}
           <div ref={titleRef} className="contact-header">
-            <h1 className="contact-main-title">Hablamos</h1>
+            <h1 className="contact-main-title">¿Hablamos?</h1>
             <p className="contact-subtitle">
               Estamos aquí para ayudarte a encontrar tu próximo hogar o vender
               tu propiedad. Contáctanos y te responderemos lo antes posible.
@@ -198,7 +198,7 @@ const Contact = () => {
         }
 
         .contact-main-title {
-          font-family: var(--font-primary);
+          font-family: var(--font-titles);
           font-size: 5rem;
           color: var(--color-rust);
           font-weight: 400;

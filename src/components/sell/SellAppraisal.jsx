@@ -95,11 +95,7 @@ const SellAppraisal = () => {
 
       <style jsx>{`
         .sell-appraisal {
-          background: linear-gradient(
-            180deg,
-            var(--color-rust-lighter) 20%,
-            var(--color-rust) 100%
-          );
+          background: var(--color-softdune);
           padding: 5rem 0;
           position: relative;
         }
@@ -111,10 +107,10 @@ const SellAppraisal = () => {
         }
 
         .sell-appraisal-title {
-          font-family: var(--font-primary);
+          font-family: var(--font-titles);
           font-size: 3rem;
           line-height: 1.2;
-          color: white;
+          color: var(--color-rust);
           opacity: 0;
           transform: translateY(30px);
           transition: all 0.8s cubic-bezier(0.25, 0.4, 0.25, 1);
@@ -123,7 +119,7 @@ const SellAppraisal = () => {
         .sell-appraisal-subtitle {
           font-family: var(--font-secondary);
           font-size: 1.375rem;
-          color: rgba(255, 255, 255, 0.9);
+          color: var(--color-rust);
           margin-bottom: 3rem;
           font-weight: 500;
           opacity: 0;
@@ -133,7 +129,7 @@ const SellAppraisal = () => {
 
         .sell-appraisal-text {
           margin-bottom: 3rem;
-          color: white;
+          color: var(--color-rust);
         }
 
         .sell-appraisal-text :global(.sell-appraisal-paragraph) {

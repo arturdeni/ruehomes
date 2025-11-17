@@ -1,6 +1,11 @@
 // src/components/tailored-service/TailoredMain.jsx
 import { useState, useEffect, useRef } from "react";
-import AnimatedImageContainer from "../ui/AnimatedImageContainer";
+
+// Importar los iconos de Material UI
+import DiamondOutlinedIcon from "@mui/icons-material/DiamondOutlined";
+import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
+import TuneOutlinedIcon from "@mui/icons-material/TuneOutlined";
+import VerifiedUserOutlinedIcon from "@mui/icons-material/VerifiedUserOutlined";
 
 // Componente ScrollReveal simplificado para evitar dependencias
 const SimpleReveal = ({ children, className = "", delay = 0 }) => {
@@ -77,21 +82,25 @@ const TailoredMain = () => {
       title: "Exclusividad",
       description:
         "Acceso privilegiado a propiedades únicas a través de nuestra amplia red de contactos.",
+      icon: DiamondOutlinedIcon,
     },
     {
       title: "Ahorro de tiempo",
       description:
         "Recibes únicamente propiedades que cumplen al 100% con tus necesidades, evitando búsquedas interminables en portales o visitas innecesarias.",
+      icon: AccessTimeOutlinedIcon,
     },
     {
       title: "Personalización total",
       description:
         "Cada búsqueda se adapta a tus criterios exactos para ofrecer solo opciones que cumplan con tus necesidades.",
+      icon: TuneOutlinedIcon,
     },
     {
       title: "Confianza y discreción",
       description:
         "Gestionamos tu búsqueda y transacción con la máxima profesionalidad y absoluta confidencialidad.",
+      icon: VerifiedUserOutlinedIcon,
     },
   ];
 
@@ -127,44 +136,31 @@ const TailoredMain = () => {
       {/* Por qué elegir Section */}
       <section className="tailored-benefits-section">
         <div className="container">
-          <div className="tailored-benefits-content">
-            {/* Imagen lateral */}
-            <div className="tailored-benefits-visual">
-              <div className="tailored-benefits-image-wrapper">
-                <AnimatedImageContainer
-                  src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-                  delay={0.2}
-                />
-              </div>
-            </div>
+          <SimpleReveal className="tailored-benefits-header">
+            <h2 className="tailored-benefits-title">
+              ¿Por qué elegir Rue Homes Tailored?
+            </h2>
+          </SimpleReveal>
 
-            {/* Contenido de texto */}
-            <div className="tailored-benefits-text">
-              <SimpleReveal className="tailored-benefits-header">
-                <h2 className="tailored-benefits-title">
-                  ¿Por qué elegir Rue Homes Tailored?
-                </h2>
-              </SimpleReveal>
-
-              <div className="tailored-benefits-list">
-                {benefits.map((benefit, index) => (
-                  <SimpleReveal
-                    key={index}
-                    className="tailored-benefit-card"
-                    delay={index * 0.1}
-                  >
-                    <div className="tailored-benefit-content">
-                      <h3 className="tailored-benefit-title">
-                        {benefit.title}
-                      </h3>
-                      <p className="tailored-benefit-description">
-                        {benefit.description}
-                      </p>
-                    </div>
-                  </SimpleReveal>
-                ))}
-              </div>
-            </div>
+          <div className="tailored-benefits-grid">
+            {benefits.map((benefit, index) => {
+              const IconComponent = benefit.icon;
+              return (
+                <SimpleReveal
+                  key={index}
+                  className="tailored-benefit-item"
+                  delay={index * 0.1}
+                >
+                  <div className="tailored-benefit-icon">
+                    <IconComponent className="mui-icon" />
+                  </div>
+                  <h3 className="tailored-benefit-title">{benefit.title}</h3>
+                  <p className="tailored-benefit-description">
+                    {benefit.description}
+                  </p>
+                </SimpleReveal>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -176,7 +172,7 @@ const TailoredMain = () => {
 
         /* ===== PROCESS SECTION ===== */
         .tailored-process-section {
-          padding: 10rem 0;
+          padding: 7rem 0 1rem;
           background: white;
         }
 
@@ -186,7 +182,7 @@ const TailoredMain = () => {
         }
 
         .tailored-process-title {
-          font-family: var(--font-primary);
+          font-family: var(--font-titles);
           font-size: 3rem;
           color: var(--color-rust);
           font-weight: 400;
@@ -251,76 +247,59 @@ const TailoredMain = () => {
 
         /* ===== BENEFITS SECTION ===== */
         .tailored-benefits-section {
-          padding: 10rem 0;
-          background: var(--color-softdune-lighter);
-        }
-
-        .tailored-benefits-content {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 6rem;
-          align-items: center;
-        }
-
-        .tailored-benefits-image-wrapper {
-          width: 100%;
-          height: 1000px;
-          position: relative;
+          padding: 8rem 0;
+          background: white;
         }
 
         .tailored-benefits-header {
-          margin-bottom: 2rem;
+          margin-bottom: 4rem;
+          text-align: center;
         }
 
         .tailored-benefits-title {
-          font-family: var(--font-primary);
+          font-family: var(--font-titles);
           font-size: 3rem;
           color: var(--color-rust);
           font-weight: 400;
-          margin-bottom: 1rem;
         }
 
-        .tailored-benefits-list {
+        .tailored-benefits-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 3rem;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .tailored-benefit-item {
+          text-align: center;
+        }
+
+        .tailored-benefit-icon {
+          margin: 0 auto 2rem;
+          transition: all 0.3s ease;
           display: flex;
-          flex-direction: column;
-          gap: 2.5rem;
+          align-items: center;
+          justify-content: center;
         }
 
-        .tailored-benefit-card {
-          background: rgba(255, 255, 255, 0.8);
-          backdrop-filter: blur(10px);
-          border-radius: 12px;
-          padding: 2rem;
-          border: 1px solid rgba(255, 255, 255, 0.2);
+        .tailored-benefit-icon svg {
+          font-size: 2.5rem;
+          color: var(--color-rust);
           transition: all 0.3s ease;
         }
 
-        .tailored-benefit-card:hover {
-          background: rgba(255, 255, 255, 0.95);
+        .tailored-benefit-item:hover .tailored-benefit-icon :global(.mui-icon) {
           transform: translateY(-4px);
-          box-shadow: var(--shadow-md);
+          color: var(--color-cinnamon);
         }
 
         .tailored-benefit-title {
-          font-family: var(--font-secondary);
-          font-size: 1.25rem;
+          font-family: var(--font-titles);
+          font-size: 1.4rem;
           color: var(--color-rust);
-          font-weight: 600;
-          margin-bottom: 0.75rem;
-          position: relative;
-          padding-left: 1.5rem;
-        }
-
-        .tailored-benefit-title::before {
-          content: "";
-          position: absolute;
-          left: 0;
-          top: 50%;
-          transform: translateY(-50%);
-          width: 8px;
-          height: 8px;
-          background: var(--color-cinnamon);
-          border-radius: 50%;
+          margin-bottom: 1rem;
+          font-weight: 400;
         }
 
         .tailored-benefit-description {
@@ -328,15 +307,25 @@ const TailoredMain = () => {
           color: var(--color-rust-light);
           line-height: 1.6;
           font-size: 0.95rem;
-          padding-left: 1.5rem;
+          font-weight: 300;
         }
 
         /* ===== RESPONSIVE DESIGN ===== */
-        @media (max-width: 968px) {
-          .tailored-benefits-content {
-            grid-template-columns: 1fr;
-            gap: 3rem;
-            text-align: center;
+
+        /* Tablets grandes y laptops pequeños */
+        @media (max-width: 1024px) {
+          .tailored-benefits-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem 3rem;
+            max-width: 700px;
+          }
+        }
+
+        /* Tablets */
+        @media (max-width: 768px) {
+          .tailored-process-section,
+          .tailored-benefits-section {
+            padding: 6rem 0;
           }
 
           .tailored-process-title,
@@ -344,22 +333,36 @@ const TailoredMain = () => {
             font-size: 2.5rem;
           }
 
-          .tailored-benefits-image-wrapper {
-            height: 400px;
-          }
-
-          .tailored-process-section,
-          .tailored-benefits-section {
-            padding: 8rem 0;
-          }
-
           .tailored-process-grid {
             grid-template-columns: repeat(2, 1fr);
             grid-template-rows: repeat(2, 1fr);
           }
+
+          .tailored-benefits-grid {
+            gap: 3rem 2rem;
+          }
+
+          .tailored-benefit-icon :global(.mui-icon) {
+            font-size: 40px;
+          }
+
+          .tailored-benefit-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+          }
+
+          .tailored-benefit-description {
+            font-size: 0.9rem;
+          }
         }
 
+        /* Mobile */
         @media (max-width: 640px) {
+          .tailored-process-section,
+          .tailored-benefits-section {
+            padding: 4rem 0;
+          }
+
           .tailored-process-title,
           .tailored-benefits-title {
             font-size: 2rem;
@@ -375,16 +378,30 @@ const TailoredMain = () => {
             padding: 2rem 1.5rem;
           }
 
-          .tailored-benefits-list {
-            gap: 1.5rem;
+          .tailored-benefits-grid {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            max-width: 400px;
           }
 
-          .tailored-benefit-card {
-            padding: 1.5rem;
+          .tailored-benefit-icon :global(.mui-icon) {
+            font-size: 44px;
           }
 
-          .tailored-benefits-image-wrapper {
-            height: 300px;
+          .tailored-benefit-title {
+            font-size: 1.3rem;
+          }
+        }
+
+        /* Mobile muy pequeño */
+        @media (max-width: 480px) {
+          .tailored-process-section,
+          .tailored-benefits-section {
+            padding: 3rem 0;
+          }
+
+          .tailored-benefits-grid {
+            gap: 2.5rem;
           }
         }
       `}</style>

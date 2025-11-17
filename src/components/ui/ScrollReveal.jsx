@@ -4,6 +4,7 @@ import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { cn } from "../../utils/cn";
 
 const sizeClasses = {
+  xs: "text-sm md:text-base",
   sm: "text-lg md:text-xl",
   md: "text-xl md:text-2xl lg:text-3xl",
   lg: "text-2xl md:text-3xl lg:text-4xl xl:text-5xl",

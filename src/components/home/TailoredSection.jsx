@@ -1,4 +1,7 @@
 // src/components/home/TailoredSection.jsx - Versión refactorizada
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollReveal } from "../ui/ScrollReveal";
 import AnimatedImageContainer from "../ui/AnimatedImageContainer";
 import AnimatedButton from "../ui/AnimatedButton";
@@ -6,7 +9,35 @@ import AnimatedButton from "../ui/AnimatedButton";
 import mainImage from "../../assets/images/tailored/turull-salon.webp"; // Imagen principal izquierda
 import smallImage from "../../assets/images/tailored/render-cocina2.webp"; // Imagen pequeña derecha
 
+gsap.registerPlugin(ScrollTrigger);
+
 const TailoredSection = () => {
+  const titleRef = useRef(null);
+
+  useEffect(() => {
+    if (titleRef.current) {
+      gsap.fromTo(
+        titleRef.current,
+        {
+          opacity: 0,
+          y: 30,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.8,
+          delay: 0.3,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }
+  }, []);
+
   return (
     <section className="tailored-section">
       <div className="container">
@@ -33,9 +64,12 @@ const TailoredSection = () => {
 
             {/* Texto con ScrollReveal */}
             <div className="tailored-text-content">
+              <h2 ref={titleRef} className="tailored-text__title">
+                Tailored Services
+              </h2>
               <ScrollReveal
                 containerClassName="mb-4"
-                size="sm"
+                size="xs"
                 align="left"
                 baseOpacity={0.2}
                 baseRotation={0}
@@ -115,6 +149,10 @@ const TailoredSection = () => {
           padding-top: 1rem;
         }
 
+        .tailored-text__title {
+          font-family: var(--font-titles);
+        }
+
         .tailored-text-content .btn {
           width: fit-content;
         }
@@ -187,10 +225,6 @@ const TailoredSection = () => {
             padding: 3rem 0;
           }
 
-          .tailored-content {
-            gap: 1.5rem;
-          }
-
           .tailored-text-column {
             max-width: 100%;
           }
@@ -212,7 +246,7 @@ const TailoredSection = () => {
 
           .tailored-small-image {
             height: 240px;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
           }
         }
       `}</style>

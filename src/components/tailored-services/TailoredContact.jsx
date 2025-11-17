@@ -98,7 +98,7 @@ const TailoredContact = () => {
         }
 
         .tailored-contact-title {
-          font-family: var(--font-primary);
+          font-family: var(--font-titles);
           font-size: 2.5rem;
           color: var(--color-rust);
           font-weight: 400;

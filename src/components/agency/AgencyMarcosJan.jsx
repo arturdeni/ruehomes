@@ -1,6 +1,10 @@
 // src/components/agency/AgencyMarcosJan.jsx
 import { useState, useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AnimatedImageContainer from "../ui/AnimatedImageContainer";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // Componente ScrollReveal simplificado reutilizado
 const SimpleReveal = ({ children, className = "", delay = 0 }) => {
@@ -45,6 +49,8 @@ const SimpleReveal = ({ children, className = "", delay = 0 }) => {
 };
 
 const AgencyMarcosJan = () => {
+  const titleRef = useRef(null);
+
   const teamMembers = [
     {
       name: "Marcos",
@@ -62,10 +68,34 @@ const AgencyMarcosJan = () => {
     },
   ];
 
+  useEffect(() => {
+    if (titleRef.current) {
+      gsap.fromTo(
+        titleRef.current,
+        {
+          opacity: 0,
+          y: 50,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    }
+  }, []);
+
   return (
     <section className="agency-team-section">
       <div className="container">
         <div className="agency-team-content">
+          <h1 ref={titleRef} className="agency-team-title">Conócenos</h1>
           <div className="agency-team-grid">
             {teamMembers.map((member, index) => (
               <div key={member.name} className="agency-team-member">
@@ -108,20 +138,27 @@ const AgencyMarcosJan = () => {
 
       <style jsx>{`
         .agency-team-section {
-          padding: 10rem 0;
-          background: var(--color-softdune-lighter);
+          padding: 4rem 0;
+          background: var(--color-softdune);
         }
 
         .agency-team-content {
-          max-width: 1200px;
+          max-width: var(--max-width);
           margin: 0 auto;
+        }
+
+        .agency-team-title {
+          font-family: var(--font-titles);
+          text-align: center;
         }
 
         .agency-team-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 6rem;
           align-items: start;
+          justify-content: space-between;
+          width: 100%;
+          margin-top: 3rem;
         }
 
         .agency-team-member {
