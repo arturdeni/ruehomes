@@ -112,11 +112,7 @@ const SellMetrics = () => {
       <style jsx>{`
         .sell-metrics-section {
           padding: 5rem 0;
-          background: linear-gradient(
-            135deg,
-            var(--color-marble-lighter) 0%,
-            var(--color-softdune-lighter) 100%
-          );
+          background: var(--color-cinnamon-dark);
           position: relative;
           overflow: hidden;
         }
@@ -139,7 +135,7 @@ const SellMetrics = () => {
         .metrics-title {
           font-family: var(--font-primary);
           font-size: 2.5rem;
-          color: var(--color-rust);
+          color: var(--color-white);
           text-align: center;
           margin-bottom: 4rem;
           font-weight: 400;
@@ -154,7 +150,7 @@ const SellMetrics = () => {
         }
 
         .metric-card {
-          background: white;
+          background: var(--color-marble);
           padding: 3rem 2rem;
           border-radius: 16px;
           text-align: center;
