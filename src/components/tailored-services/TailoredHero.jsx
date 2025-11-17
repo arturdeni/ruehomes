@@ -177,7 +177,7 @@ const TailoredHero = () => {
 
         .tailored-intro-title {
           font-family: var(--font-titles);
-          font-size: clamp(2rem, 10vw, 12rem);
+          font-size: clamp(2rem, 10vw, 9.5rem);
           color: white;
           margin: 0;
           line-height: 0.2;

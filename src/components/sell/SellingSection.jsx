@@ -1,7 +1,4 @@
 // src/components/sell/SellingSection.jsx
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // Importar las imágenes
 import fase1Image from "../../assets/images/selling-section/fase-1.webp";
@@ -9,17 +6,7 @@ import fase2Image from "../../assets/images/selling-section/fase-2.webp";
 import fase3Image from "../../assets/images/selling-section/fase-3.webp";
 import fase4Image from "../../assets/images/selling-section/fase-4.webp";
 
-// Registrar el plugin
-gsap.registerPlugin(ScrollTrigger);
-
 const SellingSection = () => {
-  const sectionRef = useRef(null);
-  const contentRef = useRef(null);
-  const titleRef = useRef(null);
-  const subtitleRef = useRef(null);
-  const pointsRef = useRef(null);
-  const imageRef = useRef(null);
-
   const phases = [
     {
       id: 1,
@@ -31,8 +18,6 @@ const SellingSection = () => {
         "Consejos de presentación y mejoras para maximizar el valor.",
       ],
       image: fase1Image,
-      bgColor: "#e7d2c3",
-      textColor: "dark", // Colores oscuros para fases 1 y 2
     },
     {
       id: 2,
@@ -45,8 +30,6 @@ const SellingSection = () => {
         "Campañas segmentadas en redes sociales y Google Ads.",
       ],
       image: fase2Image,
-      bgColor: "#cda077",
-      textColor: "dark", // Colores oscuros para fases 1 y 2
     },
     {
       id: 3,
@@ -58,8 +41,6 @@ const SellingSection = () => {
         "Negociación estratégica para lograr el mejor precio y condiciones.",
       ],
       image: fase3Image,
-      bgColor: "#B27C51",
-      textColor: "light", // Texto blanco para fases 3 y 4
     },
     {
       id: 4,
@@ -71,672 +52,235 @@ const SellingSection = () => {
         "Entrega de llaves y asistencia postventa.",
       ],
       image: fase4Image,
-      bgColor: "#B27C51",
-      textColor: "light", // Texto blanco para fases 3 y 4
     },
   ];
 
-  useEffect(() => {
-    // Detectar si estamos en mobile
-    const isMobile = window.innerWidth <= 768;
-
-    // En mobile, no aplicar animaciones GSAP
-    if (isMobile) {
-      return;
-    }
-
-    // Forzar que la imagen esté visible al montar el componente
-    if (imageRef.current) {
-      imageRef.current.style.transform = "translateX(0%)";
-    }
-
-    const ctx = gsap.context(() => {
-      let currentPhaseIndex = 0;
-
-      // Función para actualizar contenido
-      const updateContent = (phase) => {
-        const textElements = [
-          titleRef.current,
-          subtitleRef.current,
-          pointsRef.current,
-        ];
-
-        // Fade out para el texto (mantener como estaba)
-        textElements.forEach((el) => {
-          if (el) {
-            el.style.transition = "opacity 0.2s ease";
-            el.style.opacity = "0";
-          }
-        });
-
-        // Actualizar las clases de color del texto
-        if (contentRef.current) {
-          contentRef.current.setAttribute("data-text-color", phase.textColor);
-        }
-
-        // Transición de la imagen: salir por la derecha
-        if (imageRef.current) {
-          // Primero killamos cualquier animación anterior
-          gsap.killTweensOf(imageRef.current);
-
-          // Animar hacia la derecha para que desaparezca completamente del viewport
-          gsap.to(imageRef.current, {
-            x: "100vw",
-            duration: 0.3,
-            ease: "power2.inOut",
-            onComplete: () => {
-              // Actualizar la imagen cuando haya salido completamente
-              imageRef.current.src = phase.image;
-              imageRef.current.alt = `Ilustración ${phase.title}`;
-
-              // Posicionar la nueva imagen fuera del viewport por la derecha
-              gsap.set(imageRef.current, {
-                x: "100vw",
-              });
-
-              // Animar la nueva imagen entrando desde la derecha
-              gsap.to(imageRef.current, {
-                x: "0%",
-                duration: 0.4,
-                ease: "power2.out",
-                delay: 0.1,
-              });
-            },
-          });
-        }
-
-        // Actualizar contenido del texto después del fade out
-        setTimeout(() => {
-          if (titleRef.current) {
-            titleRef.current.innerHTML = `<strong>${phase.title}</strong>`;
-          }
-          if (subtitleRef.current) {
-            subtitleRef.current.innerHTML = `<em>${phase.subtitle}</em>`;
-          }
-          if (pointsRef.current) {
-            pointsRef.current.innerHTML = phase.points
-              .map((point) => `<li class="phase-point">${point}</li>`)
-              .join("");
-          }
-
-          // Fade in para el texto
-          requestAnimationFrame(() => {
-            textElements.forEach((el) => {
-              if (el) {
-                el.style.transition = "opacity 0.3s ease";
-                el.style.opacity = "1";
-              }
-            });
-          });
-        }, 200);
-      };
-
-      // Inicializar con la primera fase
-      if (titleRef.current) {
-        titleRef.current.innerHTML = `<strong>${phases[0].title}</strong>`;
-      }
-      if (subtitleRef.current) {
-        subtitleRef.current.innerHTML = `<em>${phases[0].subtitle}</em>`;
-      }
-      if (pointsRef.current) {
-        pointsRef.current.innerHTML = phases[0].points
-          .map((point) => `<li class="phase-point">${point}</li>`)
-          .join("");
-      }
-      // Para la imagen inicial, asegurarnos de que esté en posición normal
-      if (imageRef.current) {
-        gsap.set(imageRef.current, { x: "0%" });
-      }
-      // Inicializar el color del texto
-      if (contentRef.current) {
-        contentRef.current.setAttribute("data-text-color", phases[0].textColor);
-      }
-
-      // Timeline principal para el pin scrolling y cambios de color
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 1,
-          pin: contentRef.current,
-          anticipatePin: 1,
-          refreshPriority: -1,
-          onRefresh: () => {
-            // Cuando ScrollTrigger se recalcula (ej: al recargar la página),
-            // resetear la posición de la imagen para que sea visible
-            if (imageRef.current) {
-              gsap.killTweensOf(imageRef.current);
-              gsap.set(imageRef.current, { x: 0, clearProps: "all" });
-              imageRef.current.style.transform = "translateX(0%)";
-              imageRef.current.style.opacity = "1";
-            }
-          },
-          onUpdate: (self) => {
-            const progress = Math.max(0, Math.min(1, self.progress));
-
-            // Distribución más equilibrada: Fase 1 más corta, Fase 4 más larga
-            let newPhaseIndex;
-            if (progress < 0.15) {
-              newPhaseIndex = 0;
-            } else if (progress < 0.4) {
-              newPhaseIndex = 1;
-            } else if (progress < 0.7) {
-              newPhaseIndex = 2;
-            } else {
-              newPhaseIndex = 3;
-            }
-
-            // Solo actualizar si cambia la fase
-            if (newPhaseIndex !== currentPhaseIndex) {
-              currentPhaseIndex = newPhaseIndex;
-              updateContent(phases[newPhaseIndex]);
-            }
-          },
-        },
-      });
-
-      // Animaciones de cambio de color de fondo
-      tl.to(
-        sectionRef.current,
-        {
-          backgroundColor: phases[1].bgColor,
-          duration: 0.2,
-          ease: "power2.inOut",
-        },
-        0.3
-      )
-        .to(
-          sectionRef.current,
-          {
-            backgroundColor: phases[2].bgColor,
-            duration: 0.2,
-            ease: "power2.inOut",
-          },
-          0.6
-        )
-        .to(
-          sectionRef.current,
-          {
-            backgroundColor: phases[3].bgColor,
-            duration: 0.2,
-            ease: "power2.inOut",
-          },
-          0.85
-        );
-
-      // ScrollTrigger independiente para la barra de progreso
-      gsap.to(".progress-fill", {
-        width: "100%",
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 1,
-        },
-      });
-
-      // Animación inicial cuando la sección es visible
-      gsap.set(
-        [
-          titleRef.current,
-          subtitleRef.current,
-          pointsRef.current,
-          imageRef.current,
-        ],
-        {
-          opacity: 0,
-          y: 30,
-        }
-      );
-
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        })
-        .to(
-          [
-            titleRef.current,
-            subtitleRef.current,
-            pointsRef.current,
-            imageRef.current,
-          ],
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power3.out",
-            stagger: 0.2,
-          }
-        );
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, [phases]);
-
-  // Efecto adicional para manejar la recarga de la página
-  useEffect(() => {
-    const handleLoad = () => {
-      if (imageRef.current) {
-        // Resetear la imagen inmediatamente
-        imageRef.current.style.transform = "translateX(0%)";
-        imageRef.current.style.transition = "none";
-      }
-      // Refrescar ScrollTrigger después de un breve delay
-      setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 100);
-    };
-
-    // Ejecutar al montar el componente (cuando se recarga la página)
-    handleLoad();
-
-    return () => {};
-  }, []);
-
   return (
-    <>
-      {/* Version Desktop - con scroll trigger */}
-      <section
-        ref={sectionRef}
-        className="selling-section selling-section-desktop"
-        style={{ backgroundColor: phases[0].bgColor }}
-      >
-        <div ref={contentRef} className="selling-content">
-          <div className="container">
-            <div className="phase-layout">
-              <div className="phase-text">
-                <h2 ref={titleRef} className="phase-title"></h2>
-                <p ref={subtitleRef} className="phase-subtitle"></p>
-                <ul ref={pointsRef} className="phase-points"></ul>
-              </div>
+    <section className="selling-section">
+      <div className="selling-section-container">
+        <div className="selling-section-phases-container">
+          {phases.map((phase, index) => {
+            const isLeft = index % 2 === 0;
 
-              <div className="phase-visual">
-                <div className="phase-image">
-                  <img
-                    ref={imageRef}
-                    src={phases[0].image}
-                    alt="Ilustración fase"
-                    loading="lazy"
-                  />
+            return (
+              <div key={phase.id} className="selling-section-phase-wrapper">
+                {/* Círculo con número - por encima de la línea */}
+                <div className={`selling-section-phase-number-wrapper ${isLeft ? 'selling-section-align-left' : 'selling-section-align-right'}`}>
+                  <div className="selling-section-phase-number">{phase.id}</div>
                 </div>
-              </div>
-            </div>
 
-            {/* Progress Bar - Simple */}
-            <div className="progress-bar">
-              <div className="progress-fill" />
-            </div>
-          </div>
-        </div>
-      </section>
+                {/* Contenido de la fase - por encima de la línea */}
+                <div className={`selling-section-phase-content ${isLeft ? 'selling-section-content-left' : 'selling-section-content-right'}`}>
+                  <img src={phase.image} alt={phase.title} loading="lazy" className="selling-section-phase-image" />
 
-      {/* Version Mobile - sin scroll trigger, todas las fases visibles */}
-      <div className="selling-section-mobile">
-        {phases.map((phase, index) => {
-          // Determinar si esta fase debe tener degradado hacia la siguiente
-          const nextPhase = phases[index + 1];
-          const backgroundStyle = nextPhase
-            ? {
-                background: `linear-gradient(to bottom, ${phase.bgColor} 0%, ${phase.bgColor} 70%, ${nextPhase.bgColor} 100%)`,
-              }
-            : { backgroundColor: phase.bgColor };
+                  <div className="selling-section-phase-text">
+                    <h2 className="selling-section-phase-title">{phase.title}</h2>
+                    <p className="selling-section-phase-subtitle">{phase.subtitle}</p>
 
-          return (
-            <section
-              key={phase.id}
-              className="phase-section-mobile"
-              style={backgroundStyle}
-              data-text-color={phase.textColor}
-            >
-            <div className="container">
-              <div className="phase-layout">
-                <div className="phase-visual">
-                  <div className="phase-image">
-                    <img
-                      src={phase.image}
-                      alt={`Ilustración ${phase.title}`}
-                      loading="lazy"
-                    />
+                    <ul className="selling-section-phase-points">
+                      {phase.points.map((point, idx) => (
+                        <li key={idx} className="selling-section-phase-point">{point}</li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-
-                <div className="phase-text">
-                  <h2 className="phase-title">
-                    <strong>{phase.title}</strong>
-                  </h2>
-                  <p className="phase-subtitle">
-                    <em>{phase.subtitle}</em>
-                  </p>
-                  <ul className="phase-points">
-                    {phase.points.map((point, idx) => (
-                      <li key={idx} className="phase-point">
-                        {point}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
               </div>
-            </div>
-          </section>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
 
       <style jsx>{`
         .selling-section {
-          height: 320vh;
-          position: relative;
-          transition: background-color 0.3s ease;
-          overflow: hidden;
+          background-color: var(--color-softdune);
+          padding: 4rem 0;
         }
 
-        .selling-content {
+        .selling-section-container {
           position: relative;
-          height: 100vh;
-          display: flex;
-          align-items: center;
+          max-width: 900px;
+          margin: 0 auto;
+          padding: 0 2rem;
+        }
+
+        .selling-section-phases-container {
+          position: relative;
           z-index: 1;
-        }
-
-        .selling-content .container {
-          justify-content: space-around;
-          width: 100%;
-        }
-
-        .phase-layout {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 4rem;
-          align-items: center;
-          min-height: 70vh;
-        }
-
-        .phase-text {
-          max-width: 600px;
-          padding-right: 2rem;
-        }
-
-        .phase-title {
-          font-family: var(--font-primary);
-          font-size: 2.5rem;
-          line-height: 1.2;
-          color: var(--color-rust);
-          margin-bottom: 1.5rem;
-          transition: color 0.3s ease;
-        }
-
-        .phase-subtitle {
-          font-family: var(--font-secondary);
-          font-size: 1.25rem;
-          color: var(--color-cinnamon);
-          margin-bottom: 2rem;
-          font-weight: 500;
-          transition: color 0.3s ease;
-        }
-
-        .phase-points {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-        }
-
-        .phase-points .phase-point {
-          font-family: var(--font-secondary);
-          font-size: 1.125rem;
-          line-height: 1.6;
-          color: var(--color-rust-dark);
-          margin-bottom: 0.3rem;
-          padding-left: 1.5rem;
-          position: relative;
-          transition: color 0.3s ease;
-        }
-
-        .phase-points .phase-point::before {
-          content: "•";
-          position: absolute;
-          left: 0;
-          color: var(--color-cinnamon);
-          font-size: 1.5rem;
-          line-height: 1;
-          transition: color 0.3s ease;
-        }
-
-        /* Colores para texto claro (fases 3 y 4) */
-        .selling-content[data-text-color="light"] .phase-title {
-          color: #ffffff;
-        }
-
-        .selling-content[data-text-color="light"] .phase-subtitle {
-          color: #f5f5f5;
-        }
-
-        .selling-content[data-text-color="light"] .phase-points .phase-point {
-          color: #ffffff;
-        }
-
-        .selling-content[data-text-color="light"]
-          .phase-points
-          .phase-point::before {
-          color: #ffffff;
-        }
-
-        .phase-points .phase-point:last-child {
-          margin-bottom: 0;
-        }
-
-        .phase-visual {
           display: flex;
-          justify-content: center;
-          align-items: center;
-          padding-left: 2rem;
-        }
-
-        .phase-image {
-          max-width: 500px;
-          width: 100%;
-          position: relative;
-        }
-
-        .phase-image img {
-          width: 100%;
-          height: auto;
-          border-radius: 16px;
-          display: block;
-        }
-
-        /* Progress Bar - Super Simple */
-        .progress-bar {
-          position: fixed;
-          bottom: 150px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 200px;
-          height: 2px;
-          background: rgba(255, 255, 255, 0.3);
-          z-index: 1000;
-        }
-
-        .progress-fill {
-          height: 100%;
-          background: rgba(255, 255, 255, 0.9);
-          width: 0%;
-        }
-
-        /* === RESPONSIVE === */
-        @media (max-width: 1024px) {
-          .phase-layout {
-            gap: 3rem;
-          }
-
-          .phase-title {
-            font-size: 2.25rem;
-          }
-
-          .phase-subtitle {
-            font-size: 1.125rem;
-          }
-
-          .phase-points .phase-point {
-            font-size: 1rem;
-          }
-
-          .phase-text {
-            padding-right: 1rem;
-          }
-
-          .phase-visual {
-            padding-left: 1rem;
-          }
-        }
-
-        @media (max-width: 768px) {
-          .selling-section {
-            height: auto;
-            min-height: 100vh;
-          }
-
-          .selling-content {
-            position: static;
-            height: auto;
-            min-height: 100vh;
-            padding: 4rem 0;
-          }
-
-          .phase-layout {
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            min-height: auto;
-          }
-
-          .phase-visual {
-            order: -1;
-            padding-left: 0;
-            justify-content: center;
-          }
-
-          .phase-text {
-            max-width: 100%;
-            padding-right: 0;
-            text-align: center;
-          }
-
-          .phase-title {
-            font-size: 2rem;
-          }
-
-          .phase-subtitle {
-            font-size: 1rem;
-          }
-
-          .phase-image {
-            max-width: 350px;
-          }
-
-          .phase-points .phase-point {
-            text-align: left;
-          }
-
-          .progress-bar {
-            width: 150px;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .selling-content {
-            padding: 2rem 0;
-          }
-
-          .phase-title {
-            font-size: 1.75rem;
-          }
-
-          .phase-points .phase-point {
-            font-size: 0.95rem;
-          }
-
-          .phase-image {
-            max-width: 300px;
-          }
-
-          .progress-bar {
-            width: 120px;
-          }
-        }
-
-        /* Estilos para mobile */
-        .selling-section-desktop {
-          display: block;
-        }
-
-        .selling-section-mobile {
-          display: none;
-        }
-
-        @media (max-width: 768px) {
-          .selling-section-desktop {
-            display: none;
-          }
-
-          .selling-section-mobile {
-            display: block;
-          }
-        }
-
-        .phase-section-mobile {
-          min-height: 100vh;
-          padding: 1rem 0;
-          transition: background-color 0.3s ease;
-          display: flex;
-          align-items: center;
-        }
-
-        .phase-section-mobile .phase-layout {
-          grid-template-columns: 1fr;
+          flex-direction: column;
           gap: 2rem;
         }
 
-        .phase-section-mobile .phase-visual {
-          order: -1;
-          padding-left: 0;
+        /* Wrapper de cada fase */
+        .selling-section-phase-wrapper {
+          position: relative;
+          display: flex;
+          align-items: center;
+          min-height: 350px;
+        }
+
+        /* Wrapper del círculo con número - por encima de la línea */
+        .selling-section-phase-number-wrapper {
+          position: absolute;
+          z-index: 3;
+        }
+
+        .selling-section-phase-number-wrapper.selling-section-align-left {
+          left: 150px;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+
+        .selling-section-phase-number-wrapper.selling-section-align-right {
+          right: 150px;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+
+        /* Círculo con número sobre la línea */
+        .selling-section-phase-number {
+          width: 45px;
+          height: 45px;
+          border-radius: 50%;
+          background-color: var(--color-rust);
+          color: white;
+          display: flex;
+          align-items: center;
           justify-content: center;
+          font-family: var(--font-primary);
+          font-size: 1.35rem;
+          font-weight: bold;
         }
 
-        .phase-section-mobile .phase-text {
-          max-width: 100%;
-          padding-right: 0;
-          text-align: center;
+        /* Contenido de cada fase - por encima de la línea */
+        .selling-section-phase-content {
+          position: relative;
+          z-index: 2;
+          display: flex;
+          align-items: center;
+          gap: 2rem;
+          color: var(--color-rust);
+          padding: 1.5rem;
+          background-color: var(--color-softdune);
         }
 
-        .phase-section-mobile .phase-points .phase-point {
+        .selling-section-phase-content.selling-section-content-left {
+          margin-left: auto;
+          padding-left: 140px;
+          max-width: calc(100% - 50px);
+        }
+
+        .selling-section-phase-content.selling-section-content-right {
+          margin-right: auto;
+          padding-right: 140px;
+          flex-direction: row-reverse;
+          text-align: right;
+          max-width: calc(100% - 50px);
+        }
+
+        .selling-section-phase-image {
+          width: 180px;
+          height: auto;
+          border-radius: 10px;
+          flex-shrink: 0;
+        }
+
+        .selling-section-phase-text {
+          flex: 1;
+        }
+
+        .selling-section-phase-title {
+          font-family: var(--font-primary);
+          font-size: 1.5rem;
+          margin-bottom: 0.5rem;
+          font-weight: 600;
+          line-height: 1.3;
+        }
+
+        .selling-section-phase-subtitle {
+          font-family: var(--font-secondary);
+          font-size: 1rem;
+          margin-bottom: 1rem;
+          font-style: italic;
+          opacity: 0.8;
+        }
+
+        .selling-section-phase-points {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          font-family: var(--font-secondary);
+          font-size: 0.875rem;
+          line-height: 1.6;
+        }
+
+        .selling-section-phase-content.selling-section-content-right .selling-section-phase-points {
           text-align: left;
         }
 
-        /* Aplicar colores blancos en mobile para fases con textColor="light" */
-        .phase-section-mobile[data-text-color="light"] .phase-title {
-          color: #ffffff;
+        .selling-section-phase-point {
+          margin-bottom: 0.4rem;
+          padding-left: 1.1rem;
+          position: relative;
         }
 
-        .phase-section-mobile[data-text-color="light"] .phase-subtitle {
-          color: #f5f5f5;
+        .selling-section-phase-point::before {
+          content: "•";
+          position: absolute;
+          left: 0;
+          opacity: 0.5;
         }
 
-        .phase-section-mobile[data-text-color="light"] .phase-points .phase-point {
-          color: #ffffff;
-        }
+        /* Responsive */
+        @media (max-width: 768px) {
+          .selling-section {
+            padding: 3rem 0;
+          }
 
-        .phase-section-mobile[data-text-color="light"]
-          .phase-points
-          .phase-point::before {
-          color: #ffffff;
+          .selling-section-phase-number-wrapper {
+            display: none;
+          }
+
+          .selling-section-phases-container {
+            gap: 3rem;
+          }
+
+          .selling-section-phase-wrapper {
+            min-height: auto;
+          }
+
+          .selling-section-phase-content,
+          .selling-section-phase-content.selling-section-content-left,
+          .selling-section-phase-content.selling-section-content-right {
+            flex-direction: column;
+            text-align: left;
+            padding: 0;
+            margin: 0;
+            max-width: 100%;
+          }
+
+          .selling-section-phase-image {
+            width: 200px;
+            margin: 0 0 1.5rem 0;
+          }
+
+          .selling-section-phase-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+          }
+
+          .selling-section-phase-subtitle {
+            font-size: 1rem;
+            margin-bottom: 1.25rem;
+          }
+
+          .selling-section-phase-points {
+            text-align: left;
+            font-size: 0.9rem;
+          }
         }
       `}</style>
-    </>
+    </section>
   );
 };
 
