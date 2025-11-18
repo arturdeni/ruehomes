@@ -75,6 +75,7 @@ const SellAppraisal = () => {
               className="sell-appraisal-paragraph"
               trigger={triggerTextAnimation}
               delay={0}
+              textAlign="center"
             >
               En Rue Homes realizamos una valoración{" "}
               <strong>gratuita y sin compromiso</strong>. Concertamos una

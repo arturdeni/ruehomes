@@ -209,7 +209,7 @@ const SellMetrics = () => {
         }
 
         .metric-value {
-          font-family: var(--font-primary);
+          font-family: var(--font-titles);
           font-size: 3rem;
           font-weight: 400;
           color: var(--color-cinnamon);

@@ -189,7 +189,7 @@ const AgencyHero = () => {
 
         @media (max-width: 640px) {
           .agency-hero-section {
-            padding: 4rem 0;
+            padding: 8rem 0 4rem;
             min-height: 70vh;
           }
 
