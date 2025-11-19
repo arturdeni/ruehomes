@@ -171,7 +171,7 @@ const AgencyMarcosJan = () => {
 
         .agency-team-member-image-container {
           width: 330px;
-          height: 310px;
+          height: 480px;
           margin: 0 auto;
           position: relative;
           overflow: hidden;
@@ -222,8 +222,8 @@ const AgencyMarcosJan = () => {
           }
 
           .agency-team-member-image-container {
-            width: 250px;
-            height: 250px;
+            width: 290px;
+            height: 350px;
           }
 
           .agency-team-member-name {
@@ -245,8 +245,8 @@ const AgencyMarcosJan = () => {
           }
 
           .agency-team-member-image-container {
-            width: 200px;
-            height: 200px;
+            width: 250px;
+            height: 320px;
           }
 
           .agency-team-member-name {

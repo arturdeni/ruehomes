@@ -104,7 +104,7 @@ const SellHero = () => {
           right: 0;
           bottom: 0;
           width: 100%;
-          height: 120vh;
+          height: 100vh;
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
@@ -125,7 +125,7 @@ const SellHero = () => {
           right: 0;
           bottom: 0;
           width: 100%;
-          height: 120vh;
+          height: 100vh;
           background: linear-gradient(
             135deg,
             rgba(154, 116, 78, 0.3) 20%,
