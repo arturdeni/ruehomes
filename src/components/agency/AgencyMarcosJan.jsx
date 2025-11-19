@@ -3,6 +3,8 @@ import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AnimatedImageContainer from "../ui/AnimatedImageContainer";
+import marcosImage from "../../assets/images/agency/Agency-Marcos.webp";
+import janImage from "../../assets/images/agency/Agency-Jan.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,13 +56,13 @@ const AgencyMarcosJan = () => {
   const teamMembers = [
     {
       name: "Marcos",
-      image: "/src/assets/images/agency/Agency-Marcos.webp",
+      image: marcosImage,
       description:
         "Destaca por su compromiso con el cliente y su conocimiento del mercado, conectando a las personas con la propiedad ideal y ofreciendo experiencias auténticas y satisfactorias.",
     },
     {
       name: "Jan",
-      image: "/src/assets/images/agency/Agency-Jan.webp",
+      image: janImage,
       description:
         "Combina su experiencia inmobiliaria y financiera con una visión cercana y honesta, ofreciendo atención personalizada y confianza en cada paso del proceso.",
     },
