@@ -1,6 +1,7 @@
 // src/components/tailored-services/TailoredHero.jsx
 import { useState, useEffect } from "react";
 import Lanyard from "../lanyard/Lanyard";
+import TextMaskReveal from "../ui/TextMaskReveal";
 
 const TailoredHero = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -59,18 +60,16 @@ const TailoredHero = () => {
         <div className="tailored-hero-content">
           {/* Contenido de texto */}
           <div className="tailored-intro-text">
-            <p className="tailored-intro-description">
-              Nuestro servicio más <strong>personalizado y exclusivo</strong>,
-              pensado para clientes exigentes que valoran la{" "}
-              <strong>
-                excelencia, la privacidad y el cuidado en cada detalle
-              </strong>
-              , y que buscan{" "}
-              <strong>
-                optimizar su tiempo mientras encuentran su hogar ideal
-              </strong>
-              .
-            </p>
+            <TextMaskReveal
+              className="tailored-intro-description"
+              delay={0}
+              textAlign="justify"
+            >
+              Nuestro servicio más personalizado y exclusivo, pensado para
+              clientes exigentes que valoran la excelencia, la privacidad y el
+              cuidado en cada detalle , y que buscan optimizar su tiempo
+              mientras encuentran su hogar ideal .
+            </TextMaskReveal>
           </div>
         </div>
       </div>
@@ -193,11 +192,6 @@ const TailoredHero = () => {
           color: rgba(255, 255, 255, 0.9);
           line-height: 1.7;
           font-weight: 300;
-        }
-
-        .tailored-intro-description strong {
-          color: white;
-          font-weight: 500;
         }
 
         /* === RESPONSIVE === */

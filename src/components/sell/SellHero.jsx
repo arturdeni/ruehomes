@@ -1,6 +1,7 @@
 // src/components/sell/SellHero.jsx
 import { useState, useEffect } from "react";
 import TextMaskReveal from "../ui/TextMaskReveal";
+import sellHeroBackground from "../../assets/images/vender/sell-hero-background.webp";
 
 const SellHero = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -10,8 +11,7 @@ const SellHero = () => {
   // Manejar la carga de la imagen
   useEffect(() => {
     const img = new Image();
-    img.src =
-      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop";
+    img.src = sellHeroBackground;
     img.onload = () => {
       setImageLoaded(true);
       // Activar las animaciones de TextMaskReveal en secuencia después de que cargue la imagen
@@ -31,8 +31,7 @@ const SellHero = () => {
       <div
         className={`hero-background ${imageLoaded ? "loaded" : ""}`}
         style={{
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop)",
+          backgroundImage: `url(${sellHeroBackground})`,
         }}
       ></div>
 

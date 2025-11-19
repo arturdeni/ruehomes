@@ -13,6 +13,7 @@ const TextMaskReveal = ({
   const textLinesRef = useRef([]);
   const resizeTimeoutRef = useRef(null);
   const hasAnimatedRef = useRef(false);
+  const [isReady, setIsReady] = React.useState(false);
 
   // Función para preparar las líneas de texto
   const prepareTextLines = (container, originalText, keepVisible = false) => {
@@ -74,15 +75,13 @@ const TextMaskReveal = ({
     const originalText =
       typeof children === "string" ? children : container.textContent;
 
-    // Renderizar el texto normalmente para calcular líneas
-    container.innerHTML = originalText;
+    // Configurar estilos del contenedor
     container.style.lineHeight = "1.4";
 
-    // Preparar la estructura animada
-    setTimeout(() => {
-      prepareTextLines(container, originalText);
-      animationExecutedRef.current = true;
-    }, 100);
+    // Preparar la estructura animada inmediatamente (sin mostrar el texto primero)
+    prepareTextLines(container, originalText);
+    animationExecutedRef.current = true;
+    setIsReady(true);
 
     // Manejar redimensionamiento de ventana
     const handleResize = () => {
@@ -126,7 +125,14 @@ const TextMaskReveal = ({
   }, [trigger, delay]);
 
   return (
-    <div ref={containerRef} className={className} style={{ textAlign }}>
+    <div
+      ref={containerRef}
+      className={className}
+      style={{
+        textAlign,
+        opacity: isReady ? 1 : 0,
+      }}
+    >
       {children}
     </div>
   );

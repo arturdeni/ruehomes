@@ -1194,6 +1194,7 @@ const PropertyDetail = () => {
           font-size: 1.1rem;
           line-height: 1.7;
           color: var(--color-rust);
+          text-align: justify;
         }
 
         /* Características */

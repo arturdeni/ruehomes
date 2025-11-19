@@ -1,7 +1,7 @@
 // src/components/ui/AnimatedImageContainer.jsx
 import { useState, useEffect, useRef } from "react";
 
-const AnimatedImageContainer = ({ src, className = "", delay = 0 }) => {
+const AnimatedImageContainer = ({ src, className = "", delay = 0, objectPosition = "center top" }) => {
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef(null);
 
@@ -53,7 +53,7 @@ const AnimatedImageContainer = ({ src, className = "", delay = 0 }) => {
           left: "-25%",
           backgroundImage: `url(${src})`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: objectPosition,
           backgroundRepeat: "no-repeat",
           transform: isVisible ? "scale(0.67)" : "scale(0.8)",
           transition: "transform 2s cubic-bezier(0.25, 0.4, 0.25, 1)",
