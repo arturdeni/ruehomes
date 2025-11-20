@@ -5,8 +5,20 @@ import fase1Image from "../../assets/images/selling-section/fase-1.webp";
 import fase2Image from "../../assets/images/selling-section/fase-2.webp";
 import fase3Image from "../../assets/images/selling-section/fase-3.webp";
 import fase4Image from "../../assets/images/selling-section/fase-4.webp";
+import { useState } from "react";
 
 const SellingSection = () => {
+  // Puntos de control para el path SVG (puedes ajustarlos fácilmente aquí)
+  const [pathPoints] = useState({
+    x1: 23, // Fase 1 - posición horizontal (izquierda)
+    y1: 11, // Fase 1 - posición vertical
+    x2: 78, // Fase 2 - posición horizontal (derecha)
+    y2: 36, // Fase 2 - posición vertical
+    x3: 22, // Fase 3 - posición horizontal (izquierda)
+    y3: 63, // Fase 3 - posición vertical
+    x4: 78, // Fase 4 - posición horizontal (derecha)
+    y4: 89, // Fase 4 - posición vertical
+  });
   const phases = [
     {
       id: 1,
@@ -58,6 +70,34 @@ const SellingSection = () => {
   return (
     <section className="selling-section">
       <div className="selling-section-container">
+        {/* SVG con línea curva de fondo */}
+        <svg
+          className="selling-section-path-svg"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+        >
+          <path
+            d={`M ${pathPoints.x1} ${pathPoints.y1} C ${pathPoints.x1} ${
+              (pathPoints.y1 + pathPoints.y2) / 2
+            }, ${pathPoints.x2} ${(pathPoints.y1 + pathPoints.y2) / 2}, ${
+              pathPoints.x2
+            } ${pathPoints.y2} C ${pathPoints.x2} ${
+              (pathPoints.y2 + pathPoints.y3) / 2
+            }, ${pathPoints.x3} ${(pathPoints.y2 + pathPoints.y3) / 2}, ${
+              pathPoints.x3
+            } ${pathPoints.y3} C ${pathPoints.x3} ${
+              (pathPoints.y3 + pathPoints.y4) / 2
+            }, ${pathPoints.x4} ${(pathPoints.y3 + pathPoints.y4) / 2}, ${
+              pathPoints.x4
+            } ${pathPoints.y4}`}
+            stroke="#C84B31"
+            strokeWidth="0.6"
+            fill="none"
+            strokeLinecap="round"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+
         <div className="selling-section-phases-container">
           {phases.map((phase, index) => {
             const isLeft = index % 2 === 0;
@@ -65,21 +105,44 @@ const SellingSection = () => {
             return (
               <div key={phase.id} className="selling-section-phase-wrapper">
                 {/* Círculo con número - por encima de la línea */}
-                <div className={`selling-section-phase-number-wrapper ${isLeft ? 'selling-section-align-left' : 'selling-section-align-right'}`}>
+                <div
+                  className={`selling-section-phase-number-wrapper ${
+                    isLeft
+                      ? "selling-section-align-left"
+                      : "selling-section-align-right"
+                  }`}
+                >
                   <div className="selling-section-phase-number">{phase.id}</div>
                 </div>
 
                 {/* Contenido de la fase - por encima de la línea */}
-                <div className={`selling-section-phase-content ${isLeft ? 'selling-section-content-left' : 'selling-section-content-right'}`}>
-                  <img src={phase.image} alt={phase.title} loading="lazy" className="selling-section-phase-image" />
+                <div
+                  className={`selling-section-phase-content ${
+                    isLeft
+                      ? "selling-section-content-left"
+                      : "selling-section-content-right"
+                  }`}
+                >
+                  <img
+                    src={phase.image}
+                    alt={phase.title}
+                    loading="lazy"
+                    className="selling-section-phase-image"
+                  />
 
                   <div className="selling-section-phase-text">
-                    <h2 className="selling-section-phase-title">{phase.title}</h2>
-                    <p className="selling-section-phase-subtitle">{phase.subtitle}</p>
+                    <h2 className="selling-section-phase-title">
+                      {phase.title}
+                    </h2>
+                    <p className="selling-section-phase-subtitle">
+                      {phase.subtitle}
+                    </p>
 
                     <ul className="selling-section-phase-points">
                       {phase.points.map((point, idx) => (
-                        <li key={idx} className="selling-section-phase-point">{point}</li>
+                        <li key={idx} className="selling-section-phase-point">
+                          {point}
+                        </li>
                       ))}
                     </ul>
                   </div>
@@ -103,6 +166,22 @@ const SellingSection = () => {
           padding: 0 2rem;
         }
 
+        /* SVG de línea curva de fondo */
+        .selling-section-path-svg {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 2;
+          pointer-events: none;
+          overflow: visible;
+        }
+
+        .selling-section-path-svg path {
+          stroke: var(--color-rust);
+        }
+
         .selling-section-phases-container {
           position: relative;
           z-index: 1;
@@ -122,7 +201,7 @@ const SellingSection = () => {
         /* Wrapper del círculo con número - por encima de la línea */
         .selling-section-phase-number-wrapper {
           position: absolute;
-          z-index: 3;
+          z-index: 4;
         }
 
         .selling-section-phase-number-wrapper.selling-section-align-left {
@@ -155,7 +234,7 @@ const SellingSection = () => {
         /* Contenido de cada fase - por encima de la línea */
         .selling-section-phase-content {
           position: relative;
-          z-index: 2;
+          z-index: 3;
           display: flex;
           align-items: center;
           gap: 2rem;
@@ -214,7 +293,8 @@ const SellingSection = () => {
           line-height: 1.6;
         }
 
-        .selling-section-phase-content.selling-section-content-right .selling-section-phase-points {
+        .selling-section-phase-content.selling-section-content-right
+          .selling-section-phase-points {
           text-align: left;
         }
 
@@ -235,6 +315,10 @@ const SellingSection = () => {
         @media (max-width: 768px) {
           .selling-section {
             padding: 3rem 0;
+          }
+
+          .selling-section-path-svg {
+            display: none;
           }
 
           .selling-section-phase-number-wrapper {

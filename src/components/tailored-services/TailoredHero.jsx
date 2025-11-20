@@ -246,6 +246,10 @@ const TailoredHero = () => {
             min-height: 80vh;
           }
 
+          .tailored-hero-section .hero-background {
+            background-position: right;
+          }
+
           .tailored-title-bottom {
             padding-bottom: 1rem;
           }
