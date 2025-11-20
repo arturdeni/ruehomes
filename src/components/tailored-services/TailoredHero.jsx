@@ -242,6 +242,10 @@ const TailoredHero = () => {
         }
 
         @media (max-width: 640px) {
+          .tailored-hero-section {
+            min-height: 80vh;
+          }
+
           .tailored-title-bottom {
             padding-bottom: 1rem;
           }

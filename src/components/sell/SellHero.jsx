@@ -78,8 +78,7 @@ const SellHero = () => {
         <div className="container">
           <h1 className="sell-intro-title">
             Vender tu propiedad con
-            <br className="title-break-mobile" />
-            {" "}
+            <br className="title-break-mobile" />{" "}
             <span className="sell-title-highlight">Rue Homes</span>
           </h1>
         </div>
@@ -254,6 +253,9 @@ const SellHero = () => {
         }
 
         @media (max-width: 640px) {
+          .sell-hero-section {
+            min-height: 80vh;
+          }
           .sell-title-bottom {
             padding-bottom: 1rem;
           }

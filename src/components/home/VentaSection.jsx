@@ -43,9 +43,9 @@ const VentaSection = () => {
         <div className="venta-content">
           {/* Texto */}
           <div className="venta-text">
-            <h2 ref={titleRef} className="venta-text__title">
-              Vende tu propiedad
-            </h2>
+            <h3 ref={titleRef} className="venta-text__title">
+              el estándar más alto para vender tu propiedad
+            </h3>
             <ScrollReveal
               containerClassName="mb-6"
               size="xs"
