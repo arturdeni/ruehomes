@@ -5,20 +5,63 @@ import fase1Image from "../../assets/images/selling-section/fase-1.webp";
 import fase2Image from "../../assets/images/selling-section/fase-2.webp";
 import fase3Image from "../../assets/images/selling-section/fase-3.webp";
 import fase4Image from "../../assets/images/selling-section/fase-4.webp";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const SellingSection = () => {
+  const pathRef = useRef(null);
+  const sectionRef = useRef(null);
+
   // Puntos de control para el path SVG (puedes ajustarlos fácilmente aquí)
   const [pathPoints] = useState({
     x1: 23, // Fase 1 - posición horizontal (izquierda)
     y1: 11, // Fase 1 - posición vertical
-    x2: 78, // Fase 2 - posición horizontal (derecha)
+    x2: 79, // Fase 2 - posición horizontal (derecha)
     y2: 36, // Fase 2 - posición vertical
-    x3: 22, // Fase 3 - posición horizontal (izquierda)
+    x3: 21.3, // Fase 3 - posición horizontal (izquierda)
     y3: 63, // Fase 3 - posición vertical
-    x4: 78, // Fase 4 - posición horizontal (derecha)
+    x4: 78.3, // Fase 4 - posición horizontal (derecha)
     y4: 89, // Fase 4 - posición vertical
   });
+
+  useEffect(() => {
+    const path = pathRef.current;
+    const section = sectionRef.current;
+
+    if (!path || !section) return;
+
+    // Obtener la longitud del path
+    const pathLength = path.getTotalLength();
+
+    // LA CLAVE: strokeDasharray debe ser SOLO la longitud del path
+    // Sin gap, o con gap igual a pathLength
+    // Esto crea: [línea completa] [espacio igual] y se repite
+    // Pero como empezamos con offset = pathLength, la línea está "oculta"
+    path.style.strokeDasharray = pathLength;
+    path.style.strokeDashoffset = pathLength;
+
+    // Usar ScrollTrigger de forma manual para controlar directamente el offset
+    ScrollTrigger.create({
+      trigger: section,
+      start: "top 50%",
+      end: "bottom 75%",
+      scrub: true,
+      markers: false,
+      onUpdate: (self) => {
+        // Calcular el offset manualmente basado en el progreso
+        const currentOffset = pathLength * (1 - self.progress);
+        path.style.strokeDashoffset = currentOffset;
+      },
+    });
+
+    // Cleanup
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
   const phases = [
     {
       id: 1,
@@ -68,7 +111,7 @@ const SellingSection = () => {
   ];
 
   return (
-    <section className="selling-section">
+    <section className="selling-section" ref={sectionRef}>
       <div className="selling-section-container">
         {/* SVG con línea curva de fondo */}
         <svg
@@ -77,6 +120,7 @@ const SellingSection = () => {
           preserveAspectRatio="none"
         >
           <path
+            ref={pathRef}
             d={`M ${pathPoints.x1} ${pathPoints.y1} C ${pathPoints.x1} ${
               (pathPoints.y1 + pathPoints.y2) / 2
             }, ${pathPoints.x2} ${(pathPoints.y1 + pathPoints.y2) / 2}, ${
@@ -94,7 +138,6 @@ const SellingSection = () => {
             strokeWidth="0.6"
             fill="none"
             strokeLinecap="round"
-            vectorEffect="non-scaling-stroke"
           />
         </svg>
 

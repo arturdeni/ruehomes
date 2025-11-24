@@ -263,7 +263,6 @@ const Properties = () => {
           </div>
 
           {/* Grid de propiedades */}
-          {console.log(currentProperties)}
           {currentProperties.length > 0 ? (
             <div className="properties__grid grid grid-3 mb-12">
               {currentProperties.map((property) => (
