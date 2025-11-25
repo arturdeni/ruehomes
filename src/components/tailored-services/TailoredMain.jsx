@@ -172,7 +172,7 @@ const TailoredMain = () => {
 
         /* ===== PROCESS SECTION ===== */
         .tailored-process-section {
-          padding: 7rem 0 1rem;
+          padding: 5rem 0;
           background: white;
         }
 
@@ -247,8 +247,8 @@ const TailoredMain = () => {
 
         /* ===== BENEFITS SECTION ===== */
         .tailored-benefits-section {
-          padding: 8rem 0;
-          background: white;
+          padding: 5rem 0;
+          background: var(--color-marble-lighter);
         }
 
         .tailored-benefits-header {

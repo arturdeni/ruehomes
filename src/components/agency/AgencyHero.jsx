@@ -117,7 +117,7 @@ const AgencyHero = () => {
           align-items: center;
           justify-content: center;
           padding: 10rem 0 3rem;
-          background: var(--color-marble);
+          background: var(--color-marble-light);
           position: relative;
         }
 

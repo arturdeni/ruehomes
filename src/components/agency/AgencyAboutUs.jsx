@@ -77,48 +77,54 @@ const AgencyAboutUs = () => {
   ];
 
   return (
-    <section className="agency-about-section">
-      <div className="container">
-        <div className="agency-about-content">
-          {/* Qué hacemos */}
-          <div className="agency-services-block">
-            <SimpleReveal className="agency-services-title-wrapper">
-              <h2 className="agency-services-title">¿Qué hacemos?</h2>
-            </SimpleReveal>
+    <>
+      {/* Sección ¿Qué hacemos? */}
+      <section className="agency-about-section">
+        <div className="container">
+          <div className="agency-about-content">
+            <div className="agency-services-block">
+              <SimpleReveal className="agency-services-title-wrapper">
+                <h2 className="agency-services-title">¿Qué hacemos?</h2>
+              </SimpleReveal>
 
-            <div className="agency-services-list">
-              {services.map((service, index) => (
-                <SimpleReveal
-                  key={service.number}
-                  className="agency-service-item"
-                  delay={0.1 + index * 0.1}
-                >
-                  <div className="agency-service-number">{service.number}</div>
-                  <div className="agency-service-content">
-                    <span className="agency-service-title">
-                      {service.title}
-                    </span>
-                    <span className="agency-service-description">
-                      {service.description}
-                    </span>
-                  </div>
-                </SimpleReveal>
-              ))}
+              <div className="agency-services-list">
+                {services.map((service, index) => (
+                  <SimpleReveal
+                    key={service.number}
+                    className="agency-service-item"
+                    delay={0.1 + index * 0.1}
+                  >
+                    <div className="agency-service-number">{service.number}</div>
+                    <div className="agency-service-content">
+                      <span className="agency-service-title">
+                        {service.title}
+                      </span>
+                      <span className="agency-service-description">
+                        {service.description}
+                      </span>
+                    </div>
+                  </SimpleReveal>
+                ))}
+              </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Nuestra filosofía */}
-          <div className="agency-philosophy-block">
+      {/* Sección Nuestra filosofía */}
+      <section className="agency-philosophy-section">
+        <div className="container">
+          <div className="agency-philosophy-content">
             <SimpleReveal
               className="agency-philosophy-title-wrapper"
-              delay={0.8}
+              delay={0.2}
             >
               <h2 className="agency-philosophy-title">Nuestra filosofía</h2>
             </SimpleReveal>
 
             <SimpleReveal
               className="agency-philosophy-text-wrapper"
-              delay={1.0}
+              delay={0.4}
             >
               <p className="agency-philosophy-text">
                 En Rue Homes creemos que comprar o vender una vivienda no es
@@ -131,7 +137,7 @@ const AgencyAboutUs = () => {
             </SimpleReveal>
           </div>
         </div>
-      </div>
+      </section>
 
       <style jsx>{`
         .agency-about-section {
@@ -142,9 +148,6 @@ const AgencyAboutUs = () => {
         .agency-about-content {
           max-width: 1000px;
           margin: 0 auto;
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 8rem;
         }
 
         /* ===== SERVICIOS SECTION ===== */
@@ -242,6 +245,16 @@ const AgencyAboutUs = () => {
         }
 
         /* ===== FILOSOFÍA SECTION ===== */
+        .agency-philosophy-section {
+          padding: 6rem 0;
+          background: var(--color-softdune-lighter);
+        }
+
+        .agency-philosophy-content {
+          max-width: 1000px;
+          margin: 0 auto;
+        }
+
         .agency-philosophy-title-wrapper {
           margin-bottom: 3rem;
           text-align: center;
@@ -298,8 +311,8 @@ const AgencyAboutUs = () => {
             padding: 8rem 0 0;
           }
 
-          .agency-about-content {
-            gap: 6rem;
+          .agency-philosophy-section {
+            padding: 5rem 0;
           }
 
           .agency-services-title,
@@ -324,8 +337,8 @@ const AgencyAboutUs = () => {
             padding: 6rem 0 0;
           }
 
-          .agency-about-content {
-            gap: 4rem;
+          .agency-philosophy-section {
+            padding: 4rem 0;
           }
 
           .agency-services-title,
@@ -365,7 +378,7 @@ const AgencyAboutUs = () => {
           }
         }
       `}</style>
-    </section>
+    </>
   );
 };
 

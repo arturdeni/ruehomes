@@ -7,8 +7,8 @@ const legalContent = {
     content: `
       <h3>1. Responsable del Tratamiento</h3>
       <p>
-        RueHomes, con domicilio en [Dirección], es el responsable del tratamiento de los datos personales
-        que nos facilites a través de esta web.
+        Rue Homes Properties S.L., con NIF B22870430 y domicilio en Calle Lepant, 108 3o 4a - Sabadell (08203),
+        es el responsable del tratamiento de los datos personales que nos facilites a través de esta web.
       </p>
 
       <h3>2. Datos que Recopilamos</h3>
@@ -41,7 +41,7 @@ const legalContent = {
       <h3>5. Tus Derechos</h3>
       <p>
         Tienes derecho a acceder, rectificar, suprimir, limitar, portabilidad y oposición al tratamiento
-        de tus datos. Para ejercer estos derechos, contacta con nosotros en [email de contacto].
+        de tus datos. Para ejercer estos derechos, contacta con nosotros en info@ruehomes.com.
       </p>
 
       <h3>6. Conservación de Datos</h3>
@@ -178,12 +178,11 @@ const legalContent = {
         Sociedad de la Información y Comercio Electrónico, se informa de los siguientes datos:
       </p>
       <ul>
-        <li><strong>Titular:</strong> RueHomes</li>
-        <li><strong>NIF:</strong> [Número de identificación fiscal]</li>
-        <li><strong>Domicilio:</strong> [Dirección completa]</li>
-        <li><strong>Email:</strong> [Correo electrónico de contacto]</li>
-        <li><strong>Teléfono:</strong> [Número de teléfono]</li>
-        <li><strong>Registro Mercantil:</strong> [Datos de inscripción si aplica]</li>
+        <li><strong>Titular:</strong> Rue Homes Properties S.L.</li>
+        <li><strong>NIF:</strong> B22870430</li>
+        <li><strong>Domicilio:</strong> Calle Lepant, 108 3o 4a - Sabadell (08203)</li>
+        <li><strong>Email:</strong> info@ruehomes.com</li>
+        <li><strong>Teléfono:</strong> 642711331</li>
       </ul>
 
       <h3>2. Objeto</h3>

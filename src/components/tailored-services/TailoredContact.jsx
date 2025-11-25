@@ -71,7 +71,7 @@ const TailoredContact = () => {
       <style jsx>{`
         .tailored-contact-section {
           padding: 8rem 0;
-          background: var(--color-marble-lighter);
+          background: var(--color-white);
         }
 
         .tailored-contact-content {

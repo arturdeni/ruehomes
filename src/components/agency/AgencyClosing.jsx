@@ -65,7 +65,7 @@ const AgencyClosing = () => {
 
       <style jsx>{`
         .agency-closing-section {
-          padding: 2rem 0 8rem;
+          padding: 4rem 0 8rem;
           background: var(--color-marble-light);
         }
 
