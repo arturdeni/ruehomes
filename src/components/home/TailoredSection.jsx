@@ -65,7 +65,7 @@ const TailoredSection = () => {
             {/* Texto con ScrollReveal */}
             <div className="tailored-text-content">
               <h3 ref={titleRef} className="tailored-text__title">
-                el arte de encontrar propiedades únicas
+                El arte de encontrar propiedades únicas
               </h3>
               <ScrollReveal
                 containerClassName="mb-4"
