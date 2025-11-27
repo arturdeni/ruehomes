@@ -293,16 +293,16 @@ const PropertyCard = ({ property }) => {
         .property-card__badge--sale {
           background: linear-gradient(
             135deg,
-            var(--color-cinnamon) 0%,
-            var(--color-cinnamon-dark) 100%
+            var(--color-rust) 0%,
+            var(--color-rust-dark) 100%
           );
         }
 
         .property-card__badge--rent {
           background: linear-gradient(
             135deg,
-            var(--color-info) 0%,
-            var(--color-info-dark) 100%
+            var(--color-honeyfield-light) 0%,
+            var(--color-honeyfield-dark) 100%
           );
         }
 
@@ -318,8 +318,8 @@ const PropertyCard = ({ property }) => {
         .property-card__badge--default {
           background: linear-gradient(
             135deg,
-            var(--color-rust) 0%,
-            var(--color-rust-dark) 100%
+            var(--color-cinnamon) 0%,
+            var(--color-cinnamon-dark) 100%
           );
         }
 
