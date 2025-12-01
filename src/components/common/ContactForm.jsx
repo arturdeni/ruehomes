@@ -21,11 +21,6 @@ const ContactForm = ({
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  // Configurar Brevo
-  const BREVO_API_KEY = import.meta.env.VITE_BREVO_API_KEY;
-  const BREVO_SENDER_EMAIL = import.meta.env.VITE_BREVO_SENDER_EMAIL;
-  const BREVO_SENDER_NAME = import.meta.env.VITE_BREVO_SENDER_NAME;
-
   const getFormTitle = () => {
     switch (type) {
       case "property":
@@ -95,66 +90,28 @@ const ContactForm = ({
     setLoading(true);
 
     try {
-      // Preparar el contenido HTML del email
-      const emailHtml = `
-        <h2>Nueva Consulta desde RueHomes</h2>
-        <p><strong>Tipo de formulario:</strong> ${type}</p>
+      // Enviar email usando nuestra API serverless
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+          subject: formData.subject || getFormTitle(),
+          type: type,
+          propertyTitle: propertyTitle,
+          propertyId: propertyId,
+        }),
+      });
 
-        <h3>Datos del contacto:</h3>
-        <ul>
-          <li><strong>Nombre:</strong> ${formData.name}</li>
-          <li><strong>Email:</strong> ${formData.email}</li>
-          <li><strong>Teléfono:</strong> ${formData.phone}</li>
-        </ul>
+      const data = await response.json();
 
-        ${propertyTitle ? `
-          <h3>Propiedad de interés:</h3>
-          <p><strong>${propertyTitle}</strong> ${propertyId ? `(ID: ${propertyId})` : ''}</p>
-        ` : ''}
-
-        <h3>Mensaje:</h3>
-        <p>${formData.message.replace(/\n/g, '<br>')}</p>
-
-        <hr>
-        <p><small>Este mensaje fue enviado desde el formulario de contacto de RueHomes.</small></p>
-      `;
-
-      // Enviar email usando Brevo API
-      if (BREVO_API_KEY) {
-        const response = await fetch('https://api.brevo.com/v3/smtp/email', {
-          method: 'POST',
-          headers: {
-            'accept': 'application/json',
-            'api-key': BREVO_API_KEY,
-            'content-type': 'application/json',
-          },
-          body: JSON.stringify({
-            sender: {
-              name: BREVO_SENDER_NAME || 'RueHomes',
-              email: BREVO_SENDER_EMAIL || 'info@ruehomes.com',
-            },
-            to: [
-              {
-                email: 'info@ruehomes.com',
-                name: 'RueHomes',
-              },
-            ],
-            subject: formData.subject || getFormTitle(),
-            htmlContent: emailHtml,
-            replyTo: {
-              email: formData.email,
-              name: formData.name,
-            },
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error('Error al enviar el email');
-        }
-      } else {
-        console.warn("Brevo no configurado. Simulando envío...");
-        // Simular delay
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+      if (!response.ok) {
+        throw new Error(data.error || 'Error al enviar el email');
       }
 
       setSuccess(true);

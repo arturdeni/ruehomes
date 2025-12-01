@@ -29,11 +29,6 @@ const PropertyDetail = () => {
   const [formLoading, setFormLoading] = useState(false);
   const [formSuccess, setFormSuccess] = useState(false);
 
-  // Configurar Brevo
-  const BREVO_API_KEY = import.meta.env.VITE_BREVO_API_KEY;
-  const BREVO_SENDER_EMAIL = import.meta.env.VITE_BREVO_SENDER_EMAIL;
-  const BREVO_SENDER_NAME = import.meta.env.VITE_BREVO_SENDER_NAME;
-
   useEffect(() => {
     const loadProperty = async () => {
       try {
@@ -206,73 +201,33 @@ const PropertyDetail = () => {
     setFormLoading(true);
 
     try {
-      // Preparar el contenido HTML del email
-      const emailHtml = `
-        <h2>Nueva Consulta sobre Propiedad desde RueHomes</h2>
+      // Enviar email usando nuestra API serverless
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+          subject: `Consulta sobre: ${property.title} (REF-${property.reference})`,
+          type: "property",
+          propertyTitle: property.title,
+          propertyId: property.id,
+          propertyReference: property.reference,
+          propertyPrice: property.price,
+          propertyAddress: property.address,
+          propertyCity: property.city,
+          propertyType: getPropertyTypeDisplayName(property.propertyType),
+        }),
+      });
 
-        <h3>Propiedad de interés:</h3>
-        <ul>
-          <li><strong>Título:</strong> ${property.title}</li>
-          <li><strong>Referencia:</strong> REF-${property.reference}</li>
-          <li><strong>Precio:</strong> ${formatPrice(property.price)}€</li>
-          <li><strong>Ubicación:</strong> ${property.address}, ${
-        property.city
-      }</li>
-          <li><strong>Tipo:</strong> ${getPropertyTypeDisplayName(
-            property.propertyType
-          )}</li>
-        </ul>
+      const data = await response.json();
 
-        <h3>Datos del contacto:</h3>
-        <ul>
-          <li><strong>Nombre:</strong> ${formData.name}</li>
-          <li><strong>Email:</strong> ${formData.email}</li>
-          <li><strong>Teléfono:</strong> ${formData.phone}</li>
-        </ul>
-
-        <h3>Mensaje:</h3>
-        <p>${formData.message.replace(/\n/g, "<br>")}</p>
-
-        <hr>
-        <p><small>Este mensaje fue enviado desde el formulario de consulta de propiedad de RueHomes.</small></p>
-      `;
-
-      // Enviar email usando Brevo API
-      if (BREVO_API_KEY) {
-        const response = await fetch("https://api.brevo.com/v3/smtp/email", {
-          method: "POST",
-          headers: {
-            accept: "application/json",
-            "api-key": BREVO_API_KEY,
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({
-            sender: {
-              name: BREVO_SENDER_NAME || "RueHomes",
-              email: BREVO_SENDER_EMAIL || "info@ruehomes.com",
-            },
-            to: [
-              {
-                email: "info@ruehomes.com",
-                name: "RueHomes",
-              },
-            ],
-            subject: `Consulta sobre: ${property.title} (REF-${property.reference})`,
-            htmlContent: emailHtml,
-            replyTo: {
-              email: formData.email,
-              name: formData.name,
-            },
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error("Error al enviar el email");
-        }
-      } else {
-        console.warn("Brevo no configurado. Simulando envío...");
-        // Simular delay
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+      if (!response.ok) {
+        throw new Error(data.error || "Error al enviar el email");
       }
 
       setFormSuccess(true);

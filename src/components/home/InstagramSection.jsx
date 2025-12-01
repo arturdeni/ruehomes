@@ -8,25 +8,8 @@ const InstagramSection = () => {
   useEffect(() => {
     const fetchInstagramPosts = async () => {
       try {
-        const INSTAGRAM_USER_ID = import.meta.env.VITE_INSTAGRAM_USER_ID;
-        const ACCESS_TOKEN = import.meta.env.VITE_INSTAGRAM_ACCESS_TOKEN;
-
-        if (!INSTAGRAM_USER_ID || !ACCESS_TOKEN) {
-          console.log(
-            "Credenciales de Instagram no configuradas, usando fallback"
-          );
-          // Tu código de fallback actual...
-          const fallbackPosts = [
-            // ... tu array de fallback
-          ];
-          setPosts(fallbackPosts);
-          setLoading(false);
-          return;
-        }
-
-        const response = await fetch(
-          `https://graph.instagram.com/${INSTAGRAM_USER_ID}/media?fields=id,caption,media_type,media_url,permalink,thumbnail_url,timestamp&limit=4&access_token=${ACCESS_TOKEN}`
-        );
+        // Llamar a nuestra API serverless
+        const response = await fetch("/api/instagram");
 
         if (!response.ok) {
           throw new Error("Error al obtener posts de Instagram");
@@ -34,18 +17,15 @@ const InstagramSection = () => {
 
         const data = await response.json();
 
-        const formattedPosts = data.data.map((post) => ({
-          id: post.id,
-          thumbnail:
-            post.media_type === "VIDEO" ? post.thumbnail_url : post.media_url,
-          caption: post.caption || "",
-          link: post.permalink,
-          likes: Math.floor(Math.random() * 300) + 100, // Instagram API básica no da likes
-          type: post.media_type.toLowerCase(),
-        }));
+        // Verificar si la respuesta es exitosa y tiene posts
+        if (data.success && data.posts && data.posts.length > 0) {
+          setPosts(data.posts);
+          setLoading(false);
+          return;
+        }
 
-        setPosts(formattedPosts);
-        setLoading(false);
+        // Si no hay posts, usar fallback
+        throw new Error("No hay posts disponibles");
       } catch (err) {
         console.error("Error al cargar posts de Instagram:", err);
 
