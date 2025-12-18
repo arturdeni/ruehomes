@@ -1,0 +1,6 @@
+# Permite a todos los buscadores indexar todo el sitio
+User-agent: *
+Allow: /
+
+# Ubicación del sitemap
+Sitemap: https://ruehomes.com/sitemap.xml
