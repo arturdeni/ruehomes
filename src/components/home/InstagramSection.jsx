@@ -1,373 +1,37 @@
-import React, { useEffect, useState } from "react";
+// Importar las imágenes locales
+import insta1 from "../../assets/images/insta/insta_ruehomes1.webp";
+import insta2 from "../../assets/images/insta/insta_ruehomes2.webp";
+import insta3 from "../../assets/images/insta/insta_ruehomes3.webp";
+import insta4 from "../../assets/images/insta/insta_ruehomes4.webp";
 
 const InstagramSection = () => {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchInstagramPosts = async () => {
-      try {
-        // Llamar a nuestra API serverless
-        const response = await fetch("/api/instagram");
-
-        if (!response.ok) {
-          throw new Error("Error al obtener posts de Instagram");
-        }
-
-        const data = await response.json();
-
-        // Verificar si la respuesta es exitosa y tiene posts
-        if (data.success && data.posts && data.posts.length > 0) {
-          setPosts(data.posts);
-          setLoading(false);
-          return;
-        }
-
-        // Si no hay posts, usar fallback
-        throw new Error("No hay posts disponibles");
-      } catch (err) {
-        console.error("Error al cargar posts de Instagram:", err);
-
-        // Fallback con tus imágenes actuales
-        const fallbackPosts = [
-          {
-            id: "1",
-            thumbnail:
-              "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80",
-            caption: "Descubre tu nuevo hogar en el corazón de Barcelona ✨",
-            link: "https://instagram.com/rue.homes",
-            likes: 156,
-            type: "image",
-          },
-          {
-            id: "2",
-            thumbnail:
-              "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80",
-            caption: "Espacios diseñados para vivir 🏡",
-            link: "https://instagram.com/rue.homes",
-            likes: 203,
-            type: "image",
-          },
-          {
-            id: "3",
-            thumbnail:
-              "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80",
-            caption: "Donde cada detalle cuenta 🌿",
-            link: "https://instagram.com/rue.homes",
-            likes: 189,
-            type: "image",
-          },
-          {
-            id: "4",
-            thumbnail:
-              "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=80",
-            caption: "Tu espacio perfecto te está esperando 💫",
-            link: "https://instagram.com/rue.homes",
-            likes: 234,
-            type: "image",
-          },
-        ];
-
-        setPosts(fallbackPosts);
-        setLoading(false);
-      }
-    };
-
-    fetchInstagramPosts();
-  }, []);
-
-  if (loading) {
-    return (
-      <section className="instagram__section">
-        <div className="instagram__container">
-          <div className="instagram__header">
-            <div className="instagram__brand">
-              <div className="instagram__logo">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                  <rect
-                    x="2"
-                    y="2"
-                    width="20"
-                    height="20"
-                    rx="5"
-                    stroke="var(--color-rust)"
-                    strokeWidth="2"
-                  />
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="4"
-                    stroke="var(--color-rust)"
-                    strokeWidth="2"
-                  />
-                  <circle cx="17.5" cy="6.5" r="1.5" fill="var(--color-rust)" />
-                </svg>
-              </div>
-              <div className="instagram__text">
-                <h2 className="instagram__title">Síguenos en Instagram</h2>
-                <p className="instagram__subtitle">
-                  Cargando nuestras últimas publicaciones...
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="instagram__loading">
-            <div className="instagram__spinner"></div>
-          </div>
-        </div>
-        <style jsx>{`
-          .instagram__section {
-            padding: 6rem 0;
-            background-color: #f0e5d5;
-            position: relative;
-            overflow: hidden;
-          }
-          .instagram__container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-          }
-          .instagram__header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 4rem;
-            flex-wrap: wrap;
-            gap: 2rem;
-          }
-          .instagram__brand {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-          }
-          .instagram__logo {
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 32px rgba(154, 116, 78, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-          }
-          .instagram__text {
-            flex: 1;
-          }
-          .instagram__title {
-            font-family: "Crimson Text", serif;
-            font-size: 2.5rem;
-            font-weight: 400;
-            color: #483228;
-            margin: 0;
-            line-height: 1.2;
-          }
-          .instagram__subtitle {
-            font-family: "Inter", sans-serif;
-            font-size: 1.1rem;
-            font-weight: 300;
-            color: #5d433a;
-            margin: 0.5rem 0 0 0;
-            line-height: 1.4;
-          }
-          .instagram__loading {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 4rem 0;
-          }
-          .instagram__spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(154, 116, 78, 0.2);
-            border-top-color: var(--color-rust, #9a744e);
-            border-radius: 50%;
-            animation: instagram__spin 0.8s linear infinite;
-          }
-          @keyframes instagram__spin {
-            to {
-              transform: rotate(360deg);
-            }
-          }
-        `}</style>
-      </section>
-    );
-  }
-
-  if (error) {
-    return (
-      <section className="instagram__section">
-        <div className="instagram__container">
-          <div className="instagram__header">
-            <div className="instagram__brand">
-              <div className="instagram__logo">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                  <rect
-                    x="2"
-                    y="2"
-                    width="20"
-                    height="20"
-                    rx="5"
-                    stroke="var(--color-rust)"
-                    strokeWidth="2"
-                  />
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="4"
-                    stroke="var(--color-rust)"
-                    strokeWidth="2"
-                  />
-                  <circle cx="17.5" cy="6.5" r="1.5" fill="var(--color-rust)" />
-                </svg>
-              </div>
-              <div className="instagram__text">
-                <h2 className="instagram__title">Síguenos en Instagram</h2>
-                <p className="instagram__subtitle">@rue.homes</p>
-              </div>
-            </div>
-            <a
-              href="https://instagram.com/rue.homes"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="instagram__cta"
-            >
-              <span>Visitar perfil</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M15 3h6v6"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M10 14L21 3"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
-          </div>
-          <div className="instagram__error">
-            <p>{error}</p>
-          </div>
-        </div>
-        <style jsx>{`
-          .instagram__section {
-            padding: 6rem 0;
-            background-color: #f0e5d5;
-            position: relative;
-            overflow: hidden;
-          }
-          .instagram__container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-          }
-          .instagram__header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 4rem;
-            flex-wrap: wrap;
-            gap: 2rem;
-          }
-          .instagram__brand {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-          }
-          .instagram__logo {
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 32px rgba(154, 116, 78, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-          }
-          .instagram__text {
-            flex: 1;
-          }
-          .instagram__title {
-            font-family: "Crimson Text", serif;
-            font-size: 2.5rem;
-            font-weight: 400;
-            color: #483228;
-            margin: 0;
-            line-height: 1.2;
-          }
-          .instagram__subtitle {
-            font-family: "Inter", sans-serif;
-            font-size: 1.1rem;
-            font-weight: 300;
-            color: #5d433a;
-            margin: 0.5rem 0 0 0;
-            line-height: 1.4;
-          }
-          .instagram__cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 14px 28px;
-            background: transparent;
-            color: var(--color-rust, #9a744e);
-            border: 2px solid var(--color-rust, #9a744e);
-            border-radius: 50px;
-            text-decoration: none;
-            font-family: "Inter", sans-serif;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-          }
-          .instagram__cta::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--color-rust, #9a744e);
-            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: -1;
-          }
-          .instagram__cta:hover::before {
-            left: 0;
-          }
-          .instagram__cta:hover {
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(154, 116, 78, 0.3);
-          }
-          .instagram__error {
-            text-align: center;
-            padding: 3rem;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 16px;
-            color: #5d433a;
-            font-family: "Inter", sans-serif;
-          }
-        `}</style>
-      </section>
-    );
-  }
+  // Datos hardcodeados de los posts de Instagram
+  const posts = [
+    {
+      id: "1",
+      thumbnail: insta1,
+      caption: "¿Sabías que ciertos colores pueden hacer que tu cocina se vea más grande y luminosa sin hacer remodelaciones? ✨",
+      link: "https://instagram.com/rue.homes",
+    },
+    {
+      id: "2",
+      thumbnail: insta2,
+      caption: "Cada piso, una oportunidad de encontrar tu hogar ideal. 🏠✨",
+      link: "https://instagram.com/rue.homes",
+    },
+    {
+      id: "3",
+      thumbnail: insta3,
+      caption: "Según tu sueldo, esta es la vivienda que te puedes permitir. ¿Te atreves a calcularlo? 💬",
+      link: "https://instagram.com/rue.homes",
+    },
+    {
+      id: "4",
+      thumbnail: insta4,
+      caption: "Salimos a preguntar a la gente qué piensa sobre la situación de la vivienda en España.💬",
+      link: "https://instagram.com/rue.homes",
+    },
+  ];
 
   return (
     <section className="instagram__section">
@@ -454,19 +118,6 @@ const InstagramSection = () => {
                 />
 
                 <div className="instagram__post-overlay">
-                  <div className="instagram__post-stats">
-                    <div className="instagram__stat">
-                      <svg
-                        width="24"
-                        height="24"
-                        fill="white"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                      </svg>
-                      <span>{post.likes}</span>
-                    </div>
-                  </div>
                   <div className="instagram__post-caption">
                     <p>{post.caption}</p>
                   </div>
@@ -635,33 +286,18 @@ const InstagramSection = () => {
           background: linear-gradient(
             to bottom,
             rgba(0, 0, 0, 0.1) 0%,
-            rgba(0, 0, 0, 0.8) 100%
+            rgba(0, 0, 0, 0.85) 100%
           );
           opacity: 0;
           transition: opacity 0.3s ease;
           display: flex;
           flex-direction: column;
-          justify-content: space-between;
+          justify-content: flex-end;
           padding: 1.5rem;
         }
 
         .instagram__post:hover .instagram__post-overlay {
           opacity: 1;
-        }
-
-        .instagram__post-stats {
-          display: flex;
-          gap: 1.5rem;
-        }
-
-        .instagram__stat {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          color: white;
-          font-family: "Inter", sans-serif;
-          font-weight: 600;
-          font-size: 1rem;
         }
 
         .instagram__post-caption {

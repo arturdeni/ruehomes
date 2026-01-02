@@ -19,8 +19,14 @@ const legalContent = {
         <li>Nombre y apellidos</li>
         <li>Dirección de correo electrónico</li>
         <li>Número de teléfono</li>
+        <li>ID de usuario de redes sociales (cuando interactúas con nosotros a través de estas plataformas)</li>
         <li>Información sobre propiedades de interés</li>
       </ul>
+      <p>
+        <strong>Uso de la API de Instagram:</strong> Esta aplicación propiedad de Rue Homes Properties S.L.
+        utiliza los datos de la API de Instagram para gestionar comentarios y mensajes de la cuenta de Rue Homes
+        con fines de atención al cliente. No compartimos datos con terceros.
+      </p>
 
       <h3>3. Finalidad del Tratamiento</h3>
       <p>

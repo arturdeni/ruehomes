@@ -13,6 +13,7 @@ import Sell from "./pages/Sell";
 import TailoredServices from "./pages/TailoredServices";
 import Agency from "./pages/Agency";
 import Contact from "./pages/Contact";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 // Estilos
 import "./styles/variables.css";
@@ -49,6 +50,7 @@ function App() {
           <Route path="/tailored-services" element={<TailoredServices />} />
           <Route path="/la-agencia" element={<Agency />} />
           <Route path="/contacto" element={<Contact />} />
+          <Route path="/politica-privacidad" element={<PrivacyPolicy />} />
 
           {/* 404 */}
           <Route
