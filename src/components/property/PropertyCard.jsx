@@ -25,12 +25,7 @@ const PropertyCard = ({ property }) => {
 
   // Formatear precio
   const formatPrice = (price) => {
-    if (price >= 1000000) {
-      return `${(price / 1000000).toFixed(1)}.000.000`;
-    } else if (price >= 1000) {
-      return `${(price / 1000).toFixed(0)}.000`;
-    }
-    return price.toString();
+    return new Intl.NumberFormat("es-ES").format(price);
   };
 
   // Imagen principal
