@@ -89,7 +89,7 @@ const Header = () => {
 
             {/* Phone and Instagram - Only visible on md+ screens */}
             <div className="header-contact">
-              <span className="header-phone">+34 642 711 331</span>
+              <span className="header-phone">+34 642 70 92 57</span>
               <a
                 href="https://www.instagram.com/rue.homes/"
                 target="_blank"

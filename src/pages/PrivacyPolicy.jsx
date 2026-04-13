@@ -129,7 +129,7 @@ const PrivacyPolicy = () => {
               </p>
               <ul className="contact-details">
                 <li><strong>Email:</strong> <a href="mailto:info@ruehomes.com" className="privacy-link">info@ruehomes.com</a></li>
-                <li><strong>Teléfono:</strong> <a href="tel:+34642711331" className="privacy-link">+34 642 71 13 31</a></li>
+                <li><strong>Teléfono:</strong> <a href="tel:+34642709257" className="privacy-link">+34 642 70 92 57</a></li>
                 <li><strong>Dirección:</strong> Calle Lepant, 108 3o 4a - Sabadell (08203)</li>
               </ul>
             </section>

@@ -602,7 +602,7 @@ const PropertyDetail = () => {
 
                 <div className="property-detail__contact-methods">
                   <a
-                    href="tel:+34642711331"
+                    href="tel:+34642709257"
                     className="property-detail__contact-btn property-detail__contact-btn--phone"
                   >
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
