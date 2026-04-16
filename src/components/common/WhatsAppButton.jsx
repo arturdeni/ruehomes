@@ -1,6 +1,6 @@
 // src/components/common/WhatsAppButton.jsx
 const WhatsAppButton = () => {
-  const phoneNumber = "34642711331"; // Cambiar por tu número de WhatsApp (con código de país sin +)
+  const phoneNumber = "34642709257"; // Cambiar por tu número de WhatsApp (con código de país sin +)
   const message = "Hola, me gustaría recibir más información"; // Mensaje predeterminado
 
   const handleClick = () => {

@@ -76,8 +76,8 @@ const PrivacyPolicy = () => {
                 <li>Información sobre propiedades de interés</li>
               </ul>
               <p>
-                <strong>Uso de la API de Instagram:</strong> Esta aplicación propiedad de Rue Homes Properties S.L.
-                utiliza los datos de la API de Instagram para gestionar comentarios y mensajes de la cuenta de Rue Homes
+                <strong>Uso de la API de Meta:</strong> Esta aplicación propiedad de Rue Homes Properties S.L.
+                utiliza los datos de la API de Meta para gestionar comentarios y mensajes de la cuenta de Rue Homes
                 con fines de atención al cliente. No compartimos datos con terceros.
               </p>
             </section>
