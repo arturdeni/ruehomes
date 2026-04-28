@@ -17,8 +17,13 @@ export const hygraph = new GraphQLClient(endpoint, {
 
 // Queries para propiedades - Updated to match Hygraph schema
 export const GET_PROPERTIES = `
-  query GetProperties {
-    properties(orderBy: createdAt_DESC) {
+  query GetProperties(
+    $first: Int = 12
+    $skip: Int = 0
+    $where: PropertyWhereInput
+    $orderBy: PropertyOrderByInput = createdAt_DESC
+  ) {
+    properties(first: $first, skip: $skip, where: $where, orderBy: $orderBy) {
       id
       title
       description {
@@ -47,6 +52,11 @@ export const GET_PROPERTIES = `
       yearBuilt
       createdAt
       updatedAt
+    }
+    propertiesConnection(where: $where) {
+      aggregate {
+        count
+      }
     }
   }
 `;

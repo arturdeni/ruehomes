@@ -188,7 +188,7 @@ const legalContent = {
         <li><strong>NIF:</strong> B22870430</li>
         <li><strong>Domicilio:</strong> Calle Lepant, 108 3o 4a - Sabadell (08203)</li>
         <li><strong>Email:</strong> info@ruehomes.com</li>
-        <li><strong>Teléfono:</strong> 642711331</li>
+        <li><strong>Teléfono:</strong> 642709257</li>
       </ul>
 
       <h3>2. Objeto</h3>

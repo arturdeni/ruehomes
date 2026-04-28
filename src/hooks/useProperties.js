@@ -19,7 +19,7 @@ export const useProperties = (filters = {}, page = 1, limit = 12) => {
         const where = {};
 
         if (filters.status) {
-          where.status = filters.status;
+          where.propertyStatus = filters.status;
         }
 
         if (filters.propertyType) {
@@ -30,11 +30,8 @@ export const useProperties = (filters = {}, page = 1, limit = 12) => {
           where.city_contains = filters.city;
         }
 
-        if (filters.minPrice || filters.maxPrice) {
-          where.price = {};
-          if (filters.minPrice) where.price.gte = filters.minPrice;
-          if (filters.maxPrice) where.price.lte = filters.maxPrice;
-        }
+        if (filters.minPrice) where.price_gte = filters.minPrice;
+        if (filters.maxPrice) where.price_lte = filters.maxPrice;
 
         if (filters.minBedrooms) {
           where.bedrooms_gte = filters.minBedrooms;
@@ -44,11 +41,8 @@ export const useProperties = (filters = {}, page = 1, limit = 12) => {
           where.bathrooms_gte = filters.minBathrooms;
         }
 
-        if (filters.minArea || filters.maxArea) {
-          where.area = {};
-          if (filters.minArea) where.area.gte = filters.minArea;
-          if (filters.maxArea) where.area.lte = filters.maxArea;
-        }
+        if (filters.minArea) where.area_gte = filters.minArea;
+        if (filters.maxArea) where.area_lte = filters.maxArea;
 
         if (filters.features && filters.features.length > 0) {
           where.features_contains_some = filters.features;
