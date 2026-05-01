@@ -18,7 +18,7 @@ export const hygraph = new GraphQLClient(endpoint, {
 // Queries para propiedades - Updated to match Hygraph schema
 export const GET_PROPERTIES = `
   query GetProperties(
-    $first: Int = 12
+    $first: Int = 100
     $skip: Int = 0
     $where: PropertyWhereInput
     $orderBy: PropertyOrderByInput = createdAt_DESC
