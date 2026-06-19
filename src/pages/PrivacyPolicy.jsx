@@ -58,7 +58,7 @@ const PrivacyPolicy = () => {
             <section className="privacy-section">
               <h2>1. Responsable del Tratamiento</h2>
               <p>
-                Rue Homes Properties S.L., con NIF B22870430 y domicilio en Calle Lepant, 108 3o 4a - Sabadell (08203),
+                RUE HOMES REAL ESTATE S.L., con NIF B09832320 y domicilio en Calle Lepant, 108 3o 4a - Sabadell (08203),
                 es el responsable del tratamiento de los datos personales que nos facilites a través de esta web.
               </p>
             </section>
@@ -76,7 +76,7 @@ const PrivacyPolicy = () => {
                 <li>Información sobre propiedades de interés</li>
               </ul>
               <p>
-                <strong>Uso de la API de Meta:</strong> Esta aplicación propiedad de Rue Homes Properties S.L.
+                <strong>Uso de la API de Meta:</strong> Esta aplicación propiedad de RUE HOMES REAL ESTATE S.L.
                 utiliza los datos de la API de Meta para gestionar comentarios y mensajes de la cuenta de Rue Homes
                 con fines de atención al cliente. No compartimos datos con terceros.
               </p>

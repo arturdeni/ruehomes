@@ -78,6 +78,34 @@ const AgencyAboutUs = () => {
 
   return (
     <>
+      {/* Sección Nuestra filosofía */}
+      <section className="agency-philosophy-section">
+        <div className="container">
+          <div className="agency-philosophy-content">
+            <SimpleReveal
+              className="agency-philosophy-title-wrapper"
+              delay={0.2}
+            >
+              <h2 className="agency-philosophy-title">Nuestra filosofía</h2>
+            </SimpleReveal>
+
+            <SimpleReveal
+              className="agency-philosophy-text-wrapper"
+              delay={0.4}
+            >
+              <p className="agency-philosophy-text">
+                En Rue Homes creemos que comprar o vender una vivienda no es
+                solo una operación inmobiliaria, sino uno de los momentos más
+                importantes en la vida de las personas. Por eso acompañamos a
+                nuestros clientes de principio a fin, haciendo que el proceso
+                sea <strong>fácil, cómodo y satisfactorio</strong>, y
+                asegurándonos de que tomen la mejor decisión posible.
+              </p>
+            </SimpleReveal>
+          </div>
+        </div>
+      </section>
+
       {/* Sección ¿Qué hacemos? */}
       <section className="agency-about-section">
         <div className="container">
@@ -107,34 +135,6 @@ const AgencyAboutUs = () => {
                 ))}
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Sección Nuestra filosofía */}
-      <section className="agency-philosophy-section">
-        <div className="container">
-          <div className="agency-philosophy-content">
-            <SimpleReveal
-              className="agency-philosophy-title-wrapper"
-              delay={0.2}
-            >
-              <h2 className="agency-philosophy-title">Nuestra filosofía</h2>
-            </SimpleReveal>
-
-            <SimpleReveal
-              className="agency-philosophy-text-wrapper"
-              delay={0.4}
-            >
-              <p className="agency-philosophy-text">
-                En Rue Homes creemos que comprar o vender una vivienda no es
-                solo una operación inmobiliaria, sino uno de los momentos más
-                importantes en la vida de las personas. Por eso acompañamos a
-                nuestros clientes de principio a fin, haciendo que el proceso
-                sea <strong>fácil, cómodo y satisfactorio</strong>, y
-                asegurándonos de que tomen la mejor decisión posible.
-              </p>
-            </SimpleReveal>
           </div>
         </div>
       </section>
