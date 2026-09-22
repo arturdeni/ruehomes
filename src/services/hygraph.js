@@ -16,6 +16,8 @@ export const hygraph = new GraphQLClient(endpoint, {
 });
 
 // Queries para propiedades - Updated to match Hygraph schema
+// Query de listado: solo los campos que usa la tarjeta, el filtrado y la ordenación.
+// Para el detalle completo se usa GET_PROPERTY_BY_ID.
 export const GET_PROPERTIES = `
   query GetProperties(
     $first: Int = 100
@@ -26,9 +28,6 @@ export const GET_PROPERTIES = `
     properties(first: $first, skip: $skip, where: $where, orderBy: $orderBy) {
       id
       title
-      description {
-        text
-      }
       price
       propertyType
       propertyStatus
@@ -37,21 +36,13 @@ export const GET_PROPERTIES = `
       area
       address
       city
-      reference
-      coordinates {
-        latitude
-        longitude
-      }
-      images(first: 50) {
+      images(first: 1) {
         id
         url
-        fileName
       }
-      features
-      energyRating
-      yearBuilt
-      createdAt
-      updatedAt
+      imageRefs: images(first: 50) {
+        id
+      }
     }
     propertiesConnection(where: $where) {
       aggregate {

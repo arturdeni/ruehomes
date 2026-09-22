@@ -31,8 +31,15 @@ const Properties = () => {
       try {
         setLoading(true);
         const data = await getProperties();
-        setAllProperties(data.properties);
-        setFilteredProperties(data.properties);
+        // imageRefs solo trae ids para el contador de fotos de la tarjeta
+        const list = (data.properties || []).map(
+          ({ imageRefs, ...property }) => ({
+            ...property,
+            imageCount: imageRefs?.length ?? property.images?.length ?? 0,
+          })
+        );
+        setAllProperties(list);
+        setFilteredProperties(list);
       } catch (err) {
         console.error("Error fetching properties:", err);
         setError(

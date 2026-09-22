@@ -62,28 +62,32 @@ export const optimizeImageUrl = (
 ) => {
   if (!url) return "";
 
-  const params = new URLSearchParams();
+  // Solo los assets de Hygraph soportan transformaciones por path
+  if (!url.includes("graphassets.com")) return url;
 
-  // Formato y compresión automática
-  params.append("auto", "format,compress");
+  // No re-transformar una URL que ya las lleva
+  if (url.includes("/resize=") || url.includes("/output=")) return url;
 
-  // Formato específico (WebP por defecto)
-  if (format) {
-    params.append("fm", format);
+  const lastSlash = url.lastIndexOf("/");
+  const base = url.slice(0, lastSlash);
+  const handle = url.slice(lastSlash + 1);
+
+  const transforms = [];
+
+  // Dimensiones: con alto se recorta, sin alto se escala manteniendo el ratio
+  if (width || height) {
+    const resize = [];
+    if (width) resize.push(`width:${width}`);
+    if (height) resize.push(`height:${height}`);
+    resize.push(width && height ? "fit:crop" : "fit:max");
+    transforms.push(`resize=${resize.join(",")}`);
   }
 
-  // Calidad
-  params.append("q", quality.toString());
+  // Formato y calidad
+  const output = [];
+  if (format) output.push(`format:${format}`);
+  if (quality) output.push(`quality:${quality}`);
+  if (output.length) transforms.push(`output=${output.join(",")}`);
 
-  // Dimensiones
-  if (width) {
-    params.append("w", width.toString());
-  }
-  if (height) {
-    params.append("h", height.toString());
-  }
-
-  // Construir URL final
-  const separator = url.includes("?") ? "&" : "?";
-  return `${url}${separator}${params.toString()}`;
+  return transforms.length ? `${base}/${transforms.join("/")}/${handle}` : url;
 };

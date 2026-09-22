@@ -10,15 +10,19 @@ const PropertiesFilters = ({ filters, onFiltersChange, totalResults }) => {
     setLocalFilters(filters);
   }, [filters]);
 
-  // Opciones para los filtros
+  // Opciones para los filtros (valores del enum PropertyType de Hygraph)
   const propertyTypes = [
     { value: "", label: "Todos los tipos" },
-    { value: "apartment", label: "Piso" },
-    { value: "house", label: "Casa" },
-    { value: "commercial", label: "Local" },
-    { value: "office", label: "Oficina" },
-    { value: "warehouse", label: "Nave" },
-    { value: "land", label: "Terreno" },
+    { value: "piso", label: "Piso" },
+    { value: "atico", label: "Ático" },
+    { value: "casaUnifamiliar", label: "Casa Unifamiliar" },
+    { value: "casaAdosada", label: "Casa Adosada" },
+    { value: "villa", label: "Villa" },
+    { value: "duplex", label: "Dúplex" },
+    { value: "loft", label: "Loft" },
+    { value: "local", label: "Local" },
+    { value: "nave", label: "Nave" },
+    { value: "oficinas", label: "Oficinas" },
   ];
 
   const bedroomOptions = [

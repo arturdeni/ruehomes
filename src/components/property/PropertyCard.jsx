@@ -18,6 +18,7 @@ const PropertyCard = ({ property }) => {
     address,
     city,
     images,
+    imageCount,
   } = property;
 
   // For backwards compatibility
@@ -30,6 +31,9 @@ const PropertyCard = ({ property }) => {
 
   // Imagen principal
   const mainImage = images && images.length > 0 ? images[0] : null;
+
+  // Total de fotos: el listado solo trae la primera, con el contador aparte
+  const totalImages = imageCount ?? images?.length ?? 0;
 
   // Obtener el display name del tipo de propiedad
   const getPropertyTypeDisplayName = (typeId) => {
@@ -112,7 +116,7 @@ const PropertyCard = ({ property }) => {
           </div>
 
           {/* Contador de imágenes */}
-          {images && images.length > 1 && (
+          {totalImages > 1 && (
             <div className="property-card__image-count">
               <svg
                 className="property-card__image-count-icon"
@@ -128,7 +132,7 @@ const PropertyCard = ({ property }) => {
                 />
               </svg>
               <span className="property-card__image-count-text">
-                {images.length}
+                {totalImages}
               </span>
             </div>
           )}
