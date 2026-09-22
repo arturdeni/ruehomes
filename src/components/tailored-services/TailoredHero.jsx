@@ -1,7 +1,10 @@
 // src/components/tailored-services/TailoredHero.jsx
-import { useState, useEffect } from "react";
-import Lanyard from "../lanyard/Lanyard";
+import { useState, useEffect, lazy, Suspense } from "react";
 import TextMaskReveal from "../ui/TextMaskReveal";
+
+// El Lanyard arrastra three.js y el motor de física rapier (~1,1 MB comprimidos).
+// Se carga aparte para que no entre en el paquete que descarga toda la web.
+const Lanyard = lazy(() => import("../lanyard/Lanyard"));
 
 const TailoredHero = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -47,12 +50,14 @@ const TailoredHero = () => {
       {/* Componente Lanyard a la derecha - Solo en desktop > 850px */}
       {isDesktop && (
         <div className="tailored-lanyard-container">
-          <Lanyard
-            position={[0, 0, 24]}
-            gravity={[0, -40, 0]}
-            fov={20}
-            transparent={true}
-          />
+          <Suspense fallback={null}>
+            <Lanyard
+              position={[0, 0, 24]}
+              gravity={[0, -40, 0]}
+              fov={20}
+              transparent={true}
+            />
+          </Suspense>
         </div>
       )}
 

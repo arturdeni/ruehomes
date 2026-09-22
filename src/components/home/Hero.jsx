@@ -10,7 +10,24 @@ const Hero = () => {
   const videoRef = useRef(null);
   const navigate = useNavigate();
 
-  const [isMobile, setIsMobile] = useState(false);
+  // Se resuelve en el primer render: si esperásemos al efecto, el <video> llegaría
+  // a montarse en móvil y el navegador ya habría empezado a descargar 1,5 MB.
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 768);
+
+  // En escritorio el vídeo es decorativo, así que se pide cuando la página ya ha
+  // cargado, para no competir con el CSS, las fuentes y el contenido visible.
+  const [pageLoaded, setPageLoaded] = useState(
+    () => document.readyState === "complete"
+  );
+
+  useEffect(() => {
+    if (pageLoaded) return;
+
+    const onLoad = () => setPageLoaded(true);
+    window.addEventListener("load", onLoad);
+
+    return () => window.removeEventListener("load", onLoad);
+  }, [pageLoaded]);
 
   // Detectar si es móvil
   useEffect(() => {
@@ -62,19 +79,23 @@ const Hero = () => {
       {/* Imagen de fondo estática - siempre visible hasta que cargue el video */}
       <div className="hero-background"></div>
 
-      {/* Video de fondo - siempre activo */}
-      <video
-        ref={videoRef}
-        className={`hero-video ${videoLoaded ? "loaded" : ""}`}
-        autoPlay
-        muted
-        loop
-        playsInline
-        onCanPlay={handleVideoLoad}
-        onLoadedData={handleVideoLoad}
-      >
-        <source src="/videos/hero-background.webm" type="video/webm" />
-      </video>
+      {/* Vídeo de fondo: solo en escritorio. En móvil se queda la imagen estática,
+          que es lo que ya se veía mientras el vídeo cargaba. */}
+      {!isMobile && pageLoaded && (
+        <video
+          ref={videoRef}
+          className={`hero-video ${videoLoaded ? "loaded" : ""}`}
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster={heroImageStatic}
+          onCanPlay={handleVideoLoad}
+          onLoadedData={handleVideoLoad}
+        >
+          <source src="/videos/hero-background.webm" type="video/webm" />
+        </video>
+      )}
 
       {/* Gradiente overlay */}
       <div className="hero-overlay"></div>
