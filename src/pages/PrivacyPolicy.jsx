@@ -58,7 +58,7 @@ const PrivacyPolicy = () => {
             <section className="privacy-section">
               <h2>1. Responsable del Tratamiento</h2>
               <p>
-                RUE HOMES REAL ESTATE S.L., con NIF B09832320 y domicilio en Calle Lepant, 108 3o 4a - Sabadell (08203),
+                RUE HOMES REAL ESTATE S.L., con NIF B09832320 y domicilio en Rambla Catalunya, 79 Entresuelo 2a - Barcelona (08007),
                 es el responsable del tratamiento de los datos personales que nos facilites a través de esta web.
               </p>
             </section>
@@ -130,7 +130,7 @@ const PrivacyPolicy = () => {
               <ul className="contact-details">
                 <li><strong>Email:</strong> <a href="mailto:info@ruehomes.com" className="privacy-link">info@ruehomes.com</a></li>
                 <li><strong>Teléfono:</strong> <a href="tel:+34642709257" className="privacy-link">+34 642 70 92 57</a></li>
-                <li><strong>Dirección:</strong> Calle Lepant, 108 3o 4a - Sabadell (08203)</li>
+                <li><strong>Dirección:</strong> Rambla Catalunya, 79 Entresuelo 2a - Barcelona (08007)</li>
               </ul>
             </section>
           </div>
