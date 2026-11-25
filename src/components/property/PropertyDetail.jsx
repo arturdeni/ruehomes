@@ -453,7 +453,13 @@ const PropertyDetail = () => {
                   Características
                 </h2>
                 <div className="property-detail__features-grid">
-                  {property.features.map((feature, index) => (
+                  {[
+                    ...property.features,
+                    property.yearBuilt &&
+                      `Año de construcción: ${property.yearBuilt}`,
+                  ]
+                    .filter(Boolean)
+                    .map((feature, index) => (
                     <div key={index} className="property-detail__feature-tag">
                       <svg
                         className="property-detail__check-icon"
