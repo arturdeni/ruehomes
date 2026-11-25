@@ -83,6 +83,11 @@ export const GET_PROPERTY_BY_ID = `
       }
       features
       energyRating
+      energyConsumptionRating
+      energyConsumptionValue
+      emissionsRating
+      emissionsValue
+      habitabilityCertificate
       yearBuilt
       createdAt
       updatedAt

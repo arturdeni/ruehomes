@@ -10,6 +10,9 @@ const legalContent = {
         RUE HOMES REAL ESTATE S.L., con NIF B09832320 y domicilio en Rambla Catalunya, 79 Entresuelo 2a - Barcelona (08007),
         es el responsable del tratamiento de los datos personales que nos facilites a través de esta web.
       </p>
+      <p>
+        <strong>Registro Mercantil:</strong> El titular de la presente página web se encuentra inscrito en el Registro Mercantil de Barcelona de conformidad con lo previsto en los artículos 18 del Código de Comercio y 6 del Reglamento del Registro Mercantil, al haber quedado INSCRITA la escritura notarial de cambio de denominación, ampliación de objeto, modificación de los artículos 1º y 2º de los estatutos sociales, en el TOMO/I.R.U.S. 1000381757155, FOLIO 1, HOJA B 576887, INSCRIPCION 4.
+      </p>
 
       <h3>2. Datos que Recopilamos</h3>
       <p>
@@ -190,6 +193,9 @@ const legalContent = {
         <li><strong>Email:</strong> info@ruehomes.com</li>
         <li><strong>Teléfono:</strong> 642709257</li>
       </ul>
+      <p>
+        <strong>Registro Mercantil:</strong> El titular de la presente página web se encuentra inscrito en el Registro Mercantil de Barcelona de conformidad con lo previsto en los artículos 18 del Código de Comercio y 6 del Reglamento del Registro Mercantil, al haber quedado INSCRITA la escritura notarial de cambio de denominación, ampliación de objeto, modificación de los artículos 1º y 2º de los estatutos sociales, en el TOMO/I.R.U.S. 1000381757155, FOLIO 1, HOJA B 576887, INSCRIPCION 4.
+      </p>
 
       <h3>2. Objeto</h3>
       <p>

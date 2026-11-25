@@ -46,7 +46,12 @@ Tu modelo actual en Hygraph tiene estos campos:
 | **coordinates** | Location | ⚠️ No | Latitud y longitud |
 | **images** | Asset (multiple) | ⚠️ No | Fotos de la propiedad |
 | **features** | Multi line text (multiple) | ⚠️ No | Características (array) |
-| **energyRating** | Single line text | ⚠️ No | Certificado energético (A-G) |
+| **energyRating** | Single line text | ⚠️ No | ⛔ Obsoleto, no se muestra en la web. Usar los campos de abajo |
+| **energyConsumptionRating** | Enumeration `EnergyRating` | ⚠️ No | Certificado energético – consumo (A-G) |
+| **energyConsumptionValue** | Single line text | ⚠️ No | Consumo en kWh/m² año (solo el número) |
+| **emissionsRating** | Enumeration `EnergyRating` | ⚠️ No | Certificado energético – emisiones (A-G) |
+| **emissionsValue** | Single line text | ⚠️ No | Emisiones en kg CO₂/m² año (solo el número) |
+| **habitabilityCertificate** | Single line text | ⚠️ No | Número de la cédula de habitabilidad |
 | **yearBuilt** | Number (Int) | ⚠️ No | Año de construcción |
 | **createdAt** | DateTime (System) | ✅ Auto | Fecha de creación |
 | **updatedAt** | DateTime (System) | ✅ Auto | Fecha de actualización |

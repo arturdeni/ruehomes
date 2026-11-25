@@ -1,0 +1,95 @@
+.energy-certificate {
+  margin-bottom: 3rem;
+}
+
+.energy-certificate__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2.5rem;
+}
+
+.energy-scale__title {
+  font-family: var(--font-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-rust-light);
+  margin-bottom: 1rem;
+}
+
+.energy-scale__bars {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.energy-scale__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.energy-scale__bar,
+.energy-scale__badge {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  border-radius: 0 8px 8px 0;
+  font-family: var(--font-secondary);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.energy-scale__bar {
+  padding-left: 12px;
+  color: #fff;
+}
+
+/* Colores pastel (letras no seleccionadas) */
+.energy-scale__bar--a { background: #a7e3c4; }
+.energy-scale__bar--b { background: #bfe9bd; }
+.energy-scale__bar--c { background: #cfe8a6; color: #6b7280; }
+.energy-scale__bar--d { background: #fdeeac; color: #6b7280; }
+.energy-scale__bar--e { background: #fbd9a8; color: #6b7280; }
+.energy-scale__bar--f { background: #f9b9a0; }
+.energy-scale__bar--g { background: #f29bab; }
+
+/* Colores intensos (letra seleccionada) */
+.energy-scale__bar.is-active { color: #1f2430; }
+.energy-scale__bar--a.is-active { background: #1f9a3a; color: #fff; }
+.energy-scale__bar--b.is-active { background: #4cbb5e; }
+.energy-scale__bar--c.is-active { background: #8cc63f; }
+.energy-scale__bar--d.is-active { background: #f2d43a; }
+.energy-scale__bar--e.is-active { background: #f5a83a; }
+.energy-scale__bar--f.is-active { background: #ef7440; }
+.energy-scale__bar--g.is-active { background: #ec4a86; }
+
+.energy-scale__badge {
+  justify-content: center;
+  width: 32px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: #1f2430;
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.energy-scale__summary {
+  margin-top: 1rem;
+  font-family: var(--font-secondary);
+  font-size: 1rem;
+  color: var(--color-rust-light);
+}
+
+.energy-scale__summary strong {
+  color: var(--color-rust);
+  font-weight: 600;
+}
+
+.energy-scale__summary sub {
+  font-size: 0.7em;
+}

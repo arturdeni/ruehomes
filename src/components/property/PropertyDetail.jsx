@@ -10,6 +10,7 @@ import {
 import HotelIcon from "@mui/icons-material/Hotel";
 import BathtubIcon from "@mui/icons-material/Bathtub";
 import SquareFootIcon from "@mui/icons-material/SquareFoot";
+import EnergyCertificate from "./EnergyCertificate";
 
 const PropertyDetail = () => {
   const { id } = useParams();
@@ -473,34 +474,32 @@ const PropertyDetail = () => {
                 </div>
               </div>
 
-              {/* Información detallada */}
-              {/* <div className="property-detail__specs">
-                <h2 className="property-detail__section-title">
-                  Información Detallada
-                </h2>
-                <div className="property-detail__specs-grid">
-                  {property.yearBuilt && (
+              {/* Certificado energético */}
+              <EnergyCertificate
+                consumptionRating={property.energyConsumptionRating}
+                consumptionValue={property.energyConsumptionValue}
+                emissionsRating={property.emissionsRating}
+                emissionsValue={property.emissionsValue}
+              />
+
+              {/* Cédula de habitabilidad */}
+              {property.habitabilityCertificate && (
+                <div className="property-detail__specs">
+                  <h2 className="property-detail__section-title">
+                    Documentación
+                  </h2>
+                  <div className="property-detail__specs-grid">
                     <div className="property-detail__spec-item">
                       <span className="property-detail__spec-label">
-                        Año de construcción
+                        Cédula de habitabilidad
                       </span>
                       <span className="property-detail__spec-value">
-                        {property.yearBuilt}
+                        {property.habitabilityCertificate}
                       </span>
                     </div>
-                  )}
-                  {property.energyRating && (
-                    <div className="property-detail__spec-item">
-                      <span className="property-detail__spec-label">
-                        Certificado energético
-                      </span>
-                      <span className="property-detail__spec-value">
-                        {property.energyRating}
-                      </span>
-                    </div>
-                  )}
+                  </div>
                 </div>
-              </div> */}
+              )}
 
               {/* Lugares cercanos - Hidden if no data */}
               {property.nearbyPlaces && property.nearbyPlaces.length > 0 && (
