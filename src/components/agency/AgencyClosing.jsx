@@ -1,5 +1,6 @@
 // src/components/agency/AgencyClosing.jsx
 import { useState, useEffect, useRef } from "react";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 // Componente ScrollReveal simplificado reutilizado
 const SimpleReveal = ({ children, className = "", delay = 0 }) => {
@@ -44,6 +45,7 @@ const SimpleReveal = ({ children, className = "", delay = 0 }) => {
 };
 
 const AgencyClosing = () => {
+  const { t } = useLanguage();
 
   return (
     <section className="agency-closing-section">
@@ -55,9 +57,7 @@ const AgencyClosing = () => {
 
           <SimpleReveal className="agency-closing-text-wrapper" delay={0.2}>
             <p className="agency-closing-text">
-              Como las calles que dan nombre a un lugar, damos identidad y
-              personalidad a cada propiedad para que otra persona pueda encontrar
-              un lugar al que llamar hogar.
+              {t("Como las calles que dan nombre a un lugar, damos identidad y personalidad a cada propiedad para que otra persona pueda encontrar un lugar al que llamar hogar.")}
             </p>
           </SimpleReveal>
         </div>

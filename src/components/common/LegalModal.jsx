@@ -1,5 +1,7 @@
 import { X } from "lucide-react";
 import "./LegalModal.css";
+import { useLanguage } from "../../i18n/LanguageContext";
+import legalCa from "../../i18n/legalCa";
 
 const legalContent = {
   "Política de Privacidad": {
@@ -248,9 +250,10 @@ const legalContent = {
 };
 
 const LegalModal = ({ isOpen, onClose, section }) => {
+  const { lang, t } = useLanguage();
   if (!isOpen || !section) return null;
 
-  const content = legalContent[section];
+  const content = (lang === "ca" && legalCa[section]) || legalContent[section];
 
   return (
     <div className="legal-modal-overlay" aria-labelledby="modal-title" role="dialog" aria-modal="true" onClick={onClose}>
@@ -263,7 +266,7 @@ const LegalModal = ({ isOpen, onClose, section }) => {
             <button
               onClick={onClose}
               className="legal-modal-close-button"
-              aria-label="Cerrar modal"
+              aria-label={t("Cerrar")}
             >
               <X className="legal-modal-close-icon" />
             </button>
@@ -283,7 +286,7 @@ const LegalModal = ({ isOpen, onClose, section }) => {
               onClick={onClose}
               className="legal-modal-footer-button"
             >
-              Cerrar
+              {t("Cerrar")}
             </button>
           </div>
         </div>

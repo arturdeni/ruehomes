@@ -4,8 +4,10 @@ import { optimizeImageUrl } from "../../utils/helpers";
 import HotelIcon from "@mui/icons-material/Hotel";
 import BathtubIcon from "@mui/icons-material/Bathtub";
 import SquareFootIcon from "@mui/icons-material/SquareFoot";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 const PropertyCard = ({ property }) => {
+  const { t } = useLanguage();
   const {
     id,
     title,
@@ -38,16 +40,16 @@ const PropertyCard = ({ property }) => {
   // Obtener el display name del tipo de propiedad
   const getPropertyTypeDisplayName = (typeId) => {
     const typeMap = {
-      piso: "Piso",
-      atico: "Ático",
-      casaUnifamiliar: "Casa Unifamiliar",
-      casaAdosada: "Casa Adosada",
-      villa: "Villa",
-      duplex: "Dúplex",
-      loft: "Loft",
-      local: "Local",
-      nave: "Nave",
-      oficinas: "Oficinas",
+      piso: t("Piso"),
+      atico: t("Ático"),
+      casaUnifamiliar: t("Casa Unifamiliar"),
+      casaAdosada: t("Casa Adosada"),
+      villa: t("Villa"),
+      duplex: t("Dúplex"),
+      loft: t("Loft"),
+      local: t("Local"),
+      nave: t("Nave"),
+      oficinas: t("Oficinas"),
     };
     return typeMap[typeId] || typeId;
   };
@@ -55,10 +57,10 @@ const PropertyCard = ({ property }) => {
   // Obtener el display name del estado
   const getStatusDisplayName = (statusId) => {
     const statusMap = {
-      enVenta: "En Venta",
-      vendido: "Vendido",
-      enAlquiler: "En Alquiler",
-      alquilado: "Alquilado",
+      enVenta: t("En Venta"),
+      vendido: t("Vendido"),
+      enAlquiler: t("En Alquiler"),
+      alquilado: t("Alquilado"),
     };
     return statusMap[statusId] || statusId;
   };
@@ -145,7 +147,7 @@ const PropertyCard = ({ property }) => {
             <div className="property-card__price">
               {formatPrice(price)}€
               {status === "enAlquiler" && (
-                <span className="property-card__price-period">/mes</span>
+                <span className="property-card__price-period">{t("/mes")}</span>
               )}
             </div>
             <div className="property-card__type">
@@ -188,7 +190,7 @@ const PropertyCard = ({ property }) => {
               <div className="property-card__feature">
                 <HotelIcon className="property-card__feature-icon" />
                 <span className="property-card__feature-text">
-                  {bedrooms} hab
+                  {bedrooms} {t("hab")}
                 </span>
               </div>
             )}
@@ -197,7 +199,7 @@ const PropertyCard = ({ property }) => {
               <div className="property-card__feature">
                 <BathtubIcon className="property-card__feature-icon" />
                 <span className="property-card__feature-text">
-                  {bathrooms} baños
+                  {bathrooms} {t("baños")}
                 </span>
               </div>
             )}

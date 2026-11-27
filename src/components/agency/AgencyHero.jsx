@@ -1,8 +1,10 @@
 // src/components/agency/AgencyHero.jsx
 import { useEffect, useRef, useState } from "react";
 import TextMaskReveal from "../ui/TextMaskReveal";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 const AgencyHero = () => {
+  const { t, lang } = useLanguage();
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const textRef = useRef(null);
@@ -65,46 +67,42 @@ const AgencyHero = () => {
       <div className="container">
         <div className="agency-hero-content">
           <h1 ref={titleRef} className="agency-hero-title">
-            La Agencia
+            {t("La Agencia")}
           </h1>
           <div ref={textRef} className="agency-hero-text">
             <div className="agency-hero-paragraph-container">
               <TextMaskReveal
+                key={lang}
                 className="agency-hero-paragraph"
                 trigger={triggerFirstParagraph}
                 delay={0}
                 textAlign="justify"
               >
-                En Rue Homes creemos que cada propiedad guarda una historia y
-                cada persona sueña con un lugar donde escribir la suya.
+                {t("En Rue Homes creemos que cada propiedad guarda una historia y cada persona sueña con un lugar donde escribir la suya.")}
               </TextMaskReveal>
             </div>
 
             <div className="agency-hero-paragraph-container">
               <TextMaskReveal
+                key={lang}
                 className="agency-hero-paragraph"
                 trigger={triggerSecondParagraph}
                 delay={0}
                 textAlign="justify"
               >
-                Nuestro nombre y logotipo nacen de un elemento urbano que todos
-                reconocemos: las placas que dan nombre a las calles, símbolos
-                que identifican y dan personalidad a cada rincón. Con esa misma
-                idea, damos identidad a cada inmueble y lo preparamos y
-                presentamos para que se convierta en{" "}
-                <strong>un lugar al que llamar hogar</strong>.
+                {t("Nuestro nombre y logotipo nacen de un elemento urbano que todos reconocemos: las placas que dan nombre a las calles, símbolos que identifican y dan personalidad a cada rincón. Con esa misma idea, damos identidad a cada inmueble y lo preparamos y presentamos para que se convierta en un lugar al que llamar hogar.")}
               </TextMaskReveal>
             </div>
 
             <div className="agency-hero-paragraph-container">
               <TextMaskReveal
+                key={lang}
                 className="agency-hero-paragraph"
                 trigger={triggerThirdParagraph}
                 delay={0}
                 textAlign="justify"
               >
-                Más que una agencia inmobiliaria, somos un equipo que escucha,
-                acompaña y busca soluciones a medida para cada cliente.
+                {t("Más que una agencia inmobiliaria, somos un equipo que escucha, acompaña y busca soluciones a medida para cada cliente.")}
               </TextMaskReveal>
             </div>
           </div>

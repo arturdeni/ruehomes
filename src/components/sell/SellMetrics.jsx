@@ -5,10 +5,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TrendingUpOutlinedIcon from "@mui/icons-material/TrendingUpOutlined";
 import VerifiedOutlinedIcon from "@mui/icons-material/VerifiedOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const SellMetrics = () => {
+  const { t } = useLanguage();
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const metricsRef = useRef([]);
@@ -18,22 +20,22 @@ const SellMetrics = () => {
       id: 1,
       icon: <TrendingUpOutlinedIcon className="metric-icon" />,
       value: "30%",
-      label: "Venta más rápida",
-      description: "que la media del mercado nacional",
+      label: t("Venta más rápida"),
+      description: t("que la media del mercado nacional"),
     },
     {
       id: 2,
       icon: <VerifiedOutlinedIcon className="metric-icon" />,
       value: "+90%",
-      label: "Tasa de éxito",
-      description: "en operaciones de venta y alquiler",
+      label: t("Tasa de éxito"),
+      description: t("en operaciones de venta y alquiler"),
     },
     {
       id: 3,
       icon: <AccessTimeOutlinedIcon className="metric-icon" />,
       value: "25%",
-      label: "Menos días en mercado",
-      description: "desde el anuncio hasta el cierre",
+      label: t("Menos días en mercado"),
+      description: t("desde el anuncio hasta el cierre"),
     },
   ];
 
@@ -90,7 +92,7 @@ const SellMetrics = () => {
     <section ref={sectionRef} className="sell-metrics-section">
       <div className="container">
         <h2 ref={titleRef} className="metrics-title">
-          Métricas que inspiran confianza
+          {t("Métricas que inspiran confianza")}
         </h2>
 
         <div className="metrics-grid">

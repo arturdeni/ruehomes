@@ -1,7 +1,9 @@
 // src/components/common/ScrollToTopButton.jsx
 import { useState, useEffect } from "react";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 const ScrollToTopButton = () => {
+  const { t } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
 
   // Detectar el scroll para mostrar/ocultar el botón
@@ -33,7 +35,7 @@ const ScrollToTopButton = () => {
         <button
           onClick={scrollToTop}
           className="scroll-to-top-button"
-          aria-label="Volver arriba"
+          aria-label={t("Volver arriba")}
         >
           <svg
             width="24"

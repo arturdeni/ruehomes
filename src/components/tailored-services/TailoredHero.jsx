@@ -1,12 +1,14 @@
 // src/components/tailored-services/TailoredHero.jsx
 import { useState, useEffect, lazy, Suspense } from "react";
 import TextMaskReveal from "../ui/TextMaskReveal";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 // El Lanyard arrastra three.js y el motor de física rapier (~1,1 MB comprimidos).
 // Se carga aparte para que no entre en el paquete que descarga toda la web.
 const Lanyard = lazy(() => import("../lanyard/Lanyard"));
 
 const TailoredHero = () => {
+  const { t, lang } = useLanguage();
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
 
@@ -66,14 +68,12 @@ const TailoredHero = () => {
           {/* Contenido de texto */}
           <div className="tailored-intro-text">
             <TextMaskReveal
+              key={lang}
               className="tailored-intro-description"
               delay={0}
               textAlign="justify"
             >
-              Nuestro servicio más personalizado y exclusivo, pensado para
-              clientes exigentes que valoran la excelencia, la privacidad y el
-              cuidado en cada detalle , y que buscan optimizar su tiempo
-              mientras encuentran su hogar ideal .
+              {t("Nuestro servicio más personalizado y exclusivo, pensado para clientes exigentes que valoran la excelencia, la privacidad y el cuidado en cada detalle, y que buscan optimizar su tiempo mientras encuentran su hogar ideal.")}
             </TextMaskReveal>
           </div>
         </div>

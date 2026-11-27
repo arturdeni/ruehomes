@@ -2,8 +2,10 @@
 import { useState, useEffect } from "react";
 import TextMaskReveal from "../ui/TextMaskReveal";
 import sellHeroBackground from "../../assets/images/vender/sell-hero-background.webp";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 const SellHero = () => {
+  const { t, lang } = useLanguage();
   const [imageLoaded, setImageLoaded] = useState(false);
   const [triggerFirstParagraph, setTriggerFirstParagraph] = useState(false);
   const [triggerSecondParagraph, setTriggerSecondParagraph] = useState(false);
@@ -44,29 +46,25 @@ const SellHero = () => {
           <div className="sell-intro-text">
             <div className="sell-paragraph-container">
               <TextMaskReveal
+                key={lang}
                 className="sell-paragraph"
                 trigger={triggerFirstParagraph}
                 delay={0}
                 textAlign="justify"
               >
-                En Rue Homes, cada venta es el inicio de una nueva historia.
-                Nuestro nombre y logotipo nacen de un símbolo urbano universal:
-                las placas que nombran las calles, capaces de otorgar identidad
-                a un lugar y hacerlo único.
+                {t("En Rue Homes, cada venta es el inicio de una nueva historia. Nuestro nombre y logotipo nacen de un símbolo urbano universal: las placas que nombran las calles, capaces de otorgar identidad a un lugar y hacerlo único.")}
               </TextMaskReveal>
             </div>
 
             <div className="sell-paragraph-container">
               <TextMaskReveal
+                key={lang}
                 className="sell-paragraph"
                 trigger={triggerSecondParagraph}
                 delay={0}
                 textAlign="justify"
               >
-                Así concebimos nuestro trabajo: dotamos a cada propiedad de una
-                identidad propia, la posicionamos estratégicamente mediante un
-                sistema respaldado por datos y la acompañamos hasta encontrar a
-                sus nuevos propietarios.
+                {t("Así concebimos nuestro trabajo: dotamos a cada propiedad de una identidad propia, la posicionamos estratégicamente mediante un sistema respaldado por datos y la acompañamos hasta encontrar a sus nuevos propietarios.")}
               </TextMaskReveal>
             </div>
           </div>
@@ -76,8 +74,12 @@ const SellHero = () => {
       {/* Título en la parte inferior */}
       <div className="sell-title-bottom">
         <div className="container">
-          <h1 className="sell-intro-title">
-            Vender tu propiedad con
+          <h1
+            className={`sell-intro-title${
+              lang === "ca" ? " sell-intro-title--long" : ""
+            }`}
+          >
+            {t("Vender tu propiedad con")}
             <br className="title-break-mobile" />{" "}
             <span className="sell-title-highlight">Rue Homes</span>
           </h1>
@@ -183,6 +185,11 @@ const SellHero = () => {
           color: white;
           margin: 0;
           line-height: 0.2;
+        }
+
+        /* En catalán el título es más largo: un poco más pequeño para que quepa en una línea */
+        .sell-intro-title--long {
+          font-size: clamp(2rem, 5.1vw, 4.7rem);
         }
 
         .sell-title-highlight {

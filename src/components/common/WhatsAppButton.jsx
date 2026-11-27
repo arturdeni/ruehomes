@@ -1,7 +1,10 @@
 // src/components/common/WhatsAppButton.jsx
+import { useLanguage } from "../../i18n/LanguageContext";
+
 const WhatsAppButton = () => {
+  const { t } = useLanguage();
   const phoneNumber = "34642709257"; // Cambiar por tu número de WhatsApp (con código de país sin +)
-  const message = "Hola, me gustaría recibir más información"; // Mensaje predeterminado
+  const message = t("Hola, me gustaría recibir más información"); // Mensaje predeterminado
 
   const handleClick = () => {
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
@@ -13,7 +16,7 @@ const WhatsAppButton = () => {
       <button
         onClick={handleClick}
         className="whatsapp-button"
-        aria-label="Contactar por WhatsApp"
+        aria-label={t("Contactar por WhatsApp")}
       >
         <svg
           width="24"

@@ -1,6 +1,7 @@
 // src/components/common/ContactForm.jsx
 import { useState } from "react";
 import { validateEmail, validatePhone } from "../../utils/helpers";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 const ContactForm = ({
   type = "general",
@@ -8,6 +9,7 @@ const ContactForm = ({
   propertyTitle = null,
   className = "",
 }) => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -21,27 +23,28 @@ const ContactForm = ({
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const getFormTitle = () => {
+  // tr = t para mostrar en pantalla; el asunto del email a la agencia va siempre en castellano
+  const getFormTitle = (tr = t) => {
     switch (type) {
       case "property":
-        return `Consulta sobre: ${propertyTitle || "Propiedad"}`;
+        return `${tr("Consulta sobre:")} ${propertyTitle || tr("Propiedad")}`;
       case "valuation":
-        return "Solicitar Valoración";
+        return tr("Solicitar Valoración");
       case "premium":
-        return "Contacto Servicios Premium";
+        return tr("Contacto Servicios Premium");
       default:
-        return "Envíanos un mensaje";
+        return tr("Envíanos un mensaje");
     }
   };
 
   const getDefaultMessage = () => {
     switch (type) {
       case "property":
-        return `Hola, estoy interesado/a en la propiedad "${propertyTitle}". Me gustaría recibir más información.`;
+        return t('Hola, estoy interesado/a en la propiedad "{title}". Me gustaría recibir más información.', { title: propertyTitle });
       case "valuation":
-        return "Hola, me gustaría solicitar una valoración gratuita de mi propiedad. Por favor, contacten conmigo para coordinar una visita.";
+        return t("Hola, me gustaría solicitar una valoración gratuita de mi propiedad. Por favor, contacten conmigo para coordinar una visita.");
       case "premium":
-        return "Hola, estoy interesado/a en sus servicios premium. Me gustaría conocer más detalles sobre sus servicios exclusivos.";
+        return t("Hola, estoy interesado/a en sus servicios premium. Me gustaría conocer más detalles sobre sus servicios exclusivos.");
       default:
         return "";
     }
@@ -51,27 +54,27 @@ const ContactForm = ({
     const newErrors = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = "El nombre es obligatorio";
+      newErrors.name = t("El nombre es obligatorio");
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "El email es obligatorio";
+      newErrors.email = t("El email es obligatorio");
     } else if (!validateEmail(formData.email)) {
-      newErrors.email = "El formato del email no es válido";
+      newErrors.email = t("El formato del email no es válido");
     }
 
     if (!formData.phone.trim()) {
-      newErrors.phone = "El teléfono es obligatorio";
+      newErrors.phone = t("El teléfono es obligatorio");
     } else if (!validatePhone(formData.phone)) {
-      newErrors.phone = "El formato del teléfono no es válido";
+      newErrors.phone = t("El formato del teléfono no es válido");
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = "El mensaje es obligatorio";
+      newErrors.message = t("El mensaje es obligatorio");
     }
 
     if (!formData.acceptPrivacy) {
-      newErrors.acceptPrivacy = "Debe aceptar la política de privacidad";
+      newErrors.acceptPrivacy = t("Debe aceptar la política de privacidad");
     }
 
     return newErrors;
@@ -101,7 +104,7 @@ const ContactForm = ({
           email: formData.email,
           phone: formData.phone,
           message: formData.message,
-          subject: formData.subject || getFormTitle(),
+          subject: formData.subject || getFormTitle((text) => text),
           type: type,
           propertyTitle: propertyTitle,
           propertyId: propertyId,
@@ -131,7 +134,7 @@ const ContactForm = ({
     } catch (error) {
       console.error("Error enviando formulario:", error);
       setErrors({
-        submit: "Error al enviar el formulario. Por favor, inténtelo de nuevo.",
+        submit: t("Error al enviar el formulario. Por favor, inténtelo de nuevo."),
       });
     } finally {
       setLoading(false);
@@ -173,10 +176,9 @@ const ContactForm = ({
             <polyline points="22 4 12 14.01 9 11.01"></polyline>
           </svg>
         </div>
-        <h3 className="success-title">¡Mensaje enviado!</h3>
+        <h3 className="success-title">{t("¡Mensaje enviado!")}</h3>
         <p className="success-text">
-          Gracias por contactarnos. Nos pondremos en contacto contigo lo antes
-          posible.
+          {t("Gracias por contactarnos. Nos pondremos en contacto contigo lo antes posible.")}
         </p>
 
         <style jsx>{`
@@ -229,7 +231,7 @@ const ContactForm = ({
           {/* Nombre */}
           <div className="form-field">
             <label htmlFor="name" className="form-field-label">
-              Nombre completo
+              {t("Nombre completo")}
             </label>
             <input
               type="text"
@@ -238,7 +240,7 @@ const ContactForm = ({
               value={formData.name}
               onChange={handleChange}
               className={`form-field-input ${errors.name ? "error" : ""}`}
-              placeholder="Tu nombre"
+              placeholder={t("Tu nombre")}
             />
             {errors.name && <p className="form-field-error">{errors.name}</p>}
           </div>
@@ -246,7 +248,7 @@ const ContactForm = ({
           {/* Email */}
           <div className="form-field">
             <label htmlFor="email" className="form-field-label">
-              Email
+              {t("Email")}
             </label>
             <input
               type="email"
@@ -263,7 +265,7 @@ const ContactForm = ({
           {/* Teléfono */}
           <div className="form-field">
             <label htmlFor="phone" className="form-field-label">
-              Teléfono
+              {t("Teléfono")}
             </label>
             <input
               type="tel"
@@ -281,7 +283,7 @@ const ContactForm = ({
           {type === "general" && (
             <div className="form-field">
               <label htmlFor="subject" className="form-field-label">
-                Asunto <span className="optional">(opcional)</span>
+                {t("Asunto")} <span className="optional">{t("(opcional)")}</span>
               </label>
               <input
                 type="text"
@@ -290,7 +292,7 @@ const ContactForm = ({
                 value={formData.subject}
                 onChange={handleChange}
                 className="form-field-input"
-                placeholder="Asunto de tu consulta"
+                placeholder={t("Asunto de tu consulta")}
               />
             </div>
           )}
@@ -299,7 +301,7 @@ const ContactForm = ({
         {/* Mensaje */}
         <div className="form-field">
           <label htmlFor="message" className="form-field-label">
-            Mensaje
+            {t("Mensaje")}
           </label>
           <textarea
             id="message"
@@ -326,8 +328,7 @@ const ContactForm = ({
             className="form-checkbox"
           />
           <label htmlFor="acceptPrivacy" className="form-privacy-label">
-            Acepto la política de privacidad y el tratamiento de mis datos
-            personales
+            {t("Acepto la política de privacidad y el tratamiento de mis datos personales")}
           </label>
         </div>
         {errors.acceptPrivacy && (
@@ -350,17 +351,17 @@ const ContactForm = ({
           {loading ? (
             <span className="loading-content">
               <div className="loading-spinner"></div>
-              Enviando...
+              {t("Enviando...")}
             </span>
           ) : (
-            "Quiero Vender"
+            t("Quiero Vender")
           )}
         </button>
 
         {/* Información adicional */}
         <div className="form-footer">
           <p className="form-footer-text">
-            O escríbenos directamente a{" "}
+            {t("O escríbenos directamente a")}{" "}
             <a href="mailto:info@ruehomes.com" className="form-footer-link">
               info@ruehomes.com
             </a>

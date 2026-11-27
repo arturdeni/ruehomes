@@ -3,8 +3,10 @@ import insta1 from "../../assets/images/insta/insta_ruehomes1.webp";
 import insta2 from "../../assets/images/insta/insta_ruehomes2.webp";
 import insta3 from "../../assets/images/insta/insta_ruehomes3.webp";
 import insta4 from "../../assets/images/insta/insta_ruehomes4.webp";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 const InstagramSection = () => {
+  const { t } = useLanguage();
   // Datos hardcodeados de los posts de Instagram
   const posts = [
     {
@@ -60,10 +62,9 @@ const InstagramSection = () => {
               </svg>
             </div>
             <div className="instagram__text">
-              <h2 className="instagram__title">Síguenos en Instagram</h2>
+              <h2 className="instagram__title">{t("Síguenos en Instagram")}</h2>
               <p className="instagram__subtitle">
-                Descubre nuestras propiedades exclusivas y el día a día de Rue
-                Homes.
+                {t("Descubre nuestras propiedades exclusivas y el día a día de Rue Homes.")}
               </p>
             </div>
           </div>
@@ -74,7 +75,7 @@ const InstagramSection = () => {
             rel="noopener noreferrer"
             className="instagram__cta"
           >
-            <span>Visitar perfil</span>
+            <span>{t("Visitar perfil")}</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
               <path
                 d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
@@ -113,13 +114,13 @@ const InstagramSection = () => {
               <div className="instagram__post-image-wrapper">
                 <img
                   src={post.thumbnail}
-                  alt={post.caption}
+                  alt={t(post.caption)}
                   className="instagram__post-image"
                 />
 
                 <div className="instagram__post-overlay">
                   <div className="instagram__post-caption">
-                    <p>{post.caption}</p>
+                    <p>{t(post.caption)}</p>
                   </div>
                 </div>
 

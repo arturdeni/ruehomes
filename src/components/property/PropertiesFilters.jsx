@@ -1,7 +1,9 @@
 // src/components/property/PropertiesFilters.jsx
 import { useState, useEffect } from "react";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 const PropertiesFilters = ({ filters, onFiltersChange, totalResults }) => {
+  const { t } = useLanguage();
   const [isExpanded, setIsExpanded] = useState(false);
   const [localFilters, setLocalFilters] = useState(filters);
 
@@ -12,35 +14,35 @@ const PropertiesFilters = ({ filters, onFiltersChange, totalResults }) => {
 
   // Opciones para los filtros (valores del enum PropertyType de Hygraph)
   const propertyTypes = [
-    { value: "", label: "Todos los tipos" },
-    { value: "piso", label: "Piso" },
-    { value: "atico", label: "Ático" },
-    { value: "casaUnifamiliar", label: "Casa Unifamiliar" },
-    { value: "casaAdosada", label: "Casa Adosada" },
-    { value: "villa", label: "Villa" },
-    { value: "duplex", label: "Dúplex" },
-    { value: "loft", label: "Loft" },
-    { value: "local", label: "Local" },
-    { value: "nave", label: "Nave" },
-    { value: "oficinas", label: "Oficinas" },
+    { value: "", label: t("Todos los tipos") },
+    { value: "piso", label: t("Piso") },
+    { value: "atico", label: t("Ático") },
+    { value: "casaUnifamiliar", label: t("Casa Unifamiliar") },
+    { value: "casaAdosada", label: t("Casa Adosada") },
+    { value: "villa", label: t("Villa") },
+    { value: "duplex", label: t("Dúplex") },
+    { value: "loft", label: t("Loft") },
+    { value: "local", label: t("Local") },
+    { value: "nave", label: t("Nave") },
+    { value: "oficinas", label: t("Oficinas") },
   ];
 
   const bedroomOptions = [
-    { value: "", label: "Cualquier número" },
-    { value: "1", label: "1+ habitaciones" },
-    { value: "2", label: "2+ habitaciones" },
-    { value: "3", label: "3+ habitaciones" },
-    { value: "4", label: "4+ habitaciones" },
-    { value: "5", label: "5+ habitaciones" },
+    { value: "", label: t("Cualquier número") },
+    { value: "1", label: `1+ ${t("habitaciones")}` },
+    { value: "2", label: `2+ ${t("habitaciones")}` },
+    { value: "3", label: `3+ ${t("habitaciones")}` },
+    { value: "4", label: `4+ ${t("habitaciones")}` },
+    { value: "5", label: `5+ ${t("habitaciones")}` },
   ];
 
   const priceRanges = [
-    { minPrice: "", maxPrice: "", label: "Cualquier precio" },
-    { minPrice: "0", maxPrice: "300000", label: "Hasta 300.000€" },
+    { minPrice: "", maxPrice: "", label: t("Cualquier precio") },
+    { minPrice: "0", maxPrice: "300000", label: t("Hasta 300.000€") },
     { minPrice: "300000", maxPrice: "500000", label: "300.000€ - 500.000€" },
     { minPrice: "500000", maxPrice: "750000", label: "500.000€ - 750.000€" },
     { minPrice: "750000", maxPrice: "1000000", label: "750.000€ - 1.000.000€" },
-    { minPrice: "1000000", maxPrice: "", label: "Más de 1.000.000€" },
+    { minPrice: "1000000", maxPrice: "", label: t("Más de 1.000.000€") },
   ];
 
   const handleInputChange = (field, value) => {
@@ -115,7 +117,7 @@ const PropertiesFilters = ({ filters, onFiltersChange, totalResults }) => {
               </svg>
               <input
                 type="text"
-                placeholder="Buscar por dirección, ciudad o palabra clave..."
+                placeholder={t("Buscar por dirección, ciudad o palabra clave...")}
                 value={localFilters.search}
                 onChange={(e) => handleInputChange("search", e.target.value)}
                 className="properties-filters__search-input"
@@ -127,10 +129,10 @@ const PropertiesFilters = ({ filters, onFiltersChange, totalResults }) => {
           <div className="properties-filters__quick">
             {/* Ciudad */}
             <div className="properties-filters__field">
-              <label className="properties-filters__label">Ciudad</label>
+              <label className="properties-filters__label">{t("Ciudad")}</label>
               <input
                 type="text"
-                placeholder="Ej: Madrid, Barcelona..."
+                placeholder={t("Ej: Madrid, Barcelona...")}
                 value={localFilters.city}
                 onChange={(e) => handleInputChange("city", e.target.value)}
                 className="properties-filters__input"
@@ -139,7 +141,7 @@ const PropertiesFilters = ({ filters, onFiltersChange, totalResults }) => {
 
             {/* Tipo de propiedad */}
             <div className="properties-filters__field">
-              <label className="properties-filters__label">Tipo</label>
+              <label className="properties-filters__label">{t("Tipo")}</label>
               <select
                 value={localFilters.propertyType}
                 onChange={(e) =>
@@ -157,7 +159,7 @@ const PropertiesFilters = ({ filters, onFiltersChange, totalResults }) => {
 
             {/* Habitaciones */}
             <div className="properties-filters__field">
-              <label className="properties-filters__label">Habitaciones</label>
+              <label className="properties-filters__label">{t("Habitaciones")}</label>
               <select
                 value={localFilters.bedrooms}
                 onChange={(e) => handleSelectChange("bedrooms", e.target.value)}
@@ -177,7 +179,7 @@ const PropertiesFilters = ({ filters, onFiltersChange, totalResults }) => {
                 onClick={() => setIsExpanded(!isExpanded)}
                 className="properties-filters__toggle-btn"
               >
-                <span>Más filtros</span>
+                <span>{t("Más filtros")}</span>
                 <svg
                   className={`properties-filters__toggle-icon ${
                     isExpanded
@@ -209,7 +211,7 @@ const PropertiesFilters = ({ filters, onFiltersChange, totalResults }) => {
           {/* Rango de precios */}
           <div className="properties-filters__price-section">
             <h4 className="properties-filters__section-title">
-              Rango de precio
+              {t("Rango de precio")}
             </h4>
             <div className="properties-filters__price-ranges">
               {priceRanges.map((range, index) => (
@@ -235,11 +237,11 @@ const PropertiesFilters = ({ filters, onFiltersChange, totalResults }) => {
               <div className="properties-filters__price-inputs">
                 <div className="properties-filters__price-field">
                   <label className="properties-filters__label">
-                    Precio mínimo
+                    {t("Precio mínimo")}
                   </label>
                   <input
                     type="number"
-                    placeholder="Ej: 300000"
+                    placeholder={t("Ej: 300000")}
                     value={localFilters.minPrice}
                     onChange={(e) =>
                       handleInputChange("minPrice", e.target.value)
@@ -252,11 +254,11 @@ const PropertiesFilters = ({ filters, onFiltersChange, totalResults }) => {
                 <div className="properties-filters__price-separator">-</div>
                 <div className="properties-filters__price-field">
                   <label className="properties-filters__label">
-                    Precio máximo
+                    {t("Precio máximo")}
                   </label>
                   <input
                     type="number"
-                    placeholder="Ej: 800000"
+                    placeholder={t("Ej: 800000")}
                     value={localFilters.maxPrice}
                     onChange={(e) =>
                       handleInputChange("maxPrice", e.target.value)
@@ -275,7 +277,7 @@ const PropertiesFilters = ({ filters, onFiltersChange, totalResults }) => {
         <div className="properties-filters__actions">
           <div className="properties-filters__results">
             <span className="properties-filters__results-text">
-              {totalResults} propiedades encontradas
+              {t("{count} propiedades encontradas", { count: totalResults })}
             </span>
           </div>
 
@@ -297,7 +299,7 @@ const PropertiesFilters = ({ filters, onFiltersChange, totalResults }) => {
                   d="M6 18L18 6M6 6l12 12"
                 />
               </svg>
-              <span>Limpiar filtros</span>
+              <span>{t("Limpiar filtros")}</span>
             </button>
           )}
         </div>

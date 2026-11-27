@@ -6,6 +6,7 @@ import DiamondOutlinedIcon from "@mui/icons-material/DiamondOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import TuneOutlinedIcon from "@mui/icons-material/TuneOutlined";
 import VerifiedUserOutlinedIcon from "@mui/icons-material/VerifiedUserOutlined";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 // Componente ScrollReveal simplificado para evitar dependencias
 const SimpleReveal = ({ children, className = "", delay = 0 }) => {
@@ -50,56 +51,57 @@ const SimpleReveal = ({ children, className = "", delay = 0 }) => {
 };
 
 const TailoredMain = () => {
+  const { t } = useLanguage();
   const processSteps = [
     {
       number: "1",
-      title: "Cuéntanos tu necesidad",
+      title: t("Cuéntanos tu necesidad"),
       description:
-        "Explícanos las características, ubicación y presupuesto del inmueble que deseas comprar o alquilar.",
+        t("Explícanos las características, ubicación y presupuesto del inmueble que deseas comprar o alquilar."),
     },
     {
       number: "2",
-      title: "Nos ponemos en marcha",
+      title: t("Nos ponemos en marcha"),
       description:
-        "Nuestro equipo realiza una búsqueda integral en todo el mercado, accediendo a oportunidades exclusivas más allá de los listados públicos.",
+        t("Nuestro equipo realiza una búsqueda integral en todo el mercado, accediendo a oportunidades exclusivas más allá de los listados públicos."),
     },
     {
       number: "3",
-      title: "Selección exclusiva",
+      title: t("Selección exclusiva"),
       description:
-        "Recibirás únicamente las propiedades que cumplan al 100% con tus requisitos.",
+        t("Recibirás únicamente las propiedades que cumplan al 100% con tus requisitos."),
     },
     {
       number: "4",
-      title: "Acompañamiento completo",
+      title: t("Acompañamiento completo"),
       description:
-        "Te acompañamos en todo el proceso, desde la primera visita hasta la firma final con nuestro equipo comercial y legal.",
+        t("Te acompañamos en todo el proceso, desde la primera visita hasta la firma final con nuestro equipo comercial y legal."),
     },
   ];
 
   const benefits = [
     {
-      title: "Exclusividad",
+      title: t("Exclusividad"),
       description:
-        "Acceso privilegiado a propiedades únicas a través de nuestra amplia red de contactos.",
+        t("Acceso privilegiado a propiedades únicas a través de nuestra amplia red de contactos."),
       icon: DiamondOutlinedIcon,
     },
     {
-      title: "Ahorro de tiempo",
+      title: t("Ahorro de tiempo"),
       description:
-        "Recibes únicamente propiedades que cumplen al 100% con tus necesidades, evitando búsquedas interminables en portales o visitas innecesarias.",
+        t("Recibes únicamente propiedades que cumplen al 100% con tus necesidades, evitando búsquedas interminables en portales o visitas innecesarias."),
       icon: AccessTimeOutlinedIcon,
     },
     {
-      title: "Personalización total",
+      title: t("Personalización total"),
       description:
-        "Cada búsqueda se adapta a tus criterios exactos para ofrecer solo opciones que cumplan con tus necesidades.",
+        t("Cada búsqueda se adapta a tus criterios exactos para ofrecer solo opciones que cumplan con tus necesidades."),
       icon: TuneOutlinedIcon,
     },
     {
-      title: "Confianza y discreción",
+      title: t("Confianza y discreción"),
       description:
-        "Gestionamos tu búsqueda y transacción con la máxima profesionalidad y absoluta confidencialidad.",
+        t("Gestionamos tu búsqueda y transacción con la máxima profesionalidad y absoluta confidencialidad."),
       icon: VerifiedUserOutlinedIcon,
     },
   ];
@@ -111,7 +113,7 @@ const TailoredMain = () => {
         <div className="container">
           <SimpleReveal className="tailored-process-header">
             <h2 className="tailored-process-title">
-              ¿Cómo funciona Rue Homes Tailored?
+              {t("¿Cómo funciona Rue Homes Tailored?")}
             </h2>
           </SimpleReveal>
 
@@ -138,7 +140,7 @@ const TailoredMain = () => {
         <div className="container">
           <SimpleReveal className="tailored-benefits-header">
             <h2 className="tailored-benefits-title">
-              ¿Por qué elegir Rue Homes Tailored?
+              {t("¿Por qué elegir Rue Homes Tailored?")}
             </h2>
           </SimpleReveal>
 

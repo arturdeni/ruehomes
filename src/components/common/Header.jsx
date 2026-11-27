@@ -1,20 +1,23 @@
 // src/components/common/Header.jsx
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useLanguage } from "../../i18n/LanguageContext";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const location = useLocation();
+  const { t } = useLanguage();
 
   const navigation = [
-    { name: "Inicio", href: "/" },
-    { name: "Propiedades", href: "/propiedades" },
-    { name: "Vender", href: "/vender" },
+    { name: t("Inicio"), href: "/" },
+    { name: t("Propiedades"), href: "/propiedades" },
+    { name: t("Vender"), href: "/vender" },
     { name: "Tailored Services", href: "/tailored-services" },
-    { name: "La Agencia", href: "/la-agencia" },
-    { name: "Contacto", href: "/contacto" },
+    { name: t("La Agencia"), href: "/la-agencia" },
+    { name: t("Contacto"), href: "/contacto" },
   ];
 
   const isActive = (href) => {
@@ -107,11 +110,16 @@ const Header = () => {
               </a>
             </div>
 
+            {/* Selector de idioma - Siempre visible */}
+            <div className="header-lang">
+              <LanguageSwitcher />
+            </div>
+
             {/* Hamburger menu button - Siempre visible */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="hamburger-btn"
-              aria-label="Abrir menú"
+              aria-label={t("Abrir menú")}
             >
               <span className="hamburger">
                 <span
@@ -130,7 +138,7 @@ const Header = () => {
               <nav className="nav-menu-links">
                 {navigation.map((item, index) => (
                   <Link
-                    key={item.name}
+                    key={item.href}
                     to={item.href}
                     className={`nav-menu-link ${
                       isActive(item.href) ? "nav-menu-link-active" : ""
@@ -508,9 +516,20 @@ const Header = () => {
           }
 
           /* === RESPONSIVE === */
+          .header-lang {
+            margin-left: auto;
+            margin-right: 0.75rem;
+            z-index: 102;
+          }
+
           @media (min-width: 769px) {
             .header-contact {
               display: flex;
+            }
+
+            .header-lang {
+              margin-left: 0;
+              margin-right: 1rem;
             }
           }
 

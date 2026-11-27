@@ -11,8 +11,10 @@ import HotelIcon from "@mui/icons-material/Hotel";
 import BathtubIcon from "@mui/icons-material/Bathtub";
 import SquareFootIcon from "@mui/icons-material/SquareFoot";
 import EnergyCertificate from "./EnergyCertificate";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 const PropertyDetail = () => {
+  const { t, lang } = useLanguage();
   const { id } = useParams();
   const [property, setProperty] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -34,7 +36,7 @@ const PropertyDetail = () => {
     const loadProperty = async () => {
       try {
         setLoading(true);
-        const data = await getPropertyById(id);
+        const data = await getPropertyById(id, lang);
 
         if (data) {
           // Transformar datos de Hygraph al formato del componente
@@ -68,14 +70,14 @@ const PropertyDetail = () => {
     if (id) {
       loadProperty();
     }
-  }, [id]);
+  }, [id, lang]);
 
   if (loading) {
     return (
       <div className="property-detail__loading">
         <div className="container py-20 text-center">
           <div className="property-detail__spinner"></div>
-          <p className="font-secondary text-rust mt-4">Cargando propiedad...</p>
+          <p className="font-secondary text-rust mt-4">{t("Cargando propiedad...")}</p>
         </div>
       </div>
     );
@@ -85,13 +87,13 @@ const PropertyDetail = () => {
     return (
       <div className="container py-20 text-center">
         <h1 className="font-primary text-rust text-4xl mb-4">
-          Propiedad no encontrada
+          {t("Propiedad no encontrada")}
         </h1>
         <p className="font-secondary text-rust-light mb-8">
-          La propiedad que buscas no existe o ha sido eliminada.
+          {t("La propiedad que buscas no existe o ha sido eliminada.")}
         </p>
         <Link to="/propiedades" className="btn btn-primary">
-          Ver todas las propiedades
+          {t("Ver todas las propiedades")}
         </Link>
       </div>
     );
@@ -102,29 +104,29 @@ const PropertyDetail = () => {
   };
 
   // Obtener el display name del tipo de propiedad
-  const getPropertyTypeDisplayName = (typeId) => {
+  const getPropertyTypeDisplayName = (typeId, tr = t) => {
     const typeMap = {
-      piso: "Piso",
-      atico: "Ático",
-      casaUnifamiliar: "Casa Unifamiliar",
-      casaAdosada: "Casa Adosada",
-      villa: "Villa",
-      duplex: "Dúplex",
-      loft: "Loft",
-      local: "Local",
-      nave: "Nave",
-      oficinas: "Oficinas",
+      piso: tr("Piso"),
+      atico: tr("Ático"),
+      casaUnifamiliar: tr("Casa Unifamiliar"),
+      casaAdosada: tr("Casa Adosada"),
+      villa: tr("Villa"),
+      duplex: tr("Dúplex"),
+      loft: tr("Loft"),
+      local: tr("Local"),
+      nave: tr("Nave"),
+      oficinas: tr("Oficinas"),
     };
     return typeMap[typeId] || typeId;
   };
 
   // Obtener el display name del estado
-  const getStatusDisplayName = (statusId) => {
+  const getStatusDisplayName = (statusId, tr = t) => {
     const statusMap = {
-      enVenta: "En Venta",
-      vendido: "Vendido",
-      enAlquiler: "En Alquiler",
-      alquilado: "Alquilado",
+      enVenta: tr("En Venta"),
+      vendido: tr("Vendido"),
+      enAlquiler: tr("En Alquiler"),
+      alquilado: tr("Alquilado"),
     };
     return statusMap[statusId] || statusId;
   };
@@ -150,23 +152,23 @@ const PropertyDetail = () => {
     const newErrors = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = "El nombre es obligatorio";
+      newErrors.name = t("El nombre es obligatorio");
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "El email es obligatorio";
+      newErrors.email = t("El email es obligatorio");
     } else if (!validateEmail(formData.email)) {
-      newErrors.email = "El formato del email no es válido";
+      newErrors.email = t("El formato del email no es válido");
     }
 
     if (!formData.phone.trim()) {
-      newErrors.phone = "El teléfono es obligatorio";
+      newErrors.phone = t("El teléfono es obligatorio");
     } else if (!validatePhone(formData.phone)) {
-      newErrors.phone = "El formato del teléfono no es válido";
+      newErrors.phone = t("El formato del teléfono no es válido");
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = "El mensaje es obligatorio";
+      newErrors.message = t("El mensaje es obligatorio");
     }
 
     return newErrors;
@@ -221,7 +223,7 @@ const PropertyDetail = () => {
           propertyPrice: property.price,
           propertyAddress: property.address,
           propertyCity: property.city,
-          propertyType: getPropertyTypeDisplayName(property.propertyType),
+          propertyType: getPropertyTypeDisplayName(property.propertyType, (text) => text),
         }),
       });
 
@@ -248,7 +250,7 @@ const PropertyDetail = () => {
     } catch (error) {
       console.error("Error enviando formulario:", error);
       setFormErrors({
-        submit: "Error al enviar el formulario. Por favor, inténtelo de nuevo.",
+        submit: t("Error al enviar el formulario. Por favor, inténtelo de nuevo."),
       });
     } finally {
       setFormLoading(false);
@@ -277,7 +279,7 @@ const PropertyDetail = () => {
                 <button
                   onClick={prevImage}
                   className="property-detail__nav-btn property-detail__nav-btn--prev"
-                  aria-label="Imagen anterior"
+                  aria-label={t("Imagen anterior")}
                 >
                   <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
@@ -292,7 +294,7 @@ const PropertyDetail = () => {
                 <button
                   onClick={nextImage}
                   className="property-detail__nav-btn property-detail__nav-btn--next"
-                  aria-label="Imagen siguiente"
+                  aria-label={t("Imagen siguiente")}
                 >
                   <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
@@ -390,7 +392,7 @@ const PropertyDetail = () => {
                 <div className="property-detail__price">
                   {formatPrice(property.price)}€
                   {property.status === "enAlquiler" && (
-                    <span className="property-detail__price-period">/mes</span>
+                    <span className="property-detail__price-period">{t("/mes")}</span>
                   )}
                 </div>
               </div>
@@ -404,7 +406,7 @@ const PropertyDetail = () => {
                       {property.bedrooms}
                     </span>
                     <span className="property-detail__feature-label">
-                      Habitaciones
+                      {t("Habitaciones")}
                     </span>
                   </div>
                 </div>
@@ -416,7 +418,7 @@ const PropertyDetail = () => {
                       {property.bathrooms}
                     </span>
                     <span className="property-detail__feature-label">
-                      Baños
+                      {t("Baños")}
                     </span>
                   </div>
                 </div>
@@ -434,7 +436,7 @@ const PropertyDetail = () => {
 
               {/* Descripción */}
               <div className="property-detail__description">
-                <h2 className="property-detail__section-title">Descripción</h2>
+                <h2 className="property-detail__section-title">{t("Descripción")}</h2>
                 <p className="property-detail__description-text">
                   {property.description
                     .split(/\\n|\n/)
@@ -450,13 +452,13 @@ const PropertyDetail = () => {
               {/* Características */}
               <div className="property-detail__features">
                 <h2 className="property-detail__section-title">
-                  Características
+                  {t("Características")}
                 </h2>
                 <div className="property-detail__features-grid">
                   {[
                     ...property.features,
                     property.yearBuilt &&
-                      `Año de construcción: ${property.yearBuilt}`,
+                      `${t("Año de construcción:")} ${property.yearBuilt}`,
                   ]
                     .filter(Boolean)
                     .map((feature, index) => (
@@ -492,12 +494,12 @@ const PropertyDetail = () => {
               {property.habitabilityCertificate && (
                 <div className="property-detail__specs">
                   <h2 className="property-detail__section-title">
-                    Documentación
+                    {t("Documentación")}
                   </h2>
                   <div className="property-detail__specs-grid">
                     <div className="property-detail__spec-item">
                       <span className="property-detail__spec-label">
-                        Cédula de habitabilidad
+                        {t("Cédula de habitabilidad")}
                       </span>
                       <span className="property-detail__spec-value">
                         {property.habitabilityCertificate}
@@ -511,7 +513,7 @@ const PropertyDetail = () => {
               {property.nearbyPlaces && property.nearbyPlaces.length > 0 && (
                 <div className="property-detail__nearby">
                   <h2 className="property-detail__section-title">
-                    Lugares de Interés
+                    {t("Lugares de Interés")}
                   </h2>
                   <div className="property-detail__nearby-list">
                     {property.nearbyPlaces.map((place, index) => (
@@ -599,10 +601,10 @@ const PropertyDetail = () => {
             <div className="property-detail__sidebar">
               <div className="property-detail__contact-card">
                 <h3 className="property-detail__contact-title">
-                  ¿Te interesa esta propiedad?
+                  {t("¿Te interesa esta propiedad?")}
                 </h3>
                 <p className="property-detail__contact-subtitle">
-                  Contáctanos para más información
+                  {t("Contáctanos para más información")}
                 </p>
 
                 <div className="property-detail__contact-methods">
@@ -618,11 +620,15 @@ const PropertyDetail = () => {
                         d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                       />
                     </svg>
-                    <span>Llamar</span>
+                    <span>{t("Llamar")}</span>
                   </a>
 
                   <a
-                    href={`mailto:info@ruehomes.com?subject=Consulta sobre ${property.title}&body=Hola, estoy interesado en esta propiedad (REF ${property.reference}) y me gustaría obtener más información.`}
+                    href={`mailto:info@ruehomes.com?subject=${encodeURIComponent(
+                      `${t("Consulta sobre")} ${property.title}`
+                    )}&body=${encodeURIComponent(
+                      t("Hola, estoy interesado en esta propiedad (REF {ref}) y me gustaría obtener más información.", { ref: property.reference })
+                    )}`}
                     className="property-detail__contact-btn property-detail__contact-btn--email"
                   >
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -633,7 +639,7 @@ const PropertyDetail = () => {
                         d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                       />
                     </svg>
-                    <span>Email</span>
+                    <span>{t("Email")}</span>
                   </a>
 
                   <button
@@ -648,7 +654,7 @@ const PropertyDetail = () => {
                         d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                       />
                     </svg>
-                    <span>Consultar</span>
+                    <span>{t("Consultar")}</span>
                   </button>
                 </div>
 
@@ -672,10 +678,9 @@ const PropertyDetail = () => {
                             <polyline points="22 4 12 14.01 9 11.01"></polyline>
                           </svg>
                         </div>
-                        <h4 className="success-title">¡Mensaje enviado!</h4>
+                        <h4 className="success-title">{t("¡Mensaje enviado!")}</h4>
                         <p className="success-text">
-                          Gracias por tu interés. Nos pondremos en contacto
-                          contigo lo antes posible.
+                          {t("Gracias por tu interés. Nos pondremos en contacto contigo lo antes posible.")}
                         </p>
                       </div>
                     ) : (
@@ -685,7 +690,7 @@ const PropertyDetail = () => {
                       >
                         <div className="property-detail__form-group">
                           <label className="property-detail__form-label">
-                            Nombre completo
+                            {t("Nombre completo")}
                           </label>
                           <input
                             type="text"
@@ -705,7 +710,7 @@ const PropertyDetail = () => {
                         </div>
                         <div className="property-detail__form-group">
                           <label className="property-detail__form-label">
-                            Email
+                            {t("Email")}
                           </label>
                           <input
                             type="email"
@@ -725,7 +730,7 @@ const PropertyDetail = () => {
                         </div>
                         <div className="property-detail__form-group">
                           <label className="property-detail__form-label">
-                            Teléfono
+                            {t("Teléfono")}
                           </label>
                           <input
                             type="tel"
@@ -745,7 +750,7 @@ const PropertyDetail = () => {
                         </div>
                         <div className="property-detail__form-group">
                           <label className="property-detail__form-label">
-                            Mensaje
+                            {t("Mensaje")}
                           </label>
                           <textarea
                             name="message"
@@ -754,7 +759,7 @@ const PropertyDetail = () => {
                             className={`property-detail__form-textarea ${
                               formErrors.message ? "error" : ""
                             }`}
-                            placeholder="Me gustaría recibir más información sobre esta propiedad..."
+                            placeholder={t("Me gustaría recibir más información sobre esta propiedad...")}
                             rows="4"
                           ></textarea>
                           {formErrors.message && (
@@ -778,10 +783,10 @@ const PropertyDetail = () => {
                           {formLoading ? (
                             <span className="loading-content">
                               <div className="loading-spinner"></div>
-                              Enviando...
+                              {t("Enviando...")}
                             </span>
                           ) : (
-                            "Enviar Consulta"
+                            t("Enviar Consulta")
                           )}
                         </button>
                       </form>
@@ -793,7 +798,7 @@ const PropertyDetail = () => {
                 <div className="property-detail__additional-info">
                   <div className="property-detail__info-item">
                     <span className="property-detail__info-label">
-                      Referencia Rue Homes:
+                      {t("Referencia Rue Homes:")}
                     </span>
                     <span className="property-detail__info-value">
                       REF-{property.reference}
@@ -801,7 +806,7 @@ const PropertyDetail = () => {
                   </div>
                   <div className="property-detail__info-item">
                     <span className="property-detail__info-label">
-                      Referencia Web:
+                      {t("Referencia Web:")}
                     </span>
                     <span className="property-detail__info-value">
                       {property.id.toString().padStart(4, "0")}

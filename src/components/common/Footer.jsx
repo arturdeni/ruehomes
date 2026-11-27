@@ -2,8 +2,10 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import LegalModal from "./LegalModal";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 const Footer = () => {
+  const { t } = useLanguage();
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedSection, setSelectedSection] = useState(null);
 
@@ -71,7 +73,7 @@ const Footer = () => {
 
           {/* Redes sociales */}
           <div className="social-section">
-            <span className="social-title">Síguenos:</span>
+            <span className="social-title">{t("Síguenos:")}</span>
             <div className="social-links">
               {socialLinks.map((item) => (
                 <a
@@ -96,7 +98,7 @@ const Footer = () => {
                   onClick={() => handleLegalClick(item.name)}
                   className="legal-link"
                 >
-                  {item.name}
+                  {t(item.name)}
                 </button>
                 {index < navigation.legal.length - 1 && (
                   <span className="legal-separator">•</span>
@@ -116,11 +118,11 @@ const Footer = () => {
         {/* Copyright */}
         <div className="copyright">
           <p className="copyright-text">
-            © {new Date().getFullYear()} RueHomes. Todos los derechos
-            reservados.
+            © {new Date().getFullYear()} RueHomes.{" "}
+            {t("Todos los derechos reservados.")}
           </p>
           <p className="copyright-subtitle">
-            Desarrollado por Lexmake | lexmake.com
+            {t("Desarrollado por")} Lexmake | lexmake.com
           </p>
         </div>
       </div>

@@ -1,7 +1,9 @@
 // src/pages/PrivacyPolicy.jsx
 import { useEffect, useRef } from "react";
+import { useLanguage } from "../i18n/LanguageContext";
 
 const PrivacyPolicy = () => {
+  const { t } = useLanguage();
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const contentRef = useRef(null);
@@ -47,69 +49,61 @@ const PrivacyPolicy = () => {
         <div className="container">
           {/* Título */}
           <div ref={titleRef} className="privacy-policy-header">
-            <h1 className="privacy-policy-main-title">Política de Privacidad</h1>
+            <h1 className="privacy-policy-main-title">{t("Política de Privacidad")}</h1>
             <p className="privacy-policy-subtitle">
-              En RueHomes nos comprometemos a proteger tu privacidad y tus datos personales.
+              {t("En RueHomes nos comprometemos a proteger tu privacidad y tus datos personales.")}
             </p>
           </div>
 
           {/* Contenido */}
           <div ref={contentRef} className="privacy-policy-content">
             <section className="privacy-section">
-              <h2>1. Responsable del Tratamiento</h2>
+              <h2>{t("1. Responsable del Tratamiento")}</h2>
               <p>
-                RUE HOMES REAL ESTATE S.L., con NIF B09832320 y domicilio en Rambla Catalunya, 79 Entresuelo 2a - Barcelona (08007),
-                es el responsable del tratamiento de los datos personales que nos facilites a través de esta web.
+                {t("RUE HOMES REAL ESTATE S.L., con NIF B09832320 y domicilio en Rambla Catalunya, 79 Entresuelo 2a - Barcelona (08007), es el responsable del tratamiento de los datos personales que nos facilites a través de esta web.")}
               </p>
               <p>
-                <strong>Registro Mercantil:</strong> El titular de la presente página web se encuentra inscrito en el Registro Mercantil de Barcelona de conformidad con lo previsto en los artículos 18 del Código de Comercio y 6 del Reglamento del Registro Mercantil, al haber quedado INSCRITA la escritura notarial de cambio de denominación, ampliación de objeto, modificación de los artículos 1º y 2º de los estatutos sociales, en el TOMO/I.R.U.S. 1000381757155, FOLIO 1, HOJA B 576887, INSCRIPCION 4.
+                <strong>{t("Registro Mercantil:")}</strong>{" "}
+                {t("El titular de la presente página web se encuentra inscrito en el Registro Mercantil de Barcelona de conformidad con lo previsto en los artículos 18 del Código de Comercio y 6 del Reglamento del Registro Mercantil, al haber quedado INSCRITA la escritura notarial de cambio de denominación, ampliación de objeto, modificación de los artículos 1º y 2º de los estatutos sociales, en el TOMO/I.R.U.S. 1000381757155, FOLIO 1, HOJA B 576887, INSCRIPCION 4.")}
               </p>
             </section>
 
             <section className="privacy-section">
-              <h2>2. Datos que Recopilamos</h2>
-              <p>
-                Recopilamos los siguientes datos personales cuando utilizas nuestros servicios:
-              </p>
+              <h2>{t("2. Datos que Recopilamos")}</h2>
+              <p>{t("Recopilamos los siguientes datos personales cuando utilizas nuestros servicios:")}</p>
               <ul>
-                <li>Nombre y apellidos</li>
-                <li>Dirección de correo electrónico</li>
-                <li>Número de teléfono</li>
-                <li>ID de usuario de redes sociales (cuando interactúas con nosotros a través de estas plataformas)</li>
-                <li>Información sobre propiedades de interés</li>
+                <li>{t("Nombre y apellidos")}</li>
+                <li>{t("Dirección de correo electrónico")}</li>
+                <li>{t("Número de teléfono")}</li>
+                <li>{t("ID de usuario de redes sociales (cuando interactúas con nosotros a través de estas plataformas)")}</li>
+                <li>{t("Información sobre propiedades de interés")}</li>
               </ul>
               <p>
-                <strong>Uso de la API de Meta:</strong> Esta aplicación propiedad de RUE HOMES REAL ESTATE S.L.
-                utiliza los datos de la API de Meta para gestionar comentarios y mensajes de la cuenta de Rue Homes
-                con fines de atención al cliente. No compartimos datos con terceros.
+                <strong>{t("Uso de la API de Meta:")}</strong>{" "}
+                {t("Esta aplicación propiedad de RUE HOMES REAL ESTATE S.L. utiliza los datos de la API de Meta para gestionar comentarios y mensajes de la cuenta de Rue Homes con fines de atención al cliente. No compartimos datos con terceros.")}
               </p>
             </section>
 
             <section className="privacy-section">
-              <h2>3. Finalidad del Tratamiento</h2>
-              <p>
-                Utilizamos tus datos personales para:
-              </p>
+              <h2>{t("3. Finalidad del Tratamiento")}</h2>
+              <p>{t("Utilizamos tus datos personales para:")}</p>
               <ul>
-                <li>Gestionar consultas y solicitudes de información</li>
-                <li>Proporcionar servicios inmobiliarios</li>
-                <li>Enviar comunicaciones comerciales (con tu consentimiento)</li>
-                <li>Mejorar nuestros servicios</li>
+                <li>{t("Gestionar consultas y solicitudes de información")}</li>
+                <li>{t("Proporcionar servicios inmobiliarios")}</li>
+                <li>{t("Enviar comunicaciones comerciales (con tu consentimiento)")}</li>
+                <li>{t("Mejorar nuestros servicios")}</li>
               </ul>
             </section>
 
             <section className="privacy-section">
-              <h2>4. Base Legal</h2>
-              <p>
-                El tratamiento de tus datos se basa en tu consentimiento y en la ejecución de servicios solicitados.
-              </p>
+              <h2>{t("4. Base Legal")}</h2>
+              <p>{t("El tratamiento de tus datos se basa en tu consentimiento y en la ejecución de servicios solicitados.")}</p>
             </section>
 
             <section className="privacy-section">
-              <h2>5. Tus Derechos</h2>
+              <h2>{t("5. Tus Derechos")}</h2>
               <p>
-                Tienes derecho a acceder, rectificar, suprimir, limitar, portabilidad y oposición al tratamiento
-                de tus datos. Para ejercer estos derechos, contacta con nosotros en{" "}
+                {t("Tienes derecho a acceder, rectificar, suprimir, limitar, portabilidad y oposición al tratamiento de tus datos. Para ejercer estos derechos, contacta con nosotros en")}{" "}
                 <a href="mailto:info@ruehomes.com" className="privacy-link">
                   info@ruehomes.com
                 </a>.
@@ -117,23 +111,17 @@ const PrivacyPolicy = () => {
             </section>
 
             <section className="privacy-section">
-              <h2>6. Conservación de Datos</h2>
-              <p>
-                Conservaremos tus datos mientras mantengas relación con nosotros o durante el tiempo necesario
-                para cumplir con obligaciones legales.
-              </p>
+              <h2>{t("6. Conservación de Datos")}</h2>
+              <p>{t("Conservaremos tus datos mientras mantengas relación con nosotros o durante el tiempo necesario para cumplir con obligaciones legales.")}</p>
             </section>
 
             <section className="privacy-section">
-              <h2>7. Contacto</h2>
-              <p>
-                Si tienes cualquier pregunta sobre nuestra Política de Privacidad o deseas ejercer tus derechos,
-                puedes contactarnos en:
-              </p>
+              <h2>{t("7. Contacto")}</h2>
+              <p>{t("Si tienes cualquier pregunta sobre nuestra Política de Privacidad o deseas ejercer tus derechos, puedes contactarnos en:")}</p>
               <ul className="contact-details">
-                <li><strong>Email:</strong> <a href="mailto:info@ruehomes.com" className="privacy-link">info@ruehomes.com</a></li>
-                <li><strong>Teléfono:</strong> <a href="tel:+34642709257" className="privacy-link">+34 642 70 92 57</a></li>
-                <li><strong>Dirección:</strong> Rambla Catalunya, 79 Entresuelo 2a - Barcelona (08007)</li>
+                <li><strong>{t("Email:")}</strong> <a href="mailto:info@ruehomes.com" className="privacy-link">info@ruehomes.com</a></li>
+                <li><strong>{t("Teléfono:")}</strong> <a href="tel:+34642709257" className="privacy-link">+34 642 70 92 57</a></li>
+                <li><strong>{t("Dirección:")}</strong> {t("Rambla Catalunya, 79 Entresuelo 2a - Barcelona (08007)")}</li>
               </ul>
             </section>
           </div>

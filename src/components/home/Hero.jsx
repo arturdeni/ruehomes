@@ -3,8 +3,10 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import RotatingText from "../ui/RotatingText";
 import heroImageStatic from "../../assets/images/hero/hero-background-static.webp";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 const Hero = () => {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [videoLoaded, setVideoLoaded] = useState(false);
   const videoRef = useRef(null);
@@ -41,18 +43,20 @@ const Hero = () => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const words = isMobile
-    ? ["hogar", "piso", "dúplex", "ático", "chalet", "estudio", "loft"]
-    : [
-        "hogar",
-        "piso",
-        "apartamento",
-        "dúplex",
-        "ático",
-        "chalet",
-        "estudio",
-        "loft",
-      ];
+  const words = (
+    isMobile
+      ? ["hogar", "piso", "dúplex", "ático", "chalet", "estudio", "loft"]
+      : [
+          "hogar",
+          "piso",
+          "apartamento",
+          "dúplex",
+          "ático",
+          "chalet",
+          "estudio",
+          "loft",
+        ]
+  ).map((word) => t(word));
 
   // Intentar reproducir el video cuando se cargue
   const handleVideoLoad = () => {
@@ -103,7 +107,7 @@ const Hero = () => {
       <div className="container">
         <div className="hero-content">
           <p className="hero-subtitle">
-            Tu próximo{" "}
+            {t("Tu próximo")}{" "}
             <RotatingText
               texts={words}
               enableWidthTransition={true}
@@ -116,7 +120,7 @@ const Hero = () => {
               }}
             />
             <br />
-            está aquí
+            {t("está aquí")}
           </p>
 
           {/* Buscador */}
@@ -126,7 +130,7 @@ const Hero = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="¿Dónde te gustaría vivir?"
+                placeholder={t("¿Dónde te gustaría vivir?")}
                 className="search-input"
               />
               <button type="submit" className="search-button">

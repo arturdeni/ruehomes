@@ -1,5 +1,6 @@
 // src/components/agency/AgencyAboutUs.jsx
 import { useState, useEffect, useRef } from "react";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 // Componente ScrollReveal simplificado reutilizado
 const SimpleReveal = ({ children, className = "", delay = 0 }) => {
@@ -44,35 +45,36 @@ const SimpleReveal = ({ children, className = "", delay = 0 }) => {
 };
 
 const AgencyAboutUs = () => {
+  const { t } = useLanguage();
   const services = [
     {
       number: "1",
-      title: "Valoración gratuita y sin compromiso:",
-      description: "ofrecemos información clara y realista sobre tu propiedad.",
+      title: t("Valoración gratuita y sin compromiso:"),
+      description: t("ofrecemos información clara y realista sobre tu propiedad."),
     },
     {
       number: "2",
-      title: "Máxima visibilidad:",
+      title: t("Máxima visibilidad:"),
       description:
-        "fotografía, vídeo, tour virtual y campañas en los canales más destacados.",
+        t("fotografía, vídeo, tour virtual y campañas en los canales más destacados."),
     },
     {
       number: "3",
-      title: "Acompañamiento en la compra:",
+      title: t("Acompañamiento en la compra:"),
       description:
-        "ayudamos a encontrar la vivienda que se adapte a ti y a tu estilo de vida.",
+        t("ayudamos a encontrar la vivienda que se adapte a ti y a tu estilo de vida."),
     },
     {
       number: "4",
-      title: "Asesoramiento completo:",
+      title: t("Asesoramiento completo:"),
       description:
-        "gestionamos todos los trámites legales y burocráticos para que el proceso sea sencillo.",
+        t("gestionamos todos los trámites legales y burocráticos para que el proceso sea sencillo."),
     },
     {
       number: "5",
-      title: "Venta ágil y segura:",
+      title: t("Venta ágil y segura:"),
       description:
-        "cuidamos cada detalle para que la experiencia sea tranquila y efectiva.",
+        t("cuidamos cada detalle para que la experiencia sea tranquila y efectiva."),
     },
   ];
 
@@ -86,7 +88,7 @@ const AgencyAboutUs = () => {
               className="agency-philosophy-title-wrapper"
               delay={0.2}
             >
-              <h2 className="agency-philosophy-title">Nuestra filosofía</h2>
+              <h2 className="agency-philosophy-title">{t("Nuestra filosofía")}</h2>
             </SimpleReveal>
 
             <SimpleReveal
@@ -94,12 +96,9 @@ const AgencyAboutUs = () => {
               delay={0.4}
             >
               <p className="agency-philosophy-text">
-                En Rue Homes creemos que comprar o vender una vivienda no es
-                solo una operación inmobiliaria, sino uno de los momentos más
-                importantes en la vida de las personas. Por eso acompañamos a
-                nuestros clientes de principio a fin, haciendo que el proceso
-                sea <strong>fácil, cómodo y satisfactorio</strong>, y
-                asegurándonos de que tomen la mejor decisión posible.
+                {t("En Rue Homes creemos que comprar o vender una vivienda no es solo una operación inmobiliaria, sino uno de los momentos más importantes en la vida de las personas. Por eso acompañamos a nuestros clientes de principio a fin, haciendo que el proceso sea")}{" "}
+                <strong>{t("fácil, cómodo y satisfactorio")}</strong>
+                {t(", y asegurándonos de que tomen la mejor decisión posible.")}
               </p>
             </SimpleReveal>
           </div>
@@ -112,7 +111,7 @@ const AgencyAboutUs = () => {
           <div className="agency-about-content">
             <div className="agency-services-block">
               <SimpleReveal className="agency-services-title-wrapper">
-                <h2 className="agency-services-title">¿Qué hacemos?</h2>
+                <h2 className="agency-services-title">{t("¿Qué hacemos?")}</h2>
               </SimpleReveal>
 
               <div className="agency-services-list">

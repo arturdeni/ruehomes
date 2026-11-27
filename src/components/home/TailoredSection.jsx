@@ -8,10 +8,12 @@ import AnimatedButton from "../ui/AnimatedButton";
 
 import mainImage from "../../assets/images/tailored/turull-salon.webp"; // Imagen principal izquierda
 import smallImage from "../../assets/images/tailored/render-cocina2.webp"; // Imagen pequeña derecha
+import { useLanguage } from "../../i18n/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const TailoredSection = () => {
+  const { t } = useLanguage();
   const titleRef = useRef(null);
 
   useEffect(() => {
@@ -65,7 +67,7 @@ const TailoredSection = () => {
             {/* Texto con ScrollReveal */}
             <div className="tailored-text-content">
               <h3 ref={titleRef} className="tailored-text__title">
-                El arte de encontrar propiedades únicas
+                {t("El arte de encontrar propiedades únicas")}
               </h3>
               <ScrollReveal
                 containerClassName="mb-4"
@@ -74,10 +76,7 @@ const TailoredSection = () => {
                 baseOpacity={0.2}
                 baseRotation={0}
               >
-                Nuestro servicio premium está diseñado para clientes que buscan
-                una experiencia única y personalizada. Acceso exclusivo a
-                propiedades fuera de mercado, atención 24/7 y un equipo dedicado
-                solo para ti.
+                {t("Nuestro servicio premium está diseñado para clientes que buscan una experiencia única y personalizada. Acceso exclusivo a propiedades fuera de mercado, atención 24/7 y un equipo dedicado solo para ti.")}
               </ScrollReveal>
 
               {/* Botón animado */}

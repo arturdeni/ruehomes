@@ -1,15 +1,17 @@
 // src/components/property/EnergyCertificate.jsx
 import "./EnergyCertificate.css";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 const LETTERS = ["A", "B", "C", "D", "E", "F", "G"];
 
 const EnergyScale = ({ title, rating, value, unit }) => {
+  const { t } = useLanguage();
   const active = rating?.toUpperCase();
 
   return (
     <div className="energy-scale">
       <h3 className="energy-scale__title">{title}</h3>
-      <ul className="energy-scale__bars" aria-label={`${title}: letra ${active}`}>
+      <ul className="energy-scale__bars" aria-label={`${title}: ${t("letra")} ${active}`}>
         {LETTERS.map((letter, index) => {
           const isActive = letter === active;
           return (
@@ -28,7 +30,7 @@ const EnergyScale = ({ title, rating, value, unit }) => {
         })}
       </ul>
       <p className="energy-scale__summary">
-        <strong>Letra {active}</strong>
+        <strong>{t("Letra")} {active}</strong>
         {value && (
           <>
             {" · "}
@@ -46,28 +48,29 @@ const EnergyCertificate = ({
   emissionsRating,
   emissionsValue,
 }) => {
+  const { t } = useLanguage();
   if (!consumptionRating && !emissionsRating) return null;
 
   return (
     <div className="energy-certificate">
-      <h2 className="property-detail__section-title">Certificado energético</h2>
+      <h2 className="property-detail__section-title">{t("Certificado energético")}</h2>
       <div className="energy-certificate__grid">
         {consumptionRating && (
           <EnergyScale
-            title="Consumo de energía"
+            title={t("Consumo de energía")}
             rating={consumptionRating}
             value={consumptionValue}
-            unit="kWh/m² año"
+            unit={`kWh/m² ${t("año")}`}
           />
         )}
         {emissionsRating && (
           <EnergyScale
-            title="Emisiones"
+            title={t("Emisiones")}
             rating={emissionsRating}
             value={emissionsValue}
             unit={
               <>
-                kg CO<sub>2</sub>/m² año
+                kg CO<sub>2</sub>/m² {t("año")}
               </>
             }
           />

@@ -4,8 +4,10 @@ import { useSearchParams } from "react-router-dom";
 import PropertyCard from "../components/property/PropertyCard";
 import PropertiesFilters from "../components/property/PropertiesFilters";
 import { getProperties } from "../services/hygraph";
+import { useLanguage } from "../i18n/LanguageContext";
 
 const Properties = () => {
+  const { t, lang } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
   const [allProperties, setAllProperties] = useState([]);
   const [filteredProperties, setFilteredProperties] = useState([]);
@@ -30,7 +32,7 @@ const Properties = () => {
     const fetchProperties = async () => {
       try {
         setLoading(true);
-        const data = await getProperties();
+        const data = await getProperties({}, lang);
         // imageRefs solo trae ids para el contador de fotos de la tarjeta
         const list = (data.properties || []).map(
           ({ imageRefs, ...property }) => ({
@@ -51,7 +53,7 @@ const Properties = () => {
     };
 
     fetchProperties();
-  }, []);
+  }, [lang]);
 
   // Aplicar filtros
   useEffect(() => {
@@ -159,7 +161,7 @@ const Properties = () => {
           <div className="container">
             <div className="properties__hero-content text-center">
               <h1 className="properties__hero-title font-primary text-rust mb-6">
-                Nuestras Propiedades
+                {t("Nuestras Propiedades")}
               </h1>
             </div>
           </div>
@@ -170,7 +172,7 @@ const Properties = () => {
               <div className="text-center">
                 <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-cinnamon mx-auto mb-4"></div>
                 <p className="font-secondary text-rust">
-                  Cargando propiedades...
+                  {t("Cargando propiedades...")}
                 </p>
               </div>
             </div>
@@ -188,7 +190,7 @@ const Properties = () => {
           <div className="container">
             <div className="properties__hero-content text-center">
               <h1 className="properties__hero-title font-primary text-rust mb-6">
-                Nuestras Propiedades
+                {t("Nuestras Propiedades")}
               </h1>
             </div>
           </div>
@@ -197,13 +199,13 @@ const Properties = () => {
           <div className="container">
             <div className="text-center py-20">
               <div className="bg-red-50 border border-red-200 rounded-lg p-8 max-w-md mx-auto">
-                <h3 className="font-primary text-rust text-xl mb-4">Error</h3>
-                <p className="font-secondary text-rust-light mb-6">{error}</p>
+                <h3 className="font-primary text-rust text-xl mb-4">{t("Error")}</h3>
+                <p className="font-secondary text-rust-light mb-6">{t(error)}</p>
                 <button
                   onClick={() => window.location.reload()}
                   className="btn btn-primary"
                 >
-                  Recargar página
+                  {t("Recargar página")}
                 </button>
               </div>
             </div>
@@ -220,12 +222,10 @@ const Properties = () => {
         <div className="container">
           <div className="properties__hero-content text-center">
             <h1 className="properties__hero-title text-rust mb-6">
-              Nuestras Propiedades
+              {t("Nuestras Propiedades")}
             </h1>
             <p className="properties__hero-subtitle font-secondary text-rust-light text-xl max-w-2xl mx-auto">
-              Descubre una selección exclusiva de propiedades que hemos elegido
-              especialmente para ti. Cada inmueble cuenta con nuestra garantía
-              de calidad.
+              {t("Descubre una selección exclusiva de propiedades que hemos elegido especialmente para ti. Cada inmueble cuenta con nuestra garantía de calidad.")}
             </p>
           </div>
         </div>
@@ -247,24 +247,26 @@ const Properties = () => {
           <div className="properties__results-bar mb-8 flex justify-between items-center">
             <div className="properties__results-info">
               <p className="font-secondary text-rust">
-                {filteredProperties.length} propiedades encontradas
+                {t("{count} propiedades encontradas", {
+                  count: filteredProperties.length,
+                })}
                 {filteredProperties.length !== allProperties.length &&
-                  ` de ${allProperties.length} total`}
+                  ` ${t("de {total} total", { total: allProperties.length })}`}
               </p>
             </div>
             <div className="properties__sort">
               <label className="font-secondary text-rust mr-3">
-                Ordenar por:
+                {t("Ordenar por:")}
               </label>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
                 className="properties__sort-select form-input py-2 px-3 min-w-[180px]"
               >
-                <option value="recent">Más recientes</option>
-                <option value="price-asc">Precio: menor a mayor</option>
-                <option value="price-desc">Precio: mayor a menor</option>
-                <option value="area-desc">Mayor superficie</option>
+                <option value="recent">{t("Más recientes")}</option>
+                <option value="price-asc">{t("Precio: menor a mayor")}</option>
+                <option value="price-desc">{t("Precio: mayor a menor")}</option>
+                <option value="area-desc">{t("Mayor superficie")}</option>
               </select>
             </div>
           </div>
@@ -294,11 +296,10 @@ const Properties = () => {
                 </svg>
               </div>
               <h3 className="font-primary text-rust text-2xl mb-4">
-                No se encontraron propiedades
+                {t("No se encontraron propiedades")}
               </h3>
               <p className="font-secondary text-rust-light mb-6">
-                Intenta ajustar los filtros de búsqueda para encontrar más
-                resultados.
+                {t("Intenta ajustar los filtros de búsqueda para encontrar más resultados.")}
               </p>
               <button
                 onClick={() =>
@@ -313,7 +314,7 @@ const Properties = () => {
                 }
                 className="btn btn-outline"
               >
-                Limpiar filtros
+                {t("Limpiar filtros")}
               </button>
             </div>
           )}
@@ -341,7 +342,7 @@ const Properties = () => {
                       d="M15 19l-7-7 7-7"
                     />
                   </svg>
-                  <span className="ml-1">Anterior</span>
+                  <span className="ml-1">{t("Anterior")}</span>
                 </button>
 
                 {/* Números de página */}
@@ -389,7 +390,7 @@ const Properties = () => {
                   disabled={currentPage === totalPages}
                   className="properties__pagination-btn properties__pagination-btn--next"
                 >
-                  <span className="mr-1">Siguiente</span>
+                  <span className="mr-1">{t("Siguiente")}</span>
                   <svg
                     className="w-5 h-5"
                     fill="none"

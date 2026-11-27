@@ -1,5 +1,6 @@
 // src/components/tailored-service/TailoredContact.jsx
 import { useState, useEffect, useRef } from "react";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 // Componente ScrollReveal simplificado reutilizado
 const SimpleReveal = ({ children, className = "", delay = 0 }) => {
@@ -44,25 +45,26 @@ const SimpleReveal = ({ children, className = "", delay = 0 }) => {
 };
 
 const TailoredContact = () => {
+  const { t } = useLanguage();
   return (
     <section className="tailored-contact-section">
       <div className="container">
         <div className="tailored-contact-content">
           <SimpleReveal className="tailored-contact-subtitle-wrapper">
             <p className="tailored-contact-subtitle">
-              Si lo puedes soñar, lo podemos encontrar
+              {t("Si lo puedes soñar, lo podemos encontrar")}
             </p>
           </SimpleReveal>
 
           <SimpleReveal className="tailored-contact-title-wrapper" delay={0.2}>
             <h2 className="tailored-contact-title">
-              ¿Quieres que busquemos tu hogar ideal?
+              {t("¿Quieres que busquemos tu hogar ideal?")}
             </h2>
           </SimpleReveal>
 
           <SimpleReveal className="tailored-contact-button-wrapper" delay={0.4}>
             <a href="/contacto" className="btn btn-primary btn-md">
-              Contactar
+              {t("Contactar")}
             </a>
           </SimpleReveal>
         </div>

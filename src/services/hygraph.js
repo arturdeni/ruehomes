@@ -24,8 +24,15 @@ export const GET_PROPERTIES = `
     $skip: Int = 0
     $where: PropertyWhereInput
     $orderBy: PropertyOrderByInput = createdAt_DESC
+    $locales: [Locale!]! = [en]
   ) {
-    properties(first: $first, skip: $skip, where: $where, orderBy: $orderBy) {
+    properties(
+      first: $first
+      skip: $skip
+      where: $where
+      orderBy: $orderBy
+      locales: $locales
+    ) {
       id
       title
       price
@@ -53,8 +60,8 @@ export const GET_PROPERTIES = `
 `;
 
 export const GET_PROPERTY_BY_ID = `
-  query GetPropertyById($id: ID!) {
-    property(where: { id: $id }) {
+  query GetPropertyById($id: ID!, $locales: [Locale!]! = [en]) {
+    property(where: { id: $id }, locales: $locales) {
       id
       title
       description {
@@ -122,10 +129,27 @@ export const GET_FEATURED_PROPERTIES = `
   }
 `;
 
-// Funciones para hacer las queries
-export const getProperties = async (variables = {}) => {
+// Idioma del contenido en Hygraph. El castellano está guardado en el locale
+// por defecto ("en"); el catalán en "ca". Pedimos [ca, en] para que, si una
+// propiedad aún no tiene traducción, Hygraph devuelva el castellano.
+const localesFor = (lang) => (lang === "ca" ? ["ca", "en"] : ["en"]);
+
+// Si el locale "ca" aún no existe en Hygraph la consulta falla: en ese caso
+// repetimos en castellano para que la web nunca se quede sin propiedades.
+const requestLocalized = async (query, variables, lang) => {
   try {
-    const data = await hygraph.request(GET_PROPERTIES, variables);
+    return await hygraph.request(query, { ...variables, locales: localesFor(lang) });
+  } catch (error) {
+    if (lang !== "ca") throw error;
+    console.warn("Contenido en catalán no disponible, se muestra en castellano:", error);
+    return hygraph.request(query, { ...variables, locales: ["en"] });
+  }
+};
+
+// Funciones para hacer las queries
+export const getProperties = async (variables = {}, lang = "es") => {
+  try {
+    const data = await requestLocalized(GET_PROPERTIES, variables, lang);
     return data;
   } catch (error) {
     console.error("Error fetching properties:", error);
@@ -133,9 +157,9 @@ export const getProperties = async (variables = {}) => {
   }
 };
 
-export const getPropertyById = async (id) => {
+export const getPropertyById = async (id, lang = "es") => {
   try {
-    const data = await hygraph.request(GET_PROPERTY_BY_ID, { id });
+    const data = await requestLocalized(GET_PROPERTY_BY_ID, { id }, lang);
     return data.property;
   } catch (error) {
     console.error("Error fetching property:", error);

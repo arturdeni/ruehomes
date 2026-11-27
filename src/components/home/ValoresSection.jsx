@@ -6,34 +6,40 @@ import transparenciaIcon from "../../assets/images/valores/eye.png";
 import profesionalidadIcon from "../../assets/images/valores/professional.png";
 import confianzaIcon from "../../assets/images/valores/handshake.png";
 import excelenciaIcon from "../../assets/images/valores/excelence.png";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 const ValoresSection = () => {
+  const { t } = useLanguage();
   const sectionRef = useRef(null);
   const valoresRef = useRef([]);
 
   const valores = [
     {
-      title: "Transparencia",
-      description:
-        "Comunicación honesta y clara en cada paso del proceso, sin sorpresas ni comisiones ocultas.",
+      title: t("Transparencia"),
+      description: t(
+        "Comunicación honesta y clara en cada paso del proceso, sin sorpresas ni comisiones ocultas."
+      ),
       icon: transparenciaIcon,
     },
     {
-      title: "Profesionalidad",
-      description:
-        "Equipo altamente cualificado con años de experiencia en el sector inmobiliario.",
+      title: t("Profesionalidad"),
+      description: t(
+        "Equipo altamente cualificado con años de experiencia en el sector inmobiliario."
+      ),
       icon: profesionalidadIcon,
     },
     {
-      title: "Confianza",
-      description:
-        "Más de 15 años construyendo relaciones duraderas basadas en la confianza mutua.",
+      title: t("Confianza"),
+      description: t(
+        "Más de 15 años construyendo relaciones duraderas basadas en la confianza mutua."
+      ),
       icon: confianzaIcon,
     },
     {
-      title: "Excelencia",
-      description:
-        "Compromiso constante con la calidad y la mejora continua en todos nuestros servicios.",
+      title: t("Excelencia"),
+      description: t(
+        "Compromiso constante con la calidad y la mejora continua en todos nuestros servicios."
+      ),
       icon: excelenciaIcon,
     },
   ];
@@ -87,10 +93,9 @@ const ValoresSection = () => {
     <section ref={sectionRef} className="valores-section">
       <div className="container">
         <div className="section-header">
-          <h2 className="section-title">Nuestros Valores</h2>
+          <h2 className="section-title">{t("Nuestros Valores")}</h2>
           <p className="section-subtitle">
-            Los pilares fundamentales que guían nuestra forma de trabajar y nos
-            han convertido en la agencia inmobiliaria de confianza.
+            {t("Los pilares fundamentales que guían nuestra forma de trabajar y nos han convertido en la agencia inmobiliaria de confianza.")}
           </p>
         </div>
 

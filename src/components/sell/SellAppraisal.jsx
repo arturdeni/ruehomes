@@ -2,8 +2,10 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import TextMaskReveal from "../ui/TextMaskReveal";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 const SellAppraisal = () => {
+  const { t, lang } = useLanguage();
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
@@ -63,32 +65,28 @@ const SellAppraisal = () => {
       <div className="container">
         <div className="sell-appraisal-content">
           <h2 ref={titleRef} className="sell-appraisal-title">
-            Valoración gratuita
+            {t("Valoración gratuita")}
           </h2>
 
           <p ref={subtitleRef} className="sell-appraisal-subtitle">
-            Descubre el valor real de tu propiedad.
+            {t("Descubre el valor real de tu propiedad.")}
           </p>
 
           <div className="sell-appraisal-text">
             <TextMaskReveal
+              key={lang}
               className="sell-appraisal-paragraph"
               trigger={triggerTextAnimation}
               delay={0}
               textAlign="center"
             >
-              En Rue Homes realizamos una valoración{" "}
-              <strong>gratuita y sin compromiso</strong>. Concertamos una
-              reunión, nos acercamos a tu vivienda y, gracias a nuestro sistema
-              de datos, nuestro historial de ventas y conocimiento del mercado
-              local, proporcionamos una valoración{" "}
-              <strong>precisa y totalmente fiable</strong>.
+              {t("En Rue Homes realizamos una valoración gratuita y sin compromiso. Concertamos una reunión, nos acercamos a tu vivienda y, gracias a nuestro sistema de datos, nuestro historial de ventas y conocimiento del mercado local, proporcionamos una valoración precisa y totalmente fiable.")}
             </TextMaskReveal>
           </div>
 
           <div ref={buttonRef} className="sell-appraisal-button">
             <Link to="/contacto" className="btn btn-primary btn-sm">
-              Solicitar valoración gratuita
+              {t("Solicitar valoración gratuita")}
             </Link>
           </div>
         </div>

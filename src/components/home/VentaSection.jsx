@@ -7,10 +7,12 @@ import AnimatedImageContainer from "../ui/AnimatedImageContainer";
 import AnimatedButton from "../ui/AnimatedButton";
 import turullCuina from "../../assets/images/vender/Turull-cuina.webp";
 import turullPiano from "../../assets/images/vender/Turull-piano.webp";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const VentaSection = () => {
+  const { t } = useLanguage();
   const titleRef = useRef(null);
 
   useEffect(() => {
@@ -44,7 +46,7 @@ const VentaSection = () => {
           {/* Texto */}
           <div className="venta-text">
             <h3 ref={titleRef} className="venta-text__title">
-              El estándar más alto para vender tu propiedad
+              {t("El estándar más alto para vender tu propiedad")}
             </h3>
             <ScrollReveal
               containerClassName="mb-6"
@@ -53,10 +55,7 @@ const VentaSection = () => {
               baseOpacity={0.2}
               baseRotation={0}
             >
-              En Rue Homes te acompañamos en todo el proceso de venta de tu
-              propiedad. Desde la valoración inicial hasta la firma del
-              contrato, nos encargamos de que obtengas el mejor precio en el
-              menor tiempo posible.
+              {t("En Rue Homes te acompañamos en todo el proceso de venta de tu propiedad. Desde la valoración inicial hasta la firma del contrato, nos encargamos de que obtengas el mejor precio en el menor tiempo posible.")}
             </ScrollReveal>
 
             <AnimatedButton
@@ -64,7 +63,7 @@ const VentaSection = () => {
               className="btn btn-primary btn-sm"
               delay={1.3}
             >
-              Vender
+              {t("Vender")}
             </AnimatedButton>
           </div>
 

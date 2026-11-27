@@ -8,10 +8,12 @@ import fase4Image from "../../assets/images/selling-section/fase-4.webp";
 import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLanguage } from "../../i18n/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const SellingSection = () => {
+  const { t } = useLanguage();
   const pathRef = useRef(null);
   const sectionRef = useRef(null);
 
@@ -65,46 +67,46 @@ const SellingSection = () => {
   const phases = [
     {
       id: 1,
-      title: "Fase 1 – Análisis y Preparación",
-      subtitle: "Analizamos tu propiedad, el entorno y el mercado.",
+      title: t("Fase 1 – Análisis y Preparación"),
+      subtitle: t("Analizamos tu propiedad, el entorno y el mercado."),
       points: [
-        "Visita inicial para conocer tu propiedad y el entorno en el que se encuentra.",
-        "Estudio de mercado detallado con datos reales.",
-        "Consejos de presentación y mejoras para maximizar el valor.",
+        t("Visita inicial para conocer tu propiedad y el entorno en el que se encuentra."),
+        t("Estudio de mercado detallado con datos reales."),
+        t("Consejos de presentación y mejoras para maximizar el valor."),
       ],
       image: fase1Image,
     },
     {
       id: 2,
-      title: "Fase 2 – Plan de Marketing Personalizado",
-      subtitle: "Llevamos tu vivienda a su mejor escaparate.",
+      title: t("Fase 2 – Plan de Marketing Personalizado"),
+      subtitle: t("Llevamos tu vivienda a su mejor escaparate."),
       points: [
-        "Reportaje fotográfico, vídeo y tour virtual profesional.",
-        "Publicación en portales líderes nacionales e internacionales.",
-        "Difusión estratégica a nuestra red de inversores privados.",
-        "Campañas segmentadas en redes sociales y Google Ads.",
+        t("Reportaje fotográfico, vídeo y tour virtual profesional."),
+        t("Publicación en portales líderes nacionales e internacionales."),
+        t("Difusión estratégica a nuestra red de inversores privados."),
+        t("Campañas segmentadas en redes sociales y Google Ads."),
       ],
       image: fase2Image,
     },
     {
       id: 3,
-      title: "Fase 3 – Gestión y Negociación",
-      subtitle: "Conectamos con el comprador ideal.",
+      title: t("Fase 3 – Gestión y Negociación"),
+      subtitle: t("Conectamos con el comprador ideal."),
       points: [
-        "Filtro de compradores cualificados, asegurando el interés real y la capacidad de adquisición.",
-        "Informes de visitas con métricas claras y seguimiento continuo.",
-        "Negociación estratégica para lograr el mejor precio y condiciones.",
+        t("Filtro de compradores cualificados, asegurando el interés real y la capacidad de adquisición."),
+        t("Informes de visitas con métricas claras y seguimiento continuo."),
+        t("Negociación estratégica para lograr el mejor precio y condiciones."),
       ],
       image: fase3Image,
     },
     {
       id: 4,
-      title: "Fase 4 – Cierre y Acompañamiento",
-      subtitle: "Seguridad y confianza hasta el final.",
+      title: t("Fase 4 – Cierre y Acompañamiento"),
+      subtitle: t("Seguridad y confianza hasta el final."),
       points: [
-        "Revisión de contratos y gestión documental completa.",
-        "Coordinación con notaría y todos los agentes implicados.",
-        "Entrega de llaves y asistencia postventa.",
+        t("Revisión de contratos y gestión documental completa."),
+        t("Coordinación con notaría y todos los agentes implicados."),
+        t("Entrega de llaves y asistencia postventa."),
       ],
       image: fase4Image,
     },

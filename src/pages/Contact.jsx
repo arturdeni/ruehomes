@@ -1,8 +1,10 @@
 // src/pages/Contact.jsx
 import { useEffect, useRef } from "react";
 import ContactForm from "../components/common/ContactForm";
+import { useLanguage } from "../i18n/LanguageContext";
 
 const Contact = () => {
+  const { t } = useLanguage();
   const sectionRef = useRef(null);
   const titleRef = useRef(null);
   const formRef = useRef(null);
@@ -57,10 +59,9 @@ const Contact = () => {
         <div className="container">
           {/* Título y subtítulo */}
           <div ref={titleRef} className="contact-header">
-            <h1 className="contact-main-title">¿Hablamos?</h1>
+            <h1 className="contact-main-title">{t("¿Hablamos?")}</h1>
             <p className="contact-subtitle">
-              Estamos aquí para ayudarte a encontrar tu próximo hogar o vender
-              tu propiedad. Contáctanos y te responderemos lo antes posible.
+              {t("Estamos aquí para ayudarte a encontrar tu próximo hogar o vender tu propiedad. Contáctanos y te responderemos lo antes posible.")}
             </p>
           </div>
 
@@ -88,7 +89,7 @@ const Contact = () => {
                   </svg>
                 </div>
                 <div className="contact-info-content">
-                  <p className="contact-info-label">Teléfono</p>
+                  <p className="contact-info-label">{t("Teléfono")}</p>
                   <a href="tel:+34642709257" className="contact-info-value">
                     +34 642 70 92 57
                   </a>
@@ -112,7 +113,7 @@ const Contact = () => {
                   </svg>
                 </div>
                 <div className="contact-info-content">
-                  <p className="contact-info-label">Email</p>
+                  <p className="contact-info-label">{t("Email")}</p>
                   <a
                     href="mailto:info@ruehomes.com"
                     className="contact-info-value"
@@ -139,8 +140,8 @@ const Contact = () => {
                   </svg>
                 </div>
                 <div className="contact-info-content">
-                  <p className="contact-info-label">Ubicación</p>
-                  <p className="contact-info-value">Barcelona, España</p>
+                  <p className="contact-info-label">{t("Ubicación")}</p>
+                  <p className="contact-info-value">{t("Barcelona, España")}</p>
                 </div>
               </div>
 
@@ -161,8 +162,8 @@ const Contact = () => {
                   </svg>
                 </div>
                 <div className="contact-info-content">
-                  <p className="contact-info-label">Horario</p>
-                  <p className="contact-info-value">Lun-Vie: 9:00 - 19:00</p>
+                  <p className="contact-info-label">{t("Horario")}</p>
+                  <p className="contact-info-value">{t("Lun-Vie: 9:00 - 19:00")}</p>
                 </div>
               </div>
             </div>
