@@ -52,6 +52,16 @@ Tu modelo actual en Hygraph tiene estos campos:
 | **emissionsRating** | Enumeration `EnergyRating` | ⚠️ No | Certificado energético – emisiones (A-G) |
 | **emissionsValue** | Single line text | ⚠️ No | Emisiones en kg CO₂/m² año (solo el número) |
 | **habitabilityCertificate** | Single line text | ⚠️ No | Número de la cédula de habitabilidad |
+
+### 🌐 Idiomas (castellano / catalán)
+
+El proyecto tiene dos locales: **`en`** (por defecto, contiene el **castellano**) y **`ca`** (catalán).
+Los campos **title**, **description** y **features** son traducibles (*Localized*); el resto es común a los dos idiomas.
+Para que no fuera obligatorio rellenarlos también en catalán, *title* y *description* ya no están marcados como obligatorios: revisa que no queden vacíos al crear una propiedad.
+
+- La web pide el catalán y, si una propiedad no lo tiene, muestra el castellano.
+- Para traducir automáticamente con Claude: `pnpm translate:properties` (usa `--dry-run` para revisar sin guardar).
+  Necesita `HYGRAPH_WRITE_TOKEN` y `ANTHROPIC_API_KEY` en `.env`.
 | **yearBuilt** | Number (Int) | ⚠️ No | Año de construcción |
 | **createdAt** | DateTime (System) | ✅ Auto | Fecha de creación |
 | **updatedAt** | DateTime (System) | ✅ Auto | Fecha de actualización |

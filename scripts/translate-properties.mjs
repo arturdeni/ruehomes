@@ -63,24 +63,34 @@ const LIST_QUERY = `
       reference
       title
       features
-      description { json }
+      description { raw }
       localizations(locales: [ca], includeCurrent: false) { locale title }
     }
   }
 `;
 
 const UPSERT_CA = `
-  mutation UpsertCa($id: ID!, $data: PropertyUpdateLocalizationDataInput!) {
+  mutation UpsertCa(
+    $id: ID!
+    $create: PropertyCreateLocalizationDataInput!
+    $update: PropertyUpdateLocalizationDataInput!
+  ) {
     updateProperty(
       where: { id: $id }
-      data: { localizations: { upsert: [{ locale: ca, create: $data, update: $data }] } }
+      data: { localizations: { upsert: [{ locale: ca, create: $create, update: $update }] } }
     ) { id }
   }
 `;
 
 const PUBLISH_CA = `
   mutation PublishCa($id: ID!) {
-    publishProperty(where: { id: $id }, locales: [ca], publishBase: false, to: PUBLISHED) { id }
+    publishProperty(
+      where: { id: $id }
+      locales: [ca]
+      publishBase: false
+      withDefaultLocale: false
+      to: PUBLISHED
+    ) { id }
   }
 `;
 
@@ -143,7 +153,7 @@ const translateBatch = async (texts) => {
 };
 
 const translateProperty = async (p) => {
-  const json = structuredClone(p.description?.json ?? { children: [] });
+  const json = structuredClone(p.description?.raw ?? { children: [] });
   const leaves = collectTextLeaves(json).filter((leaf) => leaf.text.trim());
   const parts = leaves.map((leaf) => splitWhitespace(leaf.text));
   const features = p.features ?? [];
@@ -185,7 +195,7 @@ const main = async () => {
           collectTextLeaves(ca.description).map((l) => l.text).join("").slice(0, 400) + "…"
         );
       } else {
-        await gql(WRITE_ENDPOINT, UPSERT_CA, { id: p.id, data: ca });
+        await gql(WRITE_ENDPOINT, UPSERT_CA, { id: p.id, create: ca, update: ca });
         await gql(WRITE_ENDPOINT, PUBLISH_CA, { id: p.id });
         console.log(`✓ ${label}`);
       }
